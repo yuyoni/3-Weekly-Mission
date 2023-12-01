@@ -1,14 +1,20 @@
+html {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 body {
   display: flex;
   flex-direction: column;
-  padding: 238px 0px 252px;
-  justify-content: center;
+  width: 1440px;
+  height: 982px;
+  padding: 238px 0 116px;
   align-items: center;
   background-color: #f0f6ff;
   gap: 32px;
 }
 
-article {
+.local-login {
   display: flex;
   flex-direction: column;
   gap: 3rem;
@@ -17,7 +23,7 @@ article {
   align-items: center;
 }
 
-article > .head {
+.local-login > .head {
   display: grid;
   gap: 1.6rem;
   width: 100%;
@@ -59,19 +65,18 @@ form input {
   align-items: center;
   border-radius: 8px;
   border: 1px solid #ccd5e3;
+  font-size: 1.6rem;
+}
+
+form img {
+  position: relative;
+  top: -36px;
+  left: 367px;
 }
 
 input:focus {
   outline: none;
   border: 1px solid #6d6afe;
-}
-
-form img {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  bottom: 2.2rem;
-  right: 1.4rem;
 }
 
 form > button {
@@ -94,8 +99,8 @@ section {
   width: 40rem;
   padding: 12px 24px;
   border-radius: 8px;
-  border: 1px solid var(--linkbrary-gray-20, #ccd5e3);
-  background: var(--linkbrary-gray-10, #e7effb);
+  border: 1px solid #ccd5e3;
+  background: #e7effb;
 }
 
 .sns-login span {
