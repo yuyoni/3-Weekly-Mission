@@ -1,52 +1,59 @@
-html {
+body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-body {
-  display: flex;
-  flex-direction: column;
-  width: 1440px;
-  height: 982px;
-  padding: 238px 0 116px;
-  align-items: center;
   background-color: var(--gray-5);
-  gap: 32px;
 }
 
-.local-login {
+main {
+  display: flex;
+  flex-direction: column;
+  padding: 23.8rem 0 11.6rem;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+main > div {
+  width: 400px;
+}
+
+.email-login {
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  width: 40rem;
-  justify-content: center;
   align-items: center;
 }
 
-.local-login > .head {
+header {
+  width: 100%;
   display: grid;
   gap: 1.6rem;
-  width: 100%;
   justify-content: center;
+  font-size: 1.6rem;
 }
 
-.head img {
+header img {
   height: 3.8rem;
 }
 
-.head p {
-  font-size: 1.6rem;
+header p {
   font-weight: 400;
+  text-align: center;
 }
-.head a {
-  font-size: 1.6rem;
+
+header a {
   font-weight: 600;
   color: var(--primary);
   text-decoration: underline;
 }
-form {
+
+form,
+form label,
+form input,
+form button {
   width: 100%;
 }
+
 form label {
   font-size: 1.4rem;
   margin-bottom: 1.2rem;
@@ -58,20 +65,23 @@ form label ~ label {
 }
 
 form input {
-  width: 100%;
   display: flex;
-  padding: 18px 15px;
+  padding: 1.8rem 1.5rem;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
+  border-radius: 0.8rem;
   border: 1px solid var(--gray-3);
   font-size: 1.6rem;
 }
 
-form img {
+form > div {
   position: relative;
-  top: -36px;
-  left: 367px;
+}
+
+form img {
+  position: absolute;
+  top: 2.2rem;
+  left: 36.9rem;
 }
 
 input:focus {
@@ -81,38 +91,36 @@ input:focus {
 
 form > button {
   display: flex;
-  width: 100%;
-  padding: 16px 20px;
-  margin-top: 30px;
+  padding: 1.6rem 2rem;
+  margin-top: 3rem;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
+  border-radius: 0.8rem;
   color: white;
   font-size: 1.8rem;
   background: linear-gradient(91deg, var(--primary) 0.12%, #6ae3fe 101.84%);
 }
 
-section {
+.social-login {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 40rem;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 1.2rem 2.4rem;
+  border-radius: 0.8rem;
   border: 1px solid var(--gray-3);
   background: var(--gray-4);
 }
 
-.sns-login span {
+.social-login > span {
   font-size: 1.4rem;
 }
 
-.sns-login div {
+.social-login > div {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
+  gap: 1.6rem;
 }
 
-section img {
+.social-login > img {
   cursor: pointer;
 }
