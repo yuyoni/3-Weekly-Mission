@@ -1,4 +1,15 @@
 /* user agent stylesheet 초기화 */
+:root {
+  --primary: #6d6afe;
+  --red: #ff5b56;
+  --black: #111322;
+  --white: #ffffff;
+  --gray-1: #3e3e43;
+  --gray-2: #9fa6b2;
+  --gray-3: #ccd5e3;
+  --gray-4: #e7effb;
+  --gray-5: #f0f6ff;
+}
 
 * {
   box-sizing: border-box;

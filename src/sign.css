@@ -10,7 +10,7 @@ body {
   height: 982px;
   padding: 238px 0 116px;
   align-items: center;
-  background-color: #f0f6ff;
+  background-color: var(--gray-5);
   gap: 32px;
 }
 
@@ -41,7 +41,7 @@ body {
 .head a {
   font-size: 1.6rem;
   font-weight: 600;
-  color: #6d6afe;
+  color: var(--primary);
   text-decoration: underline;
 }
 form {
@@ -64,7 +64,7 @@ form input {
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  border: 1px solid #ccd5e3;
+  border: 1px solid var(--gray-3);
   font-size: 1.6rem;
 }
 
@@ -76,7 +76,7 @@ form img {
 
 input:focus {
   outline: none;
-  border: 1px solid #6d6afe;
+  border: 1px solid var(--primary);
 }
 
 form > button {
@@ -89,7 +89,7 @@ form > button {
   border-radius: 8px;
   color: white;
   font-size: 1.8rem;
-  background: linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%);
+  background: linear-gradient(91deg, var(--primary) 0.12%, #6ae3fe 101.84%);
 }
 
 section {
@@ -99,8 +99,8 @@ section {
   width: 40rem;
   padding: 12px 24px;
   border-radius: 8px;
-  border: 1px solid #ccd5e3;
-  background: #e7effb;
+  border: 1px solid var(--gray-3);
+  background: var(--gray-4);
 }
 
 .sns-login span {
