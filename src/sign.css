@@ -8,9 +8,9 @@ body {
 main {
   display: flex;
   flex-direction: column;
-  padding: 23.8rem 0 11.6rem;
+  padding: 238px 0 116px;
   align-items: center;
-  gap: 3.2rem;
+  gap: 32px;
 }
 
 main > div {
@@ -20,20 +20,20 @@ main > div {
 .email-login {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 30px;
   align-items: center;
 }
 
 header {
   width: 100%;
   display: grid;
-  gap: 1.6rem;
+  gap: 16px;
   justify-content: center;
-  font-size: 1.6rem;
+  font-size: 16px;
 }
 
 header img {
-  height: 3.8rem;
+  height: 38px;
 }
 
 header p {
@@ -55,23 +55,23 @@ form button {
 }
 
 form label {
-  font-size: 1.4rem;
-  margin-bottom: 1.2rem;
+  font-size: 14px;
+  margin-bottom: 12px;
   display: block;
 }
 
 form label ~ label {
-  margin-top: 2.4rem;
+  margin-top: 24px;
 }
 
 form input {
   display: flex;
-  padding: 1.8rem 1.5rem;
+  padding: 18px 15px;
   justify-content: center;
   align-items: center;
-  border-radius: 0.8rem;
+  border-radius: 8px;
   border: 1px solid var(--gray-3);
-  font-size: 1.6rem;
+  font-size: 16px;
 }
 
 form > div {
@@ -80,8 +80,8 @@ form > div {
 
 form img {
   position: absolute;
-  top: 2.2rem;
-  left: 36.9rem;
+  top: 22px;
+  left: 369px;
 }
 
 input:focus {
@@ -91,13 +91,13 @@ input:focus {
 
 form > button {
   display: flex;
-  padding: 1.6rem 2rem;
-  margin-top: 3rem;
+  padding: 16px 20px;
+  margin-top: 30px;
   justify-content: center;
   align-items: center;
-  border-radius: 0.8rem;
+  border-radius: 8px;
   color: white;
-  font-size: 1.8rem;
+  font-size: 18px;
   background: linear-gradient(91deg, var(--primary) 0.12%, #6ae3fe 101.84%);
 }
 
@@ -105,20 +105,20 @@ form > button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.2rem 2.4rem;
-  border-radius: 0.8rem;
+  padding: 12px 24px;
+  border-radius: 8px;
   border: 1px solid var(--gray-3);
   background: var(--gray-4);
 }
 
 .social-login > span {
-  font-size: 1.4rem;
+  font-size: 14px;
 }
 
 .social-login > div {
   display: flex;
   justify-content: space-between;
-  gap: 1.6rem;
+  gap: 16px;
 }
 
 .social-login > img {
