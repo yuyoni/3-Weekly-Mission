@@ -10,7 +10,6 @@ header {
 
 nav {
   display: flex;
-
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -35,6 +34,7 @@ main {
   font-size: 6.4rem;
   font-weight: 700;
   text-align: center;
+  line-height: 80px;
   word-break: keep-all;
 }
 
@@ -48,7 +48,6 @@ main {
   border-radius: 0.8rem;
   color: var(--grey-light);
   font-size: 1.8rem;
-  font-weight: 600;
 }
 
 .cta-short {
@@ -150,7 +149,6 @@ section:nth-child(even) .container {
   grid-area: small;
   color: #6b6b6b;
   font-size: 1.6rem;
-  font-weight: 500;
   line-height: 150%;
   padding-top: 1rem;
   word-break: keep-all;
@@ -204,10 +202,15 @@ footer {
 
 /* Tablet size ( 768px 이상 ~ 1199px 이하 ) */
 
-@media (max-width: 1199px) {
+@media (min-width: 768px) and (max-width: 1199px) {
   nav {
     width: 1200px;
     padding: 0 200px;
+
+    @media (max-width: 864px) {
+      width: 100%;
+      padding: 0 32px;
+    }
   }
 
   .title {
@@ -241,9 +244,87 @@ footer {
   }
 }
 
-@media (max-width: 864px) {
+/* Moblie size ( 375px 이상 ~ 767px 이하 ) */
+@media (min-width: 375px) and (max-width: 767px) {
   nav {
+    height: auto;
+    padding: 13px 32px;
+  }
+
+  main {
+    padding: 91px 32px 0;
+    gap: 24px;
+    margin-bottom: 0;
+  }
+
+  .title {
+    width: 236px;
+    font-size: 32px;
+    line-height: 42px;
+  }
+
+  .logo {
+    width: 88.667px;
+    height: 16px;
+  }
+
+  .cta {
+    font-size: 14px;
+    padding: 10px 16px;
+    height: 37px;
+  }
+
+  .cta-short {
+    width: 80px;
+  }
+
+  .cta-long {
+    width: 200px;
+  }
+
+  section {
+    padding: 40px 32px;
+  }
+
+  section:nth-child(odd) .container,
+  section:nth-child(even) .container {
+    grid-template-rows: auto;
+    grid-template-columns: auto;
+    grid-template-areas: "slogan slogan slogan" "img img img" "small small small";
     width: 100%;
-    padding: 0 32px;
+    height: 100%;
+  }
+
+  .main--img,
+  .section--img {
+    width: 100%;
+    height: auto;
+  }
+
+  .slogan {
+    font-size: 24px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .small {
+    width: 100%;
+    font-size: 15px;
+    margin-top: 16px;
+  }
+
+  footer {
+    margin-top: 40px;
+  }
+
+  .footer-box {
+    grid-template-columns: auto;
+    grid-template-areas: "link sns" "copyright .";
+    row-gap: 60px;
+    padding: 32px;
+  }
+
+  .footer--link {
+    justify-self: left;
   }
 }
