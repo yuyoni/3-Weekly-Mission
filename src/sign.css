@@ -80,7 +80,7 @@ form > div {
 form img {
   position: absolute;
   top: 22px;
-  left: 369px;
+  right: 15px;
 }
 
 input:focus {
@@ -122,4 +122,17 @@ form > button {
 
 .social-login > img {
   cursor: pointer;
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+  main {
+    width: 100%;
+    padding: 120px 32px 233px 33px;
+  }
+
+  .email-login,
+  .social-login {
+    width: 100%;
+    max-width: 400px;
+  }
 }
