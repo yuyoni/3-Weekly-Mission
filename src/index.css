@@ -149,7 +149,7 @@ section:nth-child(even) .container {
   grid-area: small;
   color: #6b6b6b;
   font-size: 1.6rem;
-  line-height: 150%;
+  line-height: 24px;
   padding-top: 1rem;
   word-break: keep-all;
 }
@@ -172,7 +172,7 @@ footer {
   max-width: 192rem;
 }
 
-.copyright {
+.footer--copyright {
   grid-area: copyright;
   color: #676767;
   font-family: Arial;
