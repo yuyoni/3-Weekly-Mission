@@ -94,8 +94,8 @@ main {
 }
 
 .main--img {
-  width: 120rem;
-  height: 59rem;
+  width: 1200px;
+  height: 590px;
 }
 
 section {
@@ -131,8 +131,8 @@ section:nth-child(even) .container {
 
 .section--img {
   grid-area: img;
-  width: 55rem;
-  height: 45rem;
+  width: 550px;
+  height: 450px;
   border-radius: 1.5rem;
 }
 
