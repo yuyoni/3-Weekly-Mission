@@ -161,7 +161,7 @@ footer {
   justify-content: center;
   width: 100%;
   height: 16rem;
-  margin-top: 1.2rem;
+  margin-top: 12rem;
   background-color: var(--black);
 }
 
@@ -200,4 +200,50 @@ footer {
   height: 2rem;
   gap: 1.2rem;
   align-self: start;
+}
+
+/* Tablet size ( 768px 이상 ~ 1199px 이하 ) */
+
+@media (max-width: 1199px) {
+  nav {
+    width: 1200px;
+    padding: 0 200px;
+  }
+
+  .title {
+    width: 472px;
+  }
+
+  main {
+    margin-bottom: 30px;
+  }
+
+  .main--img {
+    width: 698px;
+    height: 343px;
+  }
+
+  .container {
+    height: 315px;
+  }
+
+  section:nth-child(odd) .container {
+    grid-template-columns: 385px 51px 262px;
+  }
+
+  section:nth-child(even) .container {
+    grid-template-columns: 262px 51px 385px;
+  }
+
+  .section--img {
+    width: 385px;
+    height: 315px;
+  }
+}
+
+@media (max-width: 864px) {
+  nav {
+    width: 100%;
+    padding: 0 32px;
+  }
 }
