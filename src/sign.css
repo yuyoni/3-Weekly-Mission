@@ -77,10 +77,11 @@ form > div {
   position: relative;
 }
 
-form img {
+.eye-icon {
   position: absolute;
   top: 22px;
   right: 15px;
+  cursor: pointer;
 }
 
 input:focus {
