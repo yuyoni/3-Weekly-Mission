@@ -124,6 +124,12 @@ form > button {
   cursor: pointer;
 }
 
+@media (min-width: 768px) and (max-width: 1199px) {
+  main {
+    padding-top: 200px;
+  }
+}
+
 @media (min-width: 375px) and (max-width: 767px) {
   main {
     width: 100%;
