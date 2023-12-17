@@ -1,7 +1,8 @@
 const emailInput = document.querySelector("#email");
-const pwdInput = document.querySelector("#password");
+const pwdInputs = document.querySelectorAll(".password");
 const eyeIcons = document.querySelectorAll(".eye-icon");
 const errorMsgs = document.querySelectorAll(".error-message");
 const loginForm = document.querySelector("#login-form");
+const signupForm = document.querySelector("#signup-form");
 
-export { emailInput, pwdInput, eyeIcons, errorMsgs, loginForm };
+export { emailInput, pwdInputs, eyeIcons, errorMsgs, loginForm, signupForm };
