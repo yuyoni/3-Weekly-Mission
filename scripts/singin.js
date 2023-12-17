@@ -8,9 +8,12 @@ import {
 import toggleIcon from "./toggleIcon.js";
 import { isValidEmail, isValidPwd } from "./validation.js";
 
+/* 눈모양 아이콘 누르면 비밀번호 보이기 */
 eyeIcons[0].addEventListener("click", () =>
   toggleIcon(eyeIcons[0], pwdInputs[0])
 );
+
+/* 이메일 및 비밀번호 유효성 검사 */
 emailInput.addEventListener("focusout", () =>
   isValidEmail(emailInput, errorMsgs[0])
 );
