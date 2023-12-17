@@ -17,3 +17,15 @@ emailInput.addEventListener("focusout", () =>
 pwdInputs.forEach((el, idx) =>
   el.addEventListener("focusout", () => isValidPwd(el, errorMsgs[idx + 1]))
 );
+
+signupForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (emailInput.value === "test@codeit.com") {
+    emailInput.classList.toggle(
+      "invalid-border",
+      emailInput.value === "test@codeit.com"
+    );
+    errorMsgs[0].textContent = "이미 사용중인 이메일 입니다.";
+  } else {
+  }
+});
