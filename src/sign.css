@@ -89,6 +89,16 @@ input:focus {
   border: 1px solid var(--primary);
 }
 
+.invalid-border {
+  border: 1px solid var(--red);
+}
+
+.error-message {
+  font-size: 14px;
+  color: var(--red);
+  margin-top: 6px;
+}
+
 form > button {
   display: flex;
   padding: 16px 20px;
