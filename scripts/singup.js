@@ -51,5 +51,12 @@ signupForm.addEventListener("submit", (e) => {
   if (!isEmptyInput && !isEmptyError) {
     /* input이 비어있지 않으면서 오류 메시지가 없으면 회원가입 성공 */
     window.location.href = "folder.html";
+  } else {
+    emailInput.classList.add("invalid-border");
+    pwdInputs[0].classList.add("invalid-border");
+    pwdInputs[1].classList.add("invalid-border");
+    errorMsgs[0].textContent = "이메일을 확인해주세요.";
+    errorMsgs[1].textContent = "비밀번호를 확인해주세요.";
+    errorMsgs[2].textContent = "비밀번호를 확인해주세요.";
   }
 });
