@@ -1,3 +1,10 @@
+import {
+  EMPTY_EMAIL,
+  EMPTY_PASSWORD,
+  VALID_PASSWORD,
+  WRONG_EMAIL,
+} from "./constant";
+
 /* 이메일 유효성 검사 */
 const isValidEmail = (element, message) => {
   const isEmpty = element.value.length === 0;
@@ -8,9 +15,9 @@ const isValidEmail = (element, message) => {
   element.classList.toggle("invalid-border", isEmpty || isInvalidPattern);
 
   message.textContent = isEmpty
-    ? "이메일을 입력해주세요."
+    ? EMPTY_EMAIL
     : isInvalidPattern
-    ? "올바른 이메일 주소가 아닙니다."
+    ? WRONG_EMAIL
     : "";
 };
 
@@ -23,9 +30,9 @@ const isValidPwd = (element, message) => {
   element.classList.toggle("invalid-border", isEmpty || isInvalidPattern);
 
   message.textContent = isEmpty
-    ? "비밀번호를 입력해주세요."
+    ? EMPTY_PASSWORD
     : isInvalidPattern
-    ? "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요."
+    ? VALID_PASSWORD
     : "";
 };
 

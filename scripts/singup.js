@@ -1,4 +1,11 @@
 import {
+  CHECK_EMAIL,
+  CHECK_PASSWORD,
+  RIGHT_EMAIL,
+  USED_EMAIL,
+  WRONG_PASSWORD,
+} from "./constant.js";
+import {
   emailInput,
   pwdInputs,
   eyeIcons,
@@ -15,11 +22,11 @@ eyeIcons.forEach((el, idx) =>
 
 /* 이메일 및 비밀번호 유효성 검사 */
 emailInput.addEventListener("focusout", () => {
-  const isExistEmail = emailInput.value === "test@codeit.com";
+  const isExistEmail = emailInput.value === RIGHT_EMAIL;
   /* "test@codeit.com"로 회원가입 시도 시 오류 메세지 */
   if (isExistEmail) {
     emailInput.classList.toggle("invalid-border", isExistEmail);
-    errorMsgs[0].textContent = "이미 사용중인 이메일 입니다.";
+    errorMsgs[0].textContent = USED_EMAIL;
   } else {
     isValidEmail(emailInput, errorMsgs[0]);
   }
@@ -34,7 +41,7 @@ pwdInputs[1].addEventListener("focusout", () => {
   const checkPassword = pwdInputs[0].value !== pwdInputs[1].value;
   if (checkPassword) {
     pwdInputs[1].classList.toggle("invalid-border", checkPassword);
-    errorMsgs[2].textContent = checkPassword ? "비밀번호가 다릅니다." : "";
+    errorMsgs[2].textContent = checkPassword ? WRONG_PASSWORD : "";
   } else {
     isValidPwd(pwdInputs[1], errorMsgs[2]);
   }
@@ -55,8 +62,8 @@ signupForm.addEventListener("submit", (e) => {
     emailInput.classList.add("invalid-border");
     pwdInputs[0].classList.add("invalid-border");
     pwdInputs[1].classList.add("invalid-border");
-    errorMsgs[0].textContent = "이메일을 확인해주세요.";
-    errorMsgs[1].textContent = "비밀번호를 확인해주세요.";
-    errorMsgs[2].textContent = "비밀번호를 확인해주세요.";
+    errorMsgs[0].textContent = CHECK_EMAIL;
+    errorMsgs[1].textContent = CHECK_PASSWORD;
+    errorMsgs[2].textContent = CHECK_PASSWORD;
   }
 });

@@ -1,4 +1,10 @@
 import {
+  CHECK_EMAIL,
+  CHECK_PASSWORD,
+  RIGHT_EMAIL,
+  RIGHT_PASSWORD,
+} from "./constant.js";
+import {
   emailInput,
   pwdInputs,
   eyeIcons,
@@ -25,15 +31,15 @@ pwdInputs[0].addEventListener("focusout", () =>
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const rightEmail = "test@codeit.com";
-  const rightPwd = "codeit101";
-
-  if (emailInput.value === rightEmail && pwdInputs[0].value === rightPwd) {
+  if (
+    emailInput.value === RIGHT_EMAIL &&
+    pwdInputs[0].value === RIGHT_PASSWORD
+  ) {
     window.location.href = "folder.html";
   } else {
     emailInput.classList.add("invalid-border");
     pwdInputs[0].classList.add("invalid-border");
-    errorMsgs[0].textContent = "이메일을 확인해주세요.";
-    errorMsgs[1].textContent = "비밀번호를 확인해주세요.";
+    errorMsgs[0].textContent = CHECK_EMAIL;
+    errorMsgs[1].textContent = CHECK_PASSWORD;
   }
 });
