@@ -10,7 +10,7 @@ import toggleIcon from "./toggleIcon.js";
 import { isValidEmail, isValidPwd } from "./validation.js";
 
 if (localStorage.getItem("accessToken")) {
-  window.location.href = "folder.html";
+  loginForm.submit();
 }
 
 /* 눈모양 아이콘 누르면 비밀번호 보이기 */
@@ -38,11 +38,11 @@ const fetchLogin = async (e) => {
       password: pwdInputs[0].value,
     }),
   });
-  const result = await response.json();
-  localStorage.setItem("accessToken", result.data.accessToken);
 
   if (response.status === 200) {
-    window.location.href = "folder.html";
+    const result = await response.json();
+    localStorage.setItem("accessToken", result.data.accessToken);
+    loginForm.submit();
   } else {
     emailInput.classList.add("invalid-border");
     pwdInputs[0].classList.add("invalid-border");

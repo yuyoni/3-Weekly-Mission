@@ -15,7 +15,7 @@ import toggleIcon from "./toggleIcon.js";
 import { isValidEmail, isValidPwd } from "./validation.js";
 
 if (localStorage.getItem("accessToken")) {
-  window.location.href = "folder.html";
+  signupForm.submit();
 }
 
 /* 눈모양 아이콘 누르면 비밀번호 보이기 */
@@ -80,11 +80,11 @@ const fetchSignup = async (e) => {
         password: pwdInputs[0].value,
       }),
     });
-    const result = await response.json();
-    localStorage.setItem("accessToken", result.data.accessToken);
 
     if (response.ok) {
-      window.location.href = "folder.html";
+      const result = await response.json();
+      localStorage.setItem("accessToken", result.data.accessToken);
+      signupForm.submit();
     }
   } else {
     emailInput.classList.add("invalid-border");
