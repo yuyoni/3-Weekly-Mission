@@ -1,7 +1,6 @@
 import {
   CHECK_EMAIL,
   CHECK_PASSWORD,
-  RIGHT_EMAIL,
   USED_EMAIL,
   WRONG_PASSWORD,
 } from "./constant.js";
@@ -33,7 +32,7 @@ const fetchEmail = async () => {
   );
   /* "test@codeit.com"로 회원가입 시도 시 오류 메세지 */
   if (response.status === 409) {
-    emailInput.classList.toggle("invalid-border");
+    emailInput.classList.add("invalid-border");
     errorMsgs[0].textContent = USED_EMAIL;
   } else {
     isValidEmail(emailInput, errorMsgs[0]);

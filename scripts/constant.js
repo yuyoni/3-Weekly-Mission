@@ -8,16 +8,11 @@ const WRONG_PASSWORD = "비밀번호가 다릅니다.";
 const EMPTY_PASSWORD = "비밀번호를 입력해주세요.";
 const INVALID_PASSWORD = "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.";
 
-const RIGHT_EMAIL = "test@codeit.com";
-const RIGHT_PASSWORD = "codeit101";
-
 export {
   CHECK_EMAIL,
   USED_EMAIL,
   CHECK_PASSWORD,
   WRONG_PASSWORD,
-  RIGHT_EMAIL,
-  RIGHT_PASSWORD,
   INVALID_EMAIL,
   EMPTY_EMAIL,
   EMPTY_PASSWORD,

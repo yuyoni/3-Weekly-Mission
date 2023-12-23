@@ -1,9 +1,4 @@
-import {
-  CHECK_EMAIL,
-  CHECK_PASSWORD,
-  RIGHT_EMAIL,
-  RIGHT_PASSWORD,
-} from "./constant.js";
+import { CHECK_EMAIL, CHECK_PASSWORD } from "./constant.js";
 import {
   emailInput,
   pwdInputs,
