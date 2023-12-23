@@ -57,17 +57,28 @@ pwdInputs[1].addEventListener("focusout", () => {
   }
 });
 
-/* 유효한 회원가입 시도 시 페이지 이동 */
-signupForm.addEventListener("submit", (e) => {
+const fetchSignup = async (e) => {
   e.preventDefault();
 
   const isEmptyInput =
     emailInput.value.length === 0 || pwdInputs[0].value.length === 0;
   const isEmptyError = [...errorMsgs].some((el) => el.textContent.length > 0);
 
+  /* input이 비어있지 않으면서 오류 메시지가 없으면 회원가입 성공 */
   if (!isEmptyInput && !isEmptyError) {
-    /* input이 비어있지 않으면서 오류 메시지가 없으면 회원가입 성공 */
-    window.location.href = "folder.html";
+    const response = await fetch("https://bootcamp-api.codeit.kr/api/sign-up", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: emailInput.value,
+        password: pwdInputs[0].value,
+      }),
+    });
+    if (response.ok) {
+      window.location.href = "folder.html";
+    }
   } else {
     emailInput.classList.add("invalid-border");
     pwdInputs[0].classList.add("invalid-border");
@@ -76,4 +87,9 @@ signupForm.addEventListener("submit", (e) => {
     errorMsgs[1].textContent = CHECK_PASSWORD;
     errorMsgs[2].textContent = CHECK_PASSWORD;
   }
+};
+
+/* 유효한 회원가입 시도 시 페이지 이동 */
+signupForm.addEventListener("submit", (e) => {
+  fetchSignup(e);
 });
