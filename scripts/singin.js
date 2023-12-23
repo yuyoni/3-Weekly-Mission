@@ -9,6 +9,10 @@ import {
 import toggleIcon from "./toggleIcon.js";
 import { isValidEmail, isValidPwd } from "./validation.js";
 
+if (localStorage.getItem("accessToken")) {
+  window.location.href = "folder.html";
+}
+
 /* 눈모양 아이콘 누르면 비밀번호 보이기 */
 eyeIcons[0].addEventListener("click", () =>
   toggleIcon(eyeIcons[0], pwdInputs[0])
@@ -34,6 +38,9 @@ const fetchLogin = async (e) => {
       password: pwdInputs[0].value,
     }),
   });
+  const result = await response.json();
+  localStorage.setItem("accessToken", result.data.accessToken);
+
   if (response.status === 200) {
     window.location.href = "folder.html";
   } else {
