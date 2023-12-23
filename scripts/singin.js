@@ -28,13 +28,18 @@ pwdInputs[0].addEventListener("focusout", () =>
 );
 
 /* "test@codeit.com" 이메일과 "codeit101" 비밀번호로 로그인하면 이동, 틀리면 오류메세지 */
-loginForm.addEventListener("submit", (e) => {
+const fetchLogin = async (e) => {
   e.preventDefault();
 
-  if (
-    emailInput.value === RIGHT_EMAIL &&
-    pwdInputs[0].value === RIGHT_PASSWORD
-  ) {
+  const response = await fetch("https://bootcamp-api.codeit.kr/api/sign-in", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: emailInput.value,
+      password: pwdInputs[0].value,
+    }),
+  });
+  if (response.status === 200) {
     window.location.href = "folder.html";
   } else {
     emailInput.classList.add("invalid-border");
@@ -42,4 +47,8 @@ loginForm.addEventListener("submit", (e) => {
     errorMsgs[0].textContent = CHECK_EMAIL;
     errorMsgs[1].textContent = CHECK_PASSWORD;
   }
+};
+
+loginForm.addEventListener("submit", (e) => {
+  fetchLogin(e);
 });
