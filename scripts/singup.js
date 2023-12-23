@@ -20,17 +20,28 @@ eyeIcons.forEach((el, idx) =>
   el.addEventListener("click", () => toggleIcon(el, pwdInputs[idx]))
 );
 
-/* 이메일 및 비밀번호 유효성 검사 */
-emailInput.addEventListener("focusout", () => {
-  const isExistEmail = emailInput.value === RIGHT_EMAIL;
+const fetchEmail = async () => {
+  const response = await fetch(
+    "https://bootcamp-api.codeit.kr/api/check-email",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: emailInput.value,
+      }),
+    }
+  );
   /* "test@codeit.com"로 회원가입 시도 시 오류 메세지 */
-  if (isExistEmail) {
-    emailInput.classList.toggle("invalid-border", isExistEmail);
+  if (response.status === 409) {
+    emailInput.classList.toggle("invalid-border");
     errorMsgs[0].textContent = USED_EMAIL;
   } else {
     isValidEmail(emailInput, errorMsgs[0]);
   }
-});
+};
+
+/* 이메일 및 비밀번호 유효성 검사 */
+emailInput.addEventListener("focusout", fetchEmail);
 
 pwdInputs[0].addEventListener("focusout", () =>
   isValidPwd(pwdInputs[0], errorMsgs[1])
