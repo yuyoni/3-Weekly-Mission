@@ -1,9 +1,9 @@
 import {
   EMPTY_EMAIL,
   EMPTY_PASSWORD,
-  VALID_PASSWORD,
-  WRONG_EMAIL,
-} from "./constant";
+  INVALID_PASSWORD,
+  INVALID_EMAIL,
+} from "./constant.js";
 
 /* 이메일 유효성 검사 */
 const isValidEmail = (element, message) => {
@@ -14,11 +14,13 @@ const isValidEmail = (element, message) => {
 
   element.classList.toggle("invalid-border", isEmpty || isInvalidPattern);
 
-  message.textContent = isEmpty
-    ? EMPTY_EMAIL
-    : isInvalidPattern
-    ? WRONG_EMAIL
-    : "";
+  if (isEmpty) {
+    message.textContent = EMPTY_EMAIL;
+  } else if (isInvalidPattern) {
+    message.textContent = INVALID_EMAIL;
+  } else {
+    message.textContent = "";
+  }
 };
 
 /* 비밀번호 유효성 검사 */
@@ -29,11 +31,13 @@ const isValidPwd = (element, message) => {
 
   element.classList.toggle("invalid-border", isEmpty || isInvalidPattern);
 
-  message.textContent = isEmpty
-    ? EMPTY_PASSWORD
-    : isInvalidPattern
-    ? VALID_PASSWORD
-    : "";
+  if (isEmpty) {
+    message.textContent = EMPTY_PASSWORD;
+  } else if (isInvalidPattern) {
+    message.textContent = INVALID_PASSWORD;
+  } else {
+    message.textContent = "";
+  }
 };
 
 export { isValidEmail, isValidPwd };
