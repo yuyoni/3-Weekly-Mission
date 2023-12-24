@@ -58,6 +58,8 @@ const isValidEmail = async (email) => {
   } else {
     emailErrorMsg.textContent = "";
   }
+
+  return !(isInputEmpty || isInputInvalid || isInputUsed);
 };
 
 /* 비밀번호 유효성 검사 */
@@ -74,6 +76,8 @@ const isValidPassword = (password) => {
   } else {
     pwdErrorMsg.textContent = "";
   }
+
+  return !(isInputEmpty || isInputInvalid);
 };
 
 /* 비밀번호 확인 유효성 검사 */
@@ -99,6 +103,8 @@ const isValidPasswordCheck = (password, passwordCheck) => {
   } else {
     pwdCheckErrorMsg.textContent = "";
   }
+
+  return !(isInputEmpty || isInputInvalid || isPasswordMatch);
 };
 
 emailInput.addEventListener("focusout", () => isValidEmail(emailInput));
@@ -107,19 +113,27 @@ pwdCheckInput.addEventListener("focusout", () =>
   isValidPasswordCheck(pwdInput, pwdCheckInput)
 );
 
+const allValid = async () => {
+  const validEmail = await isValidEmail(emailInput).then((r) => r);
+  const validPassword = isValidPassword(pwdInput);
+  const validPasswordCheck = isValidPasswordCheck(pwdInput, pwdCheckInput);
+
+  return validEmail && validPassword && validPasswordCheck;
+};
+
 /* 유효한 회원가입 시도 시 페이지 이동 */
-const fetchSignup = async (e) => {
+const handleSignupRequest = async (e) => {
   e.preventDefault();
 
-  const isEmptyInput =
-    emailInput.value.length === 0 || pwdInput.value.length === 0;
-  const isEmptyError =
-    emailErrorMsg.textContent.length > 0 &&
-    pwdErrorMsg.textContent.length > 0 &&
-    pwdCheckErrorMsg.textContent.length > 0;
+  if (!allValid()) {
+    emailInput.classList.add("invalid-border");
+    pwdInput.classList.add("invalid-border");
+    pwdCheckInput.classList.add("invalid-border");
 
-  /* input이 비어있지 않으면서 오류 메시지가 없으면 회원가입 성공 */
-  if (!isEmptyInput && !isEmptyError) {
+    emailErrorMsg.textContent = CHECK_EMAIL;
+    pwdErrorMsg.textContent = CHECK_PASSWORD;
+    pwdCheckErrorMsg.textContent = CHECK_PASSWORD;
+  } else {
     const response = await fetch("https://bootcamp-api.codeit.kr/api/sign-up", {
       method: "POST",
       headers: {
@@ -135,24 +149,10 @@ const fetchSignup = async (e) => {
       const result = await response.json();
       localStorage.setItem("accessToken", result.data.accessToken);
       signupForm.submit();
-    } else {
-      emailInput.classList.add("invalid-border");
-      pwdInput.classList.add("invalid-border");
-      pwdCheckInput.classList.add("invalid-border");
-      emailErrorMsg.textContent = CHECK_EMAIL;
-      pwdErrorMsg.textContent = CHECK_PASSWORD;
-      pwdCheckErrorMsg.textContent = CHECK_PASSWORD;
     }
-  } else {
-    emailInput.classList.add("invalid-border");
-    pwdInput.classList.add("invalid-border");
-    pwdCheckInput.classList.add("invalid-border");
-    emailErrorMsg.textContent = CHECK_EMAIL;
-    pwdErrorMsg.textContent = CHECK_PASSWORD;
-    pwdCheckErrorMsg.textContent = CHECK_PASSWORD;
   }
 };
 
 signupForm.addEventListener("submit", (e) => {
-  fetchSignup(e);
+  handleSignupRequest(e);
 });

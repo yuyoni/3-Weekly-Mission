@@ -38,6 +38,8 @@ const isValidEmail = (email) => {
   } else {
     emailErrorMsg.textContent = "";
   }
+
+  return !(isInputEmpty || isInputInvalid);
 };
 
 /* 비밀번호 유효성 검사 */
@@ -54,13 +56,22 @@ const isValidPassword = (password) => {
   } else {
     pwdErrorMsg.textContent = "";
   }
+
+  return !(isInputEmpty || isInputInvalid);
 };
 
 emailInput.addEventListener("focusout", () => isValidEmail(emailInput));
 pwdInput.addEventListener("focusout", () => isValidPassword(pwdInput));
 
+const allValid = () => {
+  const validEmail = isValidEmail(emailInput);
+  const validPassword = isValidPassword(pwdInput);
+
+  return validEmail && validPassword;
+};
+
 /* "test@codeit.com" 이메일과 "codeit101" 비밀번호로 로그인하면 이동, 틀리면 오류메세지 */
-const fetchLogin = async (e) => {
+const handleLoginRequest = async (e) => {
   e.preventDefault();
 
   const response = await fetch("https://bootcamp-api.codeit.kr/api/sign-in", {
@@ -72,7 +83,7 @@ const fetchLogin = async (e) => {
     }),
   });
 
-  if (response.status === 200) {
+  if (allValid() && response.status === 200) {
     const result = await response.json();
     localStorage.setItem("accessToken", result.data.accessToken);
     loginForm.submit();
@@ -85,5 +96,5 @@ const fetchLogin = async (e) => {
 };
 
 loginForm.addEventListener("submit", (e) => {
-  fetchLogin(e);
+  handleLoginRequest(e);
 });
