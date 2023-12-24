@@ -17,12 +17,15 @@ import {
 } from "./tags.js";
 import toggleIcon from "./toggleIcon.js";
 
+/* accessToken 있으면 페이지 이동 */
 if (localStorage.getItem("accessToken")) {
   loginForm.submit();
 }
 
 /* 눈모양 아이콘 누르면 비밀번호 보였다 숨기기 */
-eyeIcons[0].addEventListener("click", () => toggleIcon(eyeIcons[0], pwdInput));
+function eyeIconClickFunction() {
+  toggleIcon(eyeIcons[0], pwdInput);
+}
 
 /* 이메일 유효성 검사 */
 const isValidEmail = (email) => {
@@ -60,8 +63,13 @@ const isValidPassword = (password) => {
   return !(isInputEmpty || isInputInvalid);
 };
 
-emailInput.addEventListener("focusout", () => isValidEmail(emailInput));
-pwdInput.addEventListener("focusout", () => isValidPassword(pwdInput));
+function emailFocusoutFunction() {
+  isValidEmail(emailInput);
+}
+
+function passwordFocusoutFunction() {
+  isValidPassword(pwdInput);
+}
 
 const isallValid = () => {
   const validEmail = isValidEmail(emailInput);
@@ -70,7 +78,7 @@ const isallValid = () => {
   return validEmail && validPassword;
 };
 
-/* "test@codeit.com" 이메일과 "codeit101" 비밀번호로 로그인하면 이동, 틀리면 오류메세지 */
+/* 유효한 로그인 시도 시 페이지 이동 */
 const handleLoginRequest = async (e) => {
   e.preventDefault();
 
@@ -95,6 +103,9 @@ const handleLoginRequest = async (e) => {
   }
 };
 
+eyeIcons[0].addEventListener("click", eyeIconClickFunction);
+emailInput.addEventListener("focusout", emailFocusoutFunction);
+pwdInput.addEventListener("focusout", passwordFocusoutFunction);
 loginForm.addEventListener("submit", (e) => {
   handleLoginRequest(e);
 });

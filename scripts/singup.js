@@ -27,16 +27,15 @@ import {
 } from "./tags.js";
 import toggleIcon from "./toggleIcon.js";
 
+/* accessToken 있으면 페이지 이동 */
 if (localStorage.getItem("accessToken")) {
   signupForm.submit();
 }
 
-/* 눈모양 아이콘 누르면 비밀번호 보이기 */
-eyeIcons.forEach((el, idx) =>
-  el.addEventListener("click", () =>
-    toggleIcon(el, idx ? pwdCheckInput : pwdInput)
-  )
-);
+/* 눈모양 아이콘 누르면 비밀번호 보였다 숨기기 */
+function eyeIconClickFunction() {
+  toggleIcon(el, idx ? pwdCheckInput : pwdInput);
+}
 
 /* 이메일 유효성 검사 */
 const isValidEmail = async (email) => {
@@ -107,11 +106,17 @@ const isValidPasswordCheck = (password, passwordCheck) => {
   return !(isInputEmpty || isInputInvalid || isPasswordMatch);
 };
 
-emailInput.addEventListener("focusout", () => isValidEmail(emailInput));
-pwdInput.addEventListener("focusout", () => isValidPassword(pwdInput));
-pwdCheckInput.addEventListener("focusout", () =>
-  isValidPasswordCheck(pwdInput, pwdCheckInput)
-);
+function emailFocusoutFunction() {
+  isValidEmail(emailInput);
+}
+
+function passwordFocusoutFunction() {
+  isValidPassword(pwdInput);
+}
+
+function passwordCheckFocusoutFunction() {
+  isValidPasswordCheck(pwdInput, pwdCheckInput);
+}
 
 const isallValid = async () => {
   const validEmail = await isValidEmail(emailInput).then(
@@ -157,6 +162,12 @@ const handleSignupRequest = async (e) => {
   }
 };
 
+eyeIcons.forEach((el, idx) =>
+  el.addEventListener("click", eyeIconClickFunction)
+);
+emailInput.addEventListener("focusout", emailFocusoutFunction);
+pwdInput.addEventListener("focusout", passwordFocusoutFunction);
+pwdCheckInput.addEventListener("focusout", passwordCheckFocusoutFunction);
 signupForm.addEventListener("submit", (e) => {
   handleSignupRequest(e);
 });
