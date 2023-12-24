@@ -1,30 +1,63 @@
-import { CHECK_EMAIL, CHECK_PASSWORD } from "./constant.js";
+import { isEmpty, isInvalidEmail, isInvalidPassword } from "./validation.js";
+import {
+  CHECK_EMAIL,
+  EMPTY_EMAIL,
+  INVALID_EMAIL,
+  CHECK_PASSWORD,
+  EMPTY_PASSWORD,
+  INVALID_PASSWORD,
+} from "./constant.js";
 import {
   emailInput,
-  pwdInputs,
+  pwdInput,
   eyeIcons,
-  errorMsgs,
   loginForm,
+  emailErrorMsg,
+  pwdErrorMsg,
 } from "./tags.js";
 import toggleIcon from "./toggleIcon.js";
-import { isValidEmail, isValidPwd } from "./validation.js";
 
 if (localStorage.getItem("accessToken")) {
   loginForm.submit();
 }
 
-/* 눈모양 아이콘 누르면 비밀번호 보이기 */
-eyeIcons[0].addEventListener("click", () =>
-  toggleIcon(eyeIcons[0], pwdInputs[0])
-);
+/* 눈모양 아이콘 누르면 비밀번호 보였다 숨기기 */
+eyeIcons[0].addEventListener("click", () => toggleIcon(eyeIcons[0], pwdInput));
 
-/* 이메일 및 비밀번호 유효성 검사 */
-emailInput.addEventListener("focusout", () =>
-  isValidEmail(emailInput, errorMsgs[0])
-);
-pwdInputs[0].addEventListener("focusout", () =>
-  isValidPwd(pwdInputs[0], errorMsgs[1])
-);
+/* 이메일 유효성 검사 */
+const isValidEmail = (email) => {
+  const isInputEmpty = isEmpty(email.value);
+  const isInputInvalid = isInvalidEmail(email.value);
+
+  email.classList.toggle("invalid-border", isInputEmpty || isInputInvalid);
+
+  if (isInputEmpty) {
+    emailErrorMsg.textContent = EMPTY_EMAIL;
+  } else if (isInputInvalid) {
+    emailErrorMsg.textContent = INVALID_EMAIL;
+  } else {
+    emailErrorMsg.textContent = "";
+  }
+};
+
+/* 비밀번호 유효성 검사 */
+const isValidPassword = (password) => {
+  const isInputEmpty = isEmpty(password.value);
+  const isInputInvalid = isInvalidPassword(password.value);
+
+  password.classList.toggle("invalid-border", isInputEmpty || isInputInvalid);
+
+  if (isInputEmpty) {
+    pwdErrorMsg.textContent = EMPTY_PASSWORD;
+  } else if (isInputInvalid) {
+    pwdErrorMsg.textContent = INVALID_PASSWORD;
+  } else {
+    pwdErrorMsg.textContent = "";
+  }
+};
+
+emailInput.addEventListener("focusout", () => isValidEmail(emailInput));
+pwdInput.addEventListener("focusout", () => isValidPassword(pwdInput));
 
 /* "test@codeit.com" 이메일과 "codeit101" 비밀번호로 로그인하면 이동, 틀리면 오류메세지 */
 const fetchLogin = async (e) => {
@@ -35,7 +68,7 @@ const fetchLogin = async (e) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       email: emailInput.value,
-      password: pwdInputs[0].value,
+      password: pwdInput.value,
     }),
   });
 
@@ -45,9 +78,9 @@ const fetchLogin = async (e) => {
     loginForm.submit();
   } else {
     emailInput.classList.add("invalid-border");
-    pwdInputs[0].classList.add("invalid-border");
-    errorMsgs[0].textContent = CHECK_EMAIL;
-    errorMsgs[1].textContent = CHECK_PASSWORD;
+    pwdInput.classList.add("invalid-border");
+    emailErrorMsg.textContent = CHECK_EMAIL;
+    pwdErrorMsg.textContent = CHECK_PASSWORD;
   }
 };
 
