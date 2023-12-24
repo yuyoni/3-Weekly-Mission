@@ -63,7 +63,7 @@ const isValidPassword = (password) => {
 emailInput.addEventListener("focusout", () => isValidEmail(emailInput));
 pwdInput.addEventListener("focusout", () => isValidPassword(pwdInput));
 
-const allValid = () => {
+const isallValid = () => {
   const validEmail = isValidEmail(emailInput);
   const validPassword = isValidPassword(pwdInput);
 
@@ -83,7 +83,7 @@ const handleLoginRequest = async (e) => {
     }),
   });
 
-  if (allValid() && response.status === 200) {
+  if (isallValid() && response.ok) {
     const result = await response.json();
     localStorage.setItem("accessToken", result.data.accessToken);
     loginForm.submit();

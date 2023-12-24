@@ -113,8 +113,10 @@ pwdCheckInput.addEventListener("focusout", () =>
   isValidPasswordCheck(pwdInput, pwdCheckInput)
 );
 
-const allValid = async () => {
-  const validEmail = await isValidEmail(emailInput).then((r) => r);
+const isallValid = async () => {
+  const validEmail = await isValidEmail(emailInput).then(
+    (response) => response
+  );
   const validPassword = isValidPassword(pwdInput);
   const validPasswordCheck = isValidPasswordCheck(pwdInput, pwdCheckInput);
 
@@ -125,15 +127,9 @@ const allValid = async () => {
 const handleSignupRequest = async (e) => {
   e.preventDefault();
 
-  if (!allValid()) {
-    emailInput.classList.add("invalid-border");
-    pwdInput.classList.add("invalid-border");
-    pwdCheckInput.classList.add("invalid-border");
+  const allValid = await isallValid();
 
-    emailErrorMsg.textContent = CHECK_EMAIL;
-    pwdErrorMsg.textContent = CHECK_PASSWORD;
-    pwdCheckErrorMsg.textContent = CHECK_PASSWORD;
-  } else {
+  if (allValid) {
     const response = await fetch("https://bootcamp-api.codeit.kr/api/sign-up", {
       method: "POST",
       headers: {
@@ -150,6 +146,14 @@ const handleSignupRequest = async (e) => {
       localStorage.setItem("accessToken", result.data.accessToken);
       signupForm.submit();
     }
+  } else {
+    emailInput.classList.add("invalid-border");
+    pwdInput.classList.add("invalid-border");
+    pwdCheckInput.classList.add("invalid-border");
+
+    emailErrorMsg.textContent = CHECK_EMAIL;
+    pwdErrorMsg.textContent = CHECK_PASSWORD;
+    pwdCheckErrorMsg.textContent = CHECK_PASSWORD;
   }
 };
 
