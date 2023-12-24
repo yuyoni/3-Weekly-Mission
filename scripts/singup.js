@@ -162,12 +162,14 @@ const handleSignupRequest = async (e) => {
   }
 };
 
+function singupFormSubmitFunction(event) {
+  handleSignupRequest(event);
+}
+
 eyeIcons.forEach((el, idx) =>
   el.addEventListener("click", eyeIconClickFunction)
 );
 emailInput.addEventListener("focusout", emailFocusoutFunction);
 pwdInput.addEventListener("focusout", passwordFocusoutFunction);
 pwdCheckInput.addEventListener("focusout", passwordCheckFocusoutFunction);
-signupForm.addEventListener("submit", (e) => {
-  handleSignupRequest(e);
-});
+signupForm.addEventListener("submit", singupFormSubmitFunction);

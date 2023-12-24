@@ -103,9 +103,11 @@ const handleLoginRequest = async (e) => {
   }
 };
 
+function loginFormSubmitFunction(event) {
+  handleLoginRequest(event);
+}
+
 eyeIcons[0].addEventListener("click", eyeIconClickFunction);
 emailInput.addEventListener("focusout", emailFocusoutFunction);
 pwdInput.addEventListener("focusout", passwordFocusoutFunction);
-loginForm.addEventListener("submit", (e) => {
-  handleLoginRequest(e);
-});
+loginForm.addEventListener("submit", loginFormSubmitFunction);
