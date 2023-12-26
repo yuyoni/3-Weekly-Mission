@@ -7,14 +7,14 @@ import {
 } from "./functions.js";
 import { CHECK_EMAIL, CHECK_PASSWORD } from "./constant.js";
 import {
-  emailInput,
-  pwdInput,
-  eyeIcons,
-  signupForm,
-  pwdCheckInput,
-  emailErrorMsg,
-  pwdErrorMsg,
-  pwdCheckErrorMsg,
+  $emailInput,
+  $pwdInput,
+  $pwdCheckInput,
+  $eyeIcons,
+  $signupForm,
+  $emailErrorMsg,
+  $pwdErrorMsg,
+  $pwdCheckErrorMsg,
 } from "./tags.js";
 import toggleIcon from "./toggleIcon.js";
 import {
@@ -27,46 +27,46 @@ let validEmail, validPassword, validPasswordCheck;
 
 /* accessToken 있으면 페이지 이동 */
 if (localStorage.getItem("accessToken")) {
-  signupForm.submit();
+  $signupForm.submit();
 }
 
-async function emailFocusoutFunction() {
-  const isEmailEmpty = checkEmptyInput(emailInput.value);
-  const isEmailInvalid = checkInvalidEmailPattern(emailInput.value);
-  const isEmailUsed = await checkUsedEmail(emailInput.value);
+const emailFocusoutFunction = async () => {
+  const isEmailEmpty = checkEmptyInput($emailInput.value);
+  const isEmailInvalid = checkInvalidEmailPattern($emailInput.value);
+  const isEmailUsed = await checkUsedEmail($emailInput.value);
 
   validEmail = await checkValidEmail(
-    emailInput,
+    $emailInput,
     isEmailEmpty,
     isEmailInvalid,
     isEmailUsed
   ).then((response) => response);
-}
+};
 
-function passwordFocusoutFunction() {
-  const isPasswordEmpty = checkEmptyInput(pwdInput.value);
-  const isPasswordInvalid = checkInvalidPasswordPattern(pwdInput.value);
+const passwordFocusoutFunction = () => {
+  const isPasswordEmpty = checkEmptyInput($pwdInput.value);
+  const isPasswordInvalid = checkInvalidPasswordPattern($pwdInput.value);
   validPassword = checkValidPassword(
-    pwdInput,
+    $pwdInput,
     isPasswordEmpty,
     isPasswordInvalid
   );
-}
+};
 
-function passwordCheckFocusoutFunction() {
-  const isPasswordEmpty = checkEmptyInput(pwdCheckInput.value);
-  const isPasswordInvalid = checkInvalidPasswordPattern(pwdCheckInput.value);
+const passwordCheckFocusoutFunction = () => {
+  const isPasswordEmpty = checkEmptyInput($pwdCheckInput.value);
+  const isPasswordInvalid = checkInvalidPasswordPattern($pwdCheckInput.value);
   const isPasswordMatch = checkPasswordsMatch(
-    pwdInput.value,
-    pwdCheckInput.value
+    $pwdInput.value,
+    $pwdCheckInput.value
   );
   validPasswordCheck = checkValidPasswordCheck(
-    pwdCheckInput,
+    $pwdCheckInput,
     isPasswordEmpty,
     isPasswordInvalid,
     isPasswordMatch
   );
-}
+};
 
 /* 유효한 회원가입 시도 시 페이지 이동 */
 const handleSignupRequest = async (e) => {
@@ -81,38 +81,38 @@ const handleSignupRequest = async (e) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: emailInput.value,
-        password: pwdInput.value,
+        email: $emailInput.value,
+        password: $pwdInput.value,
       }),
     });
 
     if (response.ok) {
       const result = await response.json();
       localStorage.setItem("accessToken", result.data.accessToken);
-      signupForm.submit();
+      $signupForm.submit();
     }
   } else {
-    emailInput.classList.add("invalid-border");
-    pwdInput.classList.add("invalid-border");
-    pwdCheckInput.classList.add("invalid-border");
+    $emailInput.classList.add("invalid-border");
+    $pwdInput.classList.add("invalid-border");
+    $pwdCheckInput.classList.add("invalid-border");
 
-    emailErrorMsg.textContent = CHECK_EMAIL;
-    pwdErrorMsg.textContent = CHECK_PASSWORD;
-    pwdCheckErrorMsg.textContent = CHECK_PASSWORD;
+    $emailErrorMsg.textContent = CHECK_EMAIL;
+    $pwdErrorMsg.textContent = CHECK_PASSWORD;
+    $pwdCheckErrorMsg.textContent = CHECK_PASSWORD;
   }
 };
 
-function singupFormSubmitFunction(event) {
+const singupFormSubmitFunction = (event) => {
   handleSignupRequest(event);
-}
+};
 
 /* 눈모양 아이콘 누르면 비밀번호 보였다 숨기기 */
-eyeIcons.forEach((el, idx) =>
+$eyeIcons.forEach((el, idx) =>
   el.addEventListener("click", () =>
-    toggleIcon(el, idx ? pwdCheckInput : pwdInput)
+    toggleIcon(el, idx ? $pwdCheckInput : $pwdInput)
   )
 );
-emailInput.addEventListener("focusout", emailFocusoutFunction);
-pwdInput.addEventListener("focusout", passwordFocusoutFunction);
-pwdCheckInput.addEventListener("focusout", passwordCheckFocusoutFunction);
-signupForm.addEventListener("submit", singupFormSubmitFunction);
+$emailInput.addEventListener("focusout", emailFocusoutFunction);
+$pwdInput.addEventListener("focusout", passwordFocusoutFunction);
+$pwdCheckInput.addEventListener("focusout", passwordCheckFocusoutFunction);
+$signupForm.addEventListener("submit", singupFormSubmitFunction);
