@@ -4,7 +4,7 @@ import {
   checkInvalidPasswordPattern,
   checkPasswordsMatch,
   checkUsedEmail,
-} from "./functions.js";
+} from "./validationFunctions.js";
 import { CHECK_EMAIL, CHECK_PASSWORD } from "./constant.js";
 import {
   $emailInput,

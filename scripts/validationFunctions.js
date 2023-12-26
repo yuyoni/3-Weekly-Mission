@@ -1,11 +1,10 @@
 const checkEmptyInput = (value) => {
   const hasContent = value.trim();
-  return !hasContent;
+  return hasContent === "";
 };
 
 const checkInvalidEmailPattern = (email) => {
-  const validation = !/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(email);
-  return validation;
+  return !/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(email);
 };
 
 const checkUsedEmail = async (email) => {
@@ -20,20 +19,17 @@ const checkUsedEmail = async (email) => {
     }
   );
 
-  const isInUse = response.status === 409;
-
-  return isInUse;
+  return response.status === 409;
 };
 
 const checkInvalidPasswordPattern = (password) => {
-  const validation =
-    !/^(?=.*[a-zA-Z])(?=.*\d)(?=\S+$)/.test(password) || password.length < 8;
-  return validation;
+  return (
+    !/^(?=.*[a-zA-Z])(?=.*\d)(?=\S+$)/.test(password) || password.length < 8
+  );
 };
 
 const checkPasswordsMatch = (password, passwordCheck) => {
-  const checkPassword = password !== passwordCheck;
-  return checkPassword;
+  return password !== passwordCheck;
 };
 
 export {

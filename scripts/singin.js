@@ -2,7 +2,7 @@ import {
   checkEmptyInput,
   checkInvalidEmailPattern,
   checkInvalidPasswordPattern,
-} from "./functions.js";
+} from "./validationFunctions.js";
 import { CHECK_EMAIL, CHECK_PASSWORD } from "./errorConstants.js";
 import {
   $emailInput,
