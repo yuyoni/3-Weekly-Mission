@@ -1,39 +1,80 @@
 import {
-  emailInput,
-  pwdInputs,
-  eyeIcons,
-  errorMsgs,
-  loginForm,
+  checkEmptyInput,
+  checkInvalidEmailPattern,
+  checkInvalidPasswordPattern,
+} from "./functions.js";
+import { CHECK_EMAIL, CHECK_PASSWORD } from "./constant.js";
+import {
+  $emailInput,
+  $pwdInput,
+  $eyeIcons,
+  $loginForm,
+  $emailErrorMsg,
+  $pwdErrorMsg,
 } from "./tags.js";
 import toggleIcon from "./toggleIcon.js";
-import { isValidEmail, isValidPwd } from "./validation.js";
+import { checkValidEmail, checkValidPassword } from "./validation.js";
 
-/* 눈모양 아이콘 누르면 비밀번호 보이기 */
-eyeIcons[0].addEventListener("click", () =>
-  toggleIcon(eyeIcons[0], pwdInputs[0])
-);
+let validEmail, validPassword;
 
-/* 이메일 및 비밀번호 유효성 검사 */
-emailInput.addEventListener("focusout", () =>
-  isValidEmail(emailInput, errorMsgs[0])
-);
-pwdInputs[0].addEventListener("focusout", () =>
-  isValidPwd(pwdInputs[0], errorMsgs[1])
-);
+/* accessToken 있으면 페이지 이동 */
+if (localStorage.getItem("accessToken")) {
+  $loginForm.submit();
+}
 
-/* "test@codeit.com" 이메일과 "codeit101" 비밀번호로 로그인하면 이동, 틀리면 오류메세지 */
-loginForm.addEventListener("submit", (e) => {
+/* 눈모양 아이콘 누르면 비밀번호 보였다 숨기기 */
+const eyeIconClickFunction = () => {
+  toggleIcon($eyeIcons[0], $pwdInput);
+};
+
+const emailFocusoutFunction = () => {
+  const isEmailEmpty = checkEmptyInput($emailInput.value);
+  const isEmailInvalid = checkInvalidEmailPattern($emailInput.value);
+  validEmail = checkValidEmail($emailInput, isEmailEmpty, isEmailInvalid);
+};
+
+const passwordFocusoutFunction = () => {
+  const isPasswordEmpty = checkEmptyInput($pwdInput.value);
+  const isPasswordInvalid = checkInvalidPasswordPattern($pwdInput.value);
+  validPassword = checkValidPassword(
+    $pwdInput,
+    isPasswordEmpty,
+    isPasswordInvalid
+  );
+};
+
+/* 유효한 로그인 시도 시 페이지 이동 */
+const handleLoginRequest = async (e) => {
   e.preventDefault();
 
-  const rightEmail = "test@codeit.com";
-  const rightPwd = "codeit101";
+  const allValid = validEmail && validPassword;
 
-  if (emailInput.value === rightEmail && pwdInputs[0].value === rightPwd) {
-    window.location.href = "folder.html";
+  const response = await fetch("https://bootcamp-api.codeit.kr/api/sign-in", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: $emailInput.value,
+      password: $pwdInput.value,
+    }),
+  });
+
+  if (allValid && response.ok) {
+    const result = await response.json();
+    localStorage.setItem("accessToken", result.data.accessToken);
+    $loginForm.submit();
   } else {
-    emailInput.classList.add("invalid-border");
-    pwdInputs[0].classList.add("invalid-border");
-    errorMsgs[0].textContent = "이메일을 확인해주세요.";
-    errorMsgs[1].textContent = "비밀번호를 확인해주세요.";
+    $emailInput.classList.add("invalid-border");
+    $pwdInput.classList.add("invalid-border");
+    $emailErrorMsg.textContent = CHECK_EMAIL;
+    $pwdErrorMsg.textContent = CHECK_PASSWORD;
   }
-});
+};
+
+const loginFormSubmitFunction = (event) => {
+  handleLoginRequest(event);
+};
+
+$eyeIcons[0].addEventListener("click", eyeIconClickFunction);
+$emailInput.addEventListener("focusout", emailFocusoutFunction);
+$pwdInput.addEventListener("focusout", passwordFocusoutFunction);
+$loginForm.addEventListener("submit", loginFormSubmitFunction);

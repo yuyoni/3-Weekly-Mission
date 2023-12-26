@@ -1,32 +1,76 @@
+import {
+  EMPTY_EMAIL,
+  EMPTY_PASSWORD,
+  INVALID_EMAIL,
+  INVALID_PASSWORD,
+  USED_EMAIL,
+  WRONG_PASSWORD,
+} from "./constant.js";
+import { $emailErrorMsg, $pwdCheckErrorMsg, $pwdErrorMsg } from "./tags.js";
+
 /* 이메일 유효성 검사 */
-const isValidEmail = (element, message) => {
-  const isEmpty = element.value.length === 0;
-  const isInvalidPattern = !/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(
-    element.value
+const checkValidEmail = async (
+  email,
+  isInputEmpty,
+  isInputInvalid,
+  isInputUsed = false
+) => {
+  email.classList.toggle(
+    "invalid-border",
+    isInputEmpty || isInputInvalid || isInputUsed
   );
 
-  element.classList.toggle("invalid-border", isEmpty || isInvalidPattern);
+  if (isInputEmpty) {
+    $emailErrorMsg.textContent = EMPTY_EMAIL;
+  } else if (isInputInvalid) {
+    $emailErrorMsg.textContent = INVALID_EMAIL;
+  } else if (isInputUsed) {
+    $emailErrorMsg.textContent = USED_EMAIL;
+  } else {
+    $emailErrorMsg.textContent = "";
+  }
 
-  message.textContent = isEmpty
-    ? "이메일을 입력해주세요."
-    : isInvalidPattern
-    ? "올바른 이메일 주소가 아닙니다."
-    : "";
+  return !(isInputEmpty || isInputInvalid || isInputUsed);
 };
 
 /* 비밀번호 유효성 검사 */
-const isValidPwd = (element, message) => {
-  const isEmpty = element.value.length === 0;
-  const isInvalidPattern =
-    !/(?=.*[a-zA-Z])(?=.*\d).*/.test(element.value) || element.value.length < 8;
+const checkValidPassword = (password, isInputEmpty, isInputInvalid) => {
+  password.classList.toggle("invalid-border", isInputEmpty || isInputInvalid);
 
-  element.classList.toggle("invalid-border", isEmpty || isInvalidPattern);
+  if (isInputEmpty) {
+    $pwdErrorMsg.textContent = EMPTY_PASSWORD;
+  } else if (isInputInvalid) {
+    $pwdErrorMsg.textContent = INVALID_PASSWORD;
+  } else {
+    $pwdErrorMsg.textContent = "";
+  }
 
-  message.textContent = isEmpty
-    ? "비밀번호를 입력해주세요."
-    : isInvalidPattern
-    ? "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요."
-    : "";
+  return !(isInputEmpty || isInputInvalid);
 };
 
-export { isValidEmail, isValidPwd };
+/* 비밀번호 확인 유효성 검사 */
+const checkValidPasswordCheck = (
+  passwordCheck,
+  isInputEmpty,
+  isInputInvalid,
+  isPasswordMatch
+) => {
+  passwordCheck.classList.toggle(
+    "invalid-border",
+    isInputEmpty || isInputInvalid || isPasswordMatch
+  );
+
+  if (isInputEmpty) {
+    $pwdCheckErrorMsg.textContent = EMPTY_PASSWORD;
+  } else if (isInputInvalid) {
+    $pwdCheckErrorMsg.textContent = INVALID_PASSWORD;
+  } else if (isPasswordMatch) {
+    $pwdCheckErrorMsg.textContent = WRONG_PASSWORD;
+  } else {
+    $pwdCheckErrorMsg.textContent = "";
+  }
+
+  return !(isInputEmpty || isInputInvalid || isPasswordMatch);
+};
+
+export { checkValidEmail, checkValidPassword, checkValidPasswordCheck };

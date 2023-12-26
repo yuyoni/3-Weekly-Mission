@@ -1,62 +1,118 @@
 import {
-  emailInput,
-  pwdInputs,
-  eyeIcons,
-  errorMsgs,
-  signupForm,
+  checkEmptyInput,
+  checkInvalidEmailPattern,
+  checkInvalidPasswordPattern,
+  checkPasswordsMatch,
+  checkUsedEmail,
+} from "./functions.js";
+import { CHECK_EMAIL, CHECK_PASSWORD } from "./constant.js";
+import {
+  $emailInput,
+  $pwdInput,
+  $pwdCheckInput,
+  $eyeIcons,
+  $signupForm,
+  $emailErrorMsg,
+  $pwdErrorMsg,
+  $pwdCheckErrorMsg,
 } from "./tags.js";
 import toggleIcon from "./toggleIcon.js";
-import { isValidEmail, isValidPwd } from "./validation.js";
+import {
+  checkValidEmail,
+  checkValidPassword,
+  checkValidPasswordCheck,
+} from "./validation.js";
 
-/* 눈모양 아이콘 누르면 비밀번호 보이기 */
-eyeIcons.forEach((el, idx) =>
-  el.addEventListener("click", () => toggleIcon(el, pwdInputs[idx]))
-);
+let validEmail, validPassword, validPasswordCheck;
 
-/* 이메일 및 비밀번호 유효성 검사 */
-emailInput.addEventListener("focusout", () => {
-  const isExistEmail = emailInput.value === "test@codeit.com";
-  /* "test@codeit.com"로 회원가입 시도 시 오류 메세지 */
-  if (isExistEmail) {
-    emailInput.classList.toggle("invalid-border", isExistEmail);
-    errorMsgs[0].textContent = "이미 사용중인 이메일 입니다.";
-  } else {
-    isValidEmail(emailInput, errorMsgs[0]);
-  }
-});
+/* accessToken 있으면 페이지 이동 */
+if (localStorage.getItem("accessToken")) {
+  $signupForm.submit();
+}
 
-pwdInputs[0].addEventListener("focusout", () =>
-  isValidPwd(pwdInputs[0], errorMsgs[1])
-);
+const emailFocusoutFunction = async () => {
+  const isEmailEmpty = checkEmptyInput($emailInput.value);
+  const isEmailInvalid = checkInvalidEmailPattern($emailInput.value);
+  const isEmailUsed = await checkUsedEmail($emailInput.value);
 
-/* 비밀번호 확인 입력값이 비밀번호 입력값과 같은 지 검사 */
-pwdInputs[1].addEventListener("focusout", () => {
-  const checkPassword = pwdInputs[0].value !== pwdInputs[1].value;
-  if (checkPassword) {
-    pwdInputs[1].classList.toggle("invalid-border", checkPassword);
-    errorMsgs[2].textContent = checkPassword ? "비밀번호가 다릅니다." : "";
-  } else {
-    isValidPwd(pwdInputs[1], errorMsgs[2]);
-  }
-});
+  validEmail = await checkValidEmail(
+    $emailInput,
+    isEmailEmpty,
+    isEmailInvalid,
+    isEmailUsed
+  ).then((response) => response);
+};
+
+const passwordFocusoutFunction = () => {
+  const isPasswordEmpty = checkEmptyInput($pwdInput.value);
+  const isPasswordInvalid = checkInvalidPasswordPattern($pwdInput.value);
+  validPassword = checkValidPassword(
+    $pwdInput,
+    isPasswordEmpty,
+    isPasswordInvalid
+  );
+};
+
+const passwordCheckFocusoutFunction = () => {
+  const isPasswordEmpty = checkEmptyInput($pwdCheckInput.value);
+  const isPasswordInvalid = checkInvalidPasswordPattern($pwdCheckInput.value);
+  const isPasswordMatch = checkPasswordsMatch(
+    $pwdInput.value,
+    $pwdCheckInput.value
+  );
+  validPasswordCheck = checkValidPasswordCheck(
+    $pwdCheckInput,
+    isPasswordEmpty,
+    isPasswordInvalid,
+    isPasswordMatch
+  );
+};
 
 /* 유효한 회원가입 시도 시 페이지 이동 */
-signupForm.addEventListener("submit", (e) => {
+const handleSignupRequest = async (e) => {
   e.preventDefault();
 
-  const isEmptyInput =
-    emailInput.value.length === 0 || pwdInputs[0].value.length === 0;
-  const isEmptyError = [...errorMsgs].some((el) => el.textContent.length > 0);
+  const allValid = validEmail && validPassword && validPasswordCheck;
 
-  if (!isEmptyInput && !isEmptyError) {
-    /* input이 비어있지 않으면서 오류 메시지가 없으면 회원가입 성공 */
-    window.location.href = "folder.html";
+  if (allValid) {
+    const response = await fetch("https://bootcamp-api.codeit.kr/api/sign-up", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: $emailInput.value,
+        password: $pwdInput.value,
+      }),
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      localStorage.setItem("accessToken", result.data.accessToken);
+      $signupForm.submit();
+    }
   } else {
-    emailInput.classList.add("invalid-border");
-    pwdInputs[0].classList.add("invalid-border");
-    pwdInputs[1].classList.add("invalid-border");
-    errorMsgs[0].textContent = "이메일을 확인해주세요.";
-    errorMsgs[1].textContent = "비밀번호를 확인해주세요.";
-    errorMsgs[2].textContent = "비밀번호를 확인해주세요.";
+    $emailInput.classList.add("invalid-border");
+    $pwdInput.classList.add("invalid-border");
+    $pwdCheckInput.classList.add("invalid-border");
+
+    $emailErrorMsg.textContent = CHECK_EMAIL;
+    $pwdErrorMsg.textContent = CHECK_PASSWORD;
+    $pwdCheckErrorMsg.textContent = CHECK_PASSWORD;
   }
-});
+};
+
+const singupFormSubmitFunction = (event) => {
+  handleSignupRequest(event);
+};
+
+/* 눈모양 아이콘 누르면 비밀번호 보였다 숨기기 */
+$eyeIcons.forEach((el, idx) =>
+  el.addEventListener("click", () =>
+    toggleIcon(el, idx ? $pwdCheckInput : $pwdInput)
+  )
+);
+$emailInput.addEventListener("focusout", emailFocusoutFunction);
+$pwdInput.addEventListener("focusout", passwordFocusoutFunction);
+$pwdCheckInput.addEventListener("focusout", passwordCheckFocusoutFunction);
+$signupForm.addEventListener("submit", singupFormSubmitFunction);
