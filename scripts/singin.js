@@ -46,22 +46,27 @@ const handleLoginRequest = async (e) => {
 
   const allValid = validEmail && validPassword;
 
-  const response = await fetch("https://bootcamp-api.codeit.kr/api/sign-in", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      email: $emailInput.value,
-      password: $pwdInput.value,
-    }),
-  });
+  if (allValid) {
+    const response = await fetch("https://bootcamp-api.codeit.kr/api/sign-in", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: $emailInput.value,
+        password: $pwdInput.value,
+      }),
+    });
 
-  if (allValid && response.ok) {
-    const result = await response.json();
-    localStorage.setItem("accessToken", result.data.accessToken);
-    $loginForm.submit();
+    if (response.ok) {
+      const result = await response.json();
+      localStorage.setItem("accessToken", result.data.accessToken);
+      $loginForm.submit();
+    }
   } else {
     $emailInput.classList.add("invalid-border");
     $pwdInput.classList.add("invalid-border");
+
     $emailErrorMsg.textContent = CHECK_EMAIL;
     $pwdErrorMsg.textContent = CHECK_PASSWORD;
   }
