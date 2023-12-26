@@ -3,7 +3,7 @@ import {
   checkInvalidEmailPattern,
   checkInvalidPasswordPattern,
 } from "./functions.js";
-import { CHECK_EMAIL, CHECK_PASSWORD } from "./constant.js";
+import { CHECK_EMAIL, CHECK_PASSWORD } from "./errorConstants.js";
 import {
   $emailInput,
   $pwdInput,
@@ -13,16 +13,14 @@ import {
   $pwdErrorMsg,
 } from "./tags.js";
 import toggleIcon from "./toggleIcon.js";
-import { checkValidEmail, checkValidPassword } from "./validation.js";
+import { checkValidEmail, checkValidPassword } from "./validationUtils.js";
 
 let validEmail, validPassword;
 
-/* accessToken 있으면 페이지 이동 */
 if (localStorage.getItem("accessToken")) {
   $loginForm.submit();
 }
 
-/* 눈모양 아이콘 누르면 비밀번호 보였다 숨기기 */
 const eyeIconClickFunction = () => {
   toggleIcon($eyeIcons[0], $pwdInput);
 };
@@ -43,7 +41,6 @@ const passwordFocusoutFunction = () => {
   );
 };
 
-/* 유효한 로그인 시도 시 페이지 이동 */
 const handleLoginRequest = async (e) => {
   e.preventDefault();
 

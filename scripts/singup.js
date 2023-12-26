@@ -25,7 +25,6 @@ import {
 
 let validEmail, validPassword, validPasswordCheck;
 
-/* accessToken 있으면 페이지 이동 */
 if (localStorage.getItem("accessToken")) {
   $signupForm.submit();
 }
@@ -68,7 +67,6 @@ const passwordCheckFocusoutFunction = () => {
   );
 };
 
-/* 유효한 회원가입 시도 시 페이지 이동 */
 const handleSignupRequest = async (e) => {
   e.preventDefault();
 
@@ -106,7 +104,6 @@ const singupFormSubmitFunction = (event) => {
   handleSignupRequest(event);
 };
 
-/* 눈모양 아이콘 누르면 비밀번호 보였다 숨기기 */
 $eyeIcons.forEach((el, idx) =>
   el.addEventListener("click", () =>
     toggleIcon(el, idx ? $pwdCheckInput : $pwdInput)

@@ -5,10 +5,9 @@ import {
   INVALID_PASSWORD,
   USED_EMAIL,
   WRONG_PASSWORD,
-} from "./constant.js";
+} from "./errorConstants.js";
 import { $emailErrorMsg, $pwdCheckErrorMsg, $pwdErrorMsg } from "./tags.js";
 
-/* 이메일 유효성 검사 */
 const checkValidEmail = async (
   email,
   isInputEmpty,
@@ -33,7 +32,6 @@ const checkValidEmail = async (
   return !(isInputEmpty || isInputInvalid || isInputUsed);
 };
 
-/* 비밀번호 유효성 검사 */
 const checkValidPassword = (password, isInputEmpty, isInputInvalid) => {
   password.classList.toggle("invalid-border", isInputEmpty || isInputInvalid);
 
@@ -48,7 +46,6 @@ const checkValidPassword = (password, isInputEmpty, isInputInvalid) => {
   return !(isInputEmpty || isInputInvalid);
 };
 
-/* 비밀번호 확인 유효성 검사 */
 const checkValidPasswordCheck = (
   passwordCheck,
   isInputEmpty,
