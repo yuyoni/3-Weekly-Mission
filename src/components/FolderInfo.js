@@ -12,7 +12,7 @@ function UserInfo() {
 
 function FolderInfo() {
   return (
-    <div className="container">
+    <div className="folder-container">
       <div className="folder-info">
         <UserInfo />
         <span className="folder-name">⭐️ 즐겨찾기</span>
