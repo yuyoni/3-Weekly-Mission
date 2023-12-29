@@ -26,3 +26,8 @@
   font-size: 40px;
   font-weight: 600;
 }
+
+.user-image {
+  width: 60px;
+  height: 60px;
+}
