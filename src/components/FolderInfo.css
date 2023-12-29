@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0 60px;
+
+  background-color: #f0f6ff;
+}
+
+.folder-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+.profile-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.folder-name {
+  font-size: 40px;
+  font-weight: 600;
+}
