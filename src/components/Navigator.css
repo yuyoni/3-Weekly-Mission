@@ -1,0 +1,13 @@
+.navigator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 200px;
+  background-color: #f0f6ff;
+}
+
+.user-account {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
