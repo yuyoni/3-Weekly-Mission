@@ -2,6 +2,7 @@ import Navigator from "./Navigator";
 import FolderInfo from "./FolderInfo";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
+import Contents from "./Contents";
 
 function App() {
   const [folderData, setFolderData] = useState(null);
@@ -20,12 +21,11 @@ function App() {
     fetchData();
   }, []);
 
-  if (folderData) console.log(folderData.folder);
-
   return (
     <div className="App">
       <Navigator />
       <FolderInfo folderData={folderData} />
+      <Contents folderData={folderData} />
       <Footer />
     </div>
   );
