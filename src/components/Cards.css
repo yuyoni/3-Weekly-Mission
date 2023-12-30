@@ -18,6 +18,10 @@
   cursor: pointer;
 }
 
+.card:hover .detail-box {
+  background-color: #f0f6ff;
+}
+
 .link-img-box {
   overflow: hidden;
   display: flex;
