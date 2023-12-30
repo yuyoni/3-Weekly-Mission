@@ -34,9 +34,13 @@
 }
 
 .link-img {
-  max-width: 150%;
-  object-fit: cover;
-  object-position: center;
+  max-width: 100%;
+  transition: width 0.3s ease;
+}
+
+.card:hover .link-img {
+  max-width: none;
+  width: 130%;
 }
 
 .detail-box {
