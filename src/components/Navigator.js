@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import logo from "../assets/logo.svg";
-import profileIcon from "../assets/profile.svg";
 import "./Navigator.css";
 import { fetchUserData } from "./api";
 
@@ -20,7 +19,11 @@ function Profile() {
     <div className="user-account">
       {userData ? (
         <>
-          <img className="profile-icon" src={profileIcon} alt="profile-icon" />
+          <img
+            className="profile-icon"
+            src={userData.profileImageSource}
+            alt="profile-icon"
+          />
           <span className="user-email">{userData.email}</span>
         </>
       ) : (

@@ -23,7 +23,9 @@ function Card({ link }) {
       <div className="detail-box">
         <span className="elapsed-time">{elapsedTime}</span>
         <p className="description">{link.description}</p>
-        <span className="formatted-data">{formattedDate}</span>
+        <span className="formatted-data">
+          {formattedDate.replace(/-/g, ". ")}
+        </span>
       </div>
     </div>
   );
