@@ -36,12 +36,14 @@
   nav {
     width: 800px;
   }
-  .cards {
-    width: 704px;
-  }
+  @media (max-width: 1124px) {
+    .cards {
+      width: 704px;
+    }
 
-  main {
-    width: 704px;
-    margin: 40px 32px 100px;
+    main {
+      width: 704px;
+      margin: 40px 32px 100px;
+    }
   }
 }
