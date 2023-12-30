@@ -24,7 +24,9 @@ function Profile() {
           <span className="user-email">{userData.email}</span>
         </>
       ) : (
-        <a href="/signin">로그인</a>
+        <a className="cta" href="/signin">
+          로그인
+        </a>
       )}
     </div>
   );
