@@ -10,17 +10,38 @@
   width: 100%;
 }
 
-/* Tablet size */
-@media (min-width: 768px) and (max-width: 1199px) {
+/* Mobile size */
+@media (max-width: 767px) {
+  header {
+    padding: 18px 32px;
+  }
   nav {
-    padding: 32px;
+    width: 100%;
+  }
+  .user-email {
+    display: none;
   }
   main,
+  .cards {
+    width: 325px;
+    margin: 20px 32px 60px;
+  }
+}
+
+/* Tablet size */
+@media (min-width: 768px) and (max-width: 1199px) {
+  header {
+    padding: 32px;
+  }
+  nav {
+    width: 800px;
+  }
   .cards {
     width: 704px;
   }
 
   main {
+    width: 704px;
     margin: 40px 32px 100px;
   }
 }

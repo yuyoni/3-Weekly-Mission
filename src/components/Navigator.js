@@ -34,12 +34,14 @@ function Profile() {
 
 function Navigator() {
   return (
-    <nav>
-      <a href="/">
-        <img src={logo} alt="logo" />
-      </a>
-      <Profile />
-    </nav>
+    <header>
+      <nav>
+        <a href="/">
+          <img src={logo} alt="logo" />
+        </a>
+        <Profile />
+      </nav>
+    </header>
   );
 }
 
