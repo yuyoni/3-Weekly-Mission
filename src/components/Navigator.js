@@ -34,12 +34,12 @@ function Profile() {
 
 function Navigator() {
   return (
-    <div className="navigator">
+    <nav>
       <a href="/">
         <img src={logo} alt="logo" />
       </a>
       <Profile />
-    </div>
+    </nav>
   );
 }
 

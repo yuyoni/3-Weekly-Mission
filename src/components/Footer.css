@@ -1,10 +1,10 @@
-.footer-container {
+footer {
   display: flex;
   justify-content: space-between;
   background-color: #111322;
 }
 
-.footer {
+.footer-container {
   display: flex;
   justify-content: space-between;
   padding: 32px 104px 64px;

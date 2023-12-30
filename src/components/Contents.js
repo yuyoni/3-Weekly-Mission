@@ -13,10 +13,10 @@ function SearchBar() {
 
 function Contents({ folderData }) {
   return (
-    <div className="main">
+    <main>
       <SearchBar />
       <Cards folderData={folderData} />
-    </div>
+    </main>
   );
 }
 
