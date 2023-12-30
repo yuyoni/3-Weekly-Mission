@@ -1,0 +1,22 @@
+.Wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Tablet size */
+@media (min-width: 768px) and (max-width: 1199px) {
+  nav {
+    padding: 32px;
+  }
+  main,
+  .cards {
+    width: 704px;
+  }
+
+  main {
+    margin: 40px 32px 100px;
+  }
+}
