@@ -46,11 +46,11 @@
 }
 
 .description {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-family: Pretendard;
+  margin: 0;
   font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
+  max-height: 40px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
