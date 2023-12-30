@@ -1,7 +1,6 @@
 .cards {
   display: flex;
   justify-content: center;
-
   align-items: center;
   flex-wrap: wrap;
   width: 1060px;
@@ -24,7 +23,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 253.746px;
+  height: 200px;
   flex-shrink: 0;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;

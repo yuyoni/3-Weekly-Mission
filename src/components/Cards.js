@@ -1,4 +1,5 @@
 import "./Cards.css";
+import noImage from "../assets/no-image.svg";
 import formatDateAndDifference from "../FormatDate";
 
 function Card({ link }) {
@@ -13,7 +14,11 @@ function Card({ link }) {
   return (
     <div className="card" onClick={handleClick}>
       <div className="link-img-box">
-        <img className="link-img" src={link.imageSource} alt={link.title} />
+        <img
+          className="link-img"
+          src={link.imageSource || noImage}
+          alt={link.title}
+        />
       </div>
       <div className="detail-box">
         <span className="elapsed-time">{elapsedTime}</span>
