@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import logo from "../assets/logo.svg";
-import "./Navigator.css";
 import { fetchUserData } from "./api";
+import logo from "../assets/logo.svg";
+import "../css/Navigator.css";
 
 function Profile() {
   const [userData, setUserData] = useState("");

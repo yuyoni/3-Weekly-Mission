@@ -1,6 +1,6 @@
 import Cards from "./Cards";
 import search from "../assets/Search.svg";
-import "./Contents.css";
+import "../css/Contents.css";
 
 function SearchBar() {
   return (

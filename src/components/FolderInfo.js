@@ -1,5 +1,5 @@
 import avatar from "../assets/avatar.svg";
-import "./FolderInfo.css";
+import "../css/FolderInfo.css";
 
 function UserInfo({ folderData }) {
   return (

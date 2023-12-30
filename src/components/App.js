@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import Contents from "./Contents";
 import { fetchFolderData } from "./api";
-import "./App.css";
+import "../css/App.css";
 
 function App() {
   const [folderData, setFolderData] = useState("");

@@ -1,6 +1,6 @@
-import "./Cards.css";
 import noImage from "../assets/no-image.svg";
 import formatDateAndDifference from "../FormatDate";
+import "../css/Cards.css";
 
 function Card({ link }) {
   const handleClick = () => {
