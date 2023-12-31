@@ -34,11 +34,9 @@ function Card({ link }) {
 function Cards({ folderData }) {
   return (
     <div className="cards">
-      {folderData
-        ? folderData.folder.links.map((link) => {
-            return <Card key={link.id} link={link} />;
-          })
-        : ""}
+      {folderData?.links.map((link) => {
+        return <Card key={link.id} link={link} />;
+      })}
     </div>
   );
 }

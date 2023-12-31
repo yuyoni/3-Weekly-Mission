@@ -7,7 +7,7 @@ import { fetchFolderData } from "../api/api";
 import "../css/App.css";
 
 function App() {
-  const [folderData, setFolderData] = useState("");
+  const [folderData, setFolderData] = useState(null);
 
   const handleLoad = async () => {
     const user = await fetchFolderData();
@@ -22,8 +22,8 @@ function App() {
     <div className="App">
       <Navigator />
       <div className="Wrapper">
-        <FolderInfo folderData={folderData} />
-        <Contents folderData={folderData} />
+        <FolderInfo folderData={folderData?.folder} />
+        <Contents folderData={folderData?.folder} />
       </div>
       <Footer />
     </div>

@@ -1,17 +1,15 @@
 import avatar from "../assets/avatar.svg";
 import "../css/FolderInfo.css";
 
-function UserInfo({ folderData }) {
+function UserInfo({ folderOwner }) {
   return (
     <div className="profile-box">
       <img
         className="user-image"
-        src={folderData ? folderData.folder.owner.profileImageSource : avatar}
+        src={folderOwner ? folderOwner.profileImageSource : avatar}
         alt="avatar"
       />
-      <span className="user-name">
-        @{folderData ? folderData.folder.owner.name : null}
-      </span>
+      <span className="user-name">@{folderOwner?.name}</span>
     </div>
   );
 }
@@ -20,10 +18,8 @@ function FolderInfo({ folderData }) {
   return (
     <div className="folder-container">
       <div className="folder-info">
-        <UserInfo folderData={folderData ? folderData : null} />
-        <span className="folder-name">
-          {folderData ? folderData.folder.name : null}
-        </span>
+        <UserInfo folderOwner={folderData?.owner} />
+        <span className="folder-name">{folderData?.name}</span>
       </div>
     </div>
   );
