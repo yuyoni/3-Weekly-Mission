@@ -3,7 +3,7 @@ import FolderInfo from "./FolderInfo";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import Contents from "./Contents";
-import { fetchFolderData } from "./api";
+import { fetchFolderData } from "../api/api";
 import "../css/App.css";
 
 function App() {

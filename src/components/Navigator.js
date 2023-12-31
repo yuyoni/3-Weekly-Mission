@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchUserData } from "./api";
+import { fetchUserData } from "../api/api";
 import logo from "../assets/logo.svg";
 import "../css/Navigator.css";
 

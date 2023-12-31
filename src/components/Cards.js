@@ -1,5 +1,5 @@
 import noImage from "../assets/no-image.svg";
-import formatDateAndDifference from "../FormatDate";
+import formatDateAndDifference from "../utils/FormatDate";
 import "../css/Cards.css";
 
 function Card({ link }) {
