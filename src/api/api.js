@@ -1,8 +1,9 @@
+const folderApiUrl = process.env.REACT_APP_FOLDER_API;
+const userApiUrl = process.env.REACT_APP_USER_API;
+
 export async function fetchFolderData() {
   try {
-    const response = await fetch(
-      "https://bootcamp-api.codeit.kr/api/sample/folder"
-    );
+    const response = await fetch(folderApiUrl);
     const body = await response.json();
     return body;
   } catch {
@@ -12,9 +13,7 @@ export async function fetchFolderData() {
 
 export async function fetchUserData() {
   try {
-    const response = await fetch(
-      "https://bootcamp-api.codeit.kr/api/sample/user"
-    );
+    const response = await fetch(userApiUrl);
     const body = await response.json();
     return body;
   } catch {
