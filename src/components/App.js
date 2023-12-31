@@ -1,10 +1,10 @@
-import Navigator from "./Navigator";
-import FolderInfo from "./FolderInfo";
-import Footer from "./Footer";
 import { useEffect, useState } from "react";
-import Contents from "./Contents";
 import { fetchFolderData } from "../api/api";
 import "../css/App.css";
+import Contents from "./Contents";
+import FolderInfo from "./FolderInfo";
+import Footer from "./Footer";
+import Navigator from "./Navigator";
 
 function App() {
   const [folderData, setFolderData] = useState(null);

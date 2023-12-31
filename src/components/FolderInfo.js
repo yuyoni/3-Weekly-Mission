@@ -1,18 +1,5 @@
-import avatar from "../assets/avatar.svg";
 import "../css/FolderInfo.css";
-
-function UserInfo({ folderOwner }) {
-  return (
-    <div className="profile-box">
-      <img
-        className="user-image"
-        src={folderOwner ? folderOwner.profileImageSource : avatar}
-        alt="avatar"
-      />
-      <span className="user-name">@{folderOwner?.name}</span>
-    </div>
-  );
-}
+import UserInfo from "./Userinfo";
 
 function FolderInfo({ folderData }) {
   return (
