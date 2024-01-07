@@ -31,8 +31,10 @@ const FolderElement = styled.div`
   flex-direction: column;
   align-items: center;
   border-radius: 5px;
-  border: 1px solid var(--Linkbrary-primary-color, #6d6afe);
-  background: #fff;
+  border: 1px solid #6d6afe;
+  background: ${({ isSelected }) => (isSelected ? "#6d6afe" : "#fff")};
+  color: ${({ isSelected }) => (isSelected ? "#fff" : "#000")};
+  cursor: pointer;
 `;
 
 export default function Shared() {
@@ -55,12 +57,18 @@ export default function Shared() {
         <SearchBar />
         <FolderBox>
           <FolderList>
-            <FolderElement onClick={() => handleClick("")}>전체</FolderElement>
+            <FolderElement
+              isSelected={folderId === ""}
+              onClick={() => handleClick("")}
+            >
+              전체
+            </FolderElement>
             {folderData
               ? folderData.map((folder) => {
                   return (
                     <FolderElement
                       key={folder.id}
+                      isSelected={folderId === folder.id}
                       onClick={() => handleClick(folder.id)}
                     >
                       {folder.name}
