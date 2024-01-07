@@ -5,6 +5,9 @@ import useFetchData from "../hooks/useFetchData";
 import Card from "../components/Card";
 import convertKeyToCamelCase from "../utils/convertKeyToCamelCase";
 import add from "../assets/add.svg";
+import share from "../assets/share.svg";
+import pen from "../assets/pen.svg";
+import trashcan from "../assets/trashcan.svg";
 import { useState } from "react";
 
 const Container = styled.div`
@@ -37,17 +40,43 @@ const FolderElement = styled.div`
   cursor: pointer;
 `;
 
+const EditBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 24px;
+  font-weight: 600;
+  visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
+`;
+
+const Edit = styled.div`
+  display: flex;
+  gap: 12px;
+  & span {
+    font-size: 14px;
+    color: #9fa6b2;
+  }
+  & div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  justify-content: space-between;
+`;
+
 export default function Shared() {
   const [folderId, setFolderId] = useState("");
+  const [folderName, setFolderName] = useState("전체");
 
   const folderData = useFetchData("users/1/folders")?.data;
   const linkData = useFetchData(`users/1/links?folderId=${folderId}`)?.data;
 
   console.log(folderData);
 
-  const handleClick = (clickedFolderId) => {
+  const handleClick = (clickedFolderId, clickedFolderName) => {
     setFolderId(clickedFolderId);
-    console.log(clickedFolderId);
+    setFolderName(clickedFolderName);
   };
 
   return (
@@ -69,7 +98,7 @@ export default function Shared() {
                     <FolderElement
                       key={folder.id}
                       isSelected={folderId === folder.id}
-                      onClick={() => handleClick(folder.id)}
+                      onClick={() => handleClick(folder.id, folder.name)}
                     >
                       {folder.name}
                     </FolderElement>
@@ -79,6 +108,23 @@ export default function Shared() {
           </FolderList>
           <img src={add} alt="add-icon" />
         </FolderBox>
+        <EditBox isVisible={folderId !== ""}>
+          <div>{folderName}</div>
+          <Edit>
+            <div>
+              <img src={share} alt="share-icon" />
+              <span>공유</span>
+            </div>
+            <div>
+              <img src={pen} alt="edit-icon" />
+              <span>수정</span>
+            </div>
+            <div>
+              <img src={trashcan} alt="delete-icon" />
+              <span>삭제</span>
+            </div>
+          </Edit>
+        </EditBox>
         <div className="cards">
           {linkData
             ? linkData.map((link) => {
