@@ -72,8 +72,6 @@ export default function Shared() {
   const folderData = useFetchData("users/1/folders")?.data;
   const linkData = useFetchData(`users/1/links?folderId=${folderId}`)?.data;
 
-  console.log(folderData);
-
   const handleClick = (clickedFolderId, clickedFolderName) => {
     setFolderId(clickedFolderId);
     setFolderName(clickedFolderName);
@@ -108,7 +106,7 @@ export default function Shared() {
           </FolderList>
           <img src={add} alt="add-icon" />
         </FolderBox>
-        <EditBox isVisible={folderId !== ""}>
+        <EditBox isvisible={folderId !== ""}>
           <div>{folderName}</div>
           <Edit>
             <div>
