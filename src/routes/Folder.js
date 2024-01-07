@@ -5,6 +5,7 @@ import useFetchData from "../hooks/useFetchData";
 import Card from "../components/Card";
 import convertKeyToCamelCase from "../utils/convertKeyToCamelCase";
 import add from "../assets/add.svg";
+import { useState } from "react";
 
 const Container = styled.div`
   display: flex;
@@ -35,10 +36,18 @@ const FolderElement = styled.div`
 `;
 
 export default function Shared() {
+  const [folderId, setFolderId] = useState("");
+
   const folderData = useFetchData("users/1/folders")?.data;
-  const linkData = useFetchData("users/1/links")?.data;
+  const linkData = useFetchData(`users/1/links?folderId=${folderId}`)?.data;
 
   console.log(folderData);
+
+  const handleClick = (clickedFolderId) => {
+    setFolderId(clickedFolderId);
+    console.log(clickedFolderId);
+  };
+
   return (
     <Container className="Folder">
       <AddLink />
@@ -46,13 +55,21 @@ export default function Shared() {
         <SearchBar />
         <FolderBox>
           <FolderList>
+            <FolderElement onClick={() => handleClick("")}>전체</FolderElement>
             {folderData
               ? folderData.map((folder) => {
-                  return <FolderElement>{folder.name}</FolderElement>;
+                  return (
+                    <FolderElement
+                      key={folder.id}
+                      onClick={() => handleClick(folder.id)}
+                    >
+                      {folder.name}
+                    </FolderElement>
+                  );
                 })
               : null}
           </FolderList>
-          <img src={add} alt="add" />
+          <img src={add} alt="add-icon" />
         </FolderBox>
         <div className="cards">
           {linkData
