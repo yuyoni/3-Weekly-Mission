@@ -1,17 +1,7 @@
-import { useEffect, useState } from "react";
-import fetchData from "../apis/api";
+import useFetchData from "../hooks/useFetchData";
 
 function Profile() {
-  const [userData, setUserData] = useState("");
-
-  const handleLoad = async () => {
-    const user = await fetchData("sample/user");
-    setUserData(user);
-  };
-
-  useEffect(() => {
-    handleLoad();
-  }, []);
+  const userData = useFetchData("sample/user");
 
   return (
     <div className="user-account">
