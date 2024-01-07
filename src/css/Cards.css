@@ -18,6 +18,18 @@
   cursor: pointer;
 }
 
+@media (max-width: 767px) {
+  .cards {
+    width: 325px;
+    margin: 20px 32px 60px;
+  }
+}
+@media (max-width: 1124px) {
+  .cards {
+    width: 704px;
+  }
+}
+
 .card:hover .detail-box {
   background-color: #f0f6ff;
 }

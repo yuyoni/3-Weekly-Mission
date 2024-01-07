@@ -4,14 +4,6 @@
   font-weight: 400;
 }
 
-.Wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
 /* Mobile size */
 @media (max-width: 767px) {
   header {
@@ -23,11 +15,6 @@
   .user-email {
     display: none;
   }
-  main,
-  .cards {
-    width: 325px;
-    margin: 20px 32px 60px;
-  }
 }
 
 /* Tablet size */
@@ -37,15 +24,5 @@
   }
   nav {
     width: 800px;
-  }
-  @media (max-width: 1124px) {
-    .cards {
-      width: 704px;
-    }
-
-    main {
-      width: 704px;
-      margin: 40px 32px 100px;
-    }
   }
 }

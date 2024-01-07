@@ -7,6 +7,19 @@ main {
   margin: 40px auto 100px;
   gap: 40px;
 }
+@media (max-width: 767px) {
+  main {
+    width: 325px;
+    margin: 20px 32px 60px;
+  }
+}
+
+@media (max-width: 1124px) {
+  main {
+    width: 704px;
+    margin: 40px 32px 100px;
+  }
+}
 
 .search-bar-box {
   display: flex;
