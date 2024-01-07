@@ -106,7 +106,7 @@ export default function Shared() {
           </FolderList>
           <img src={add} alt="add-icon" />
         </FolderBox>
-        <EditBox isvisible={folderId !== ""}>
+        <EditBox isVisible={folderId !== ""}>
           <div>{folderName}</div>
           <Edit>
             <div>
