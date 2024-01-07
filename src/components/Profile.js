@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { fetchUserData } from "../api/api";
+import fetchData from "../apis/api";
 
 function Profile() {
   const [userData, setUserData] = useState("");
 
   const handleLoad = async () => {
-    const user = await fetchUserData();
+    const user = await fetchData("sample/user");
     setUserData(user);
   };
 

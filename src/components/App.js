@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchFolderData } from "../api/api";
+import fetchData from "../apis/api";
 import "../css/App.css";
 import Contents from "./Contents";
 import FolderInfo from "./FolderInfo";
@@ -10,7 +10,7 @@ function App() {
   const [folderData, setFolderData] = useState(null);
 
   const handleLoad = async () => {
-    const user = await fetchFolderData();
+    const user = await fetchData("sample/folder");
     setFolderData(user);
   };
 
