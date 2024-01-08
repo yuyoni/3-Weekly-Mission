@@ -65,7 +65,7 @@ const Edit = styled.div`
   justify-content: space-between;
 `;
 
-export default function Shared() {
+export default function Folder() {
   const [folderId, setFolderId] = useState("");
   const [folderName, setFolderName] = useState("전체");
 
