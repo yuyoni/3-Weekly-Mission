@@ -1,13 +1,13 @@
-import facebook from "../assets/facebook.svg";
-import instagram from "../assets/instagram.svg";
-import twitter from "../assets/twitter.svg";
-import youtube from "../assets/youtube.svg";
-import "../css/Footer.css";
+import styled from "styled-components";
+import facebook from "../../assets/facebook.svg";
+import instagram from "../../assets/instagram.svg";
+import twitter from "../../assets/twitter.svg";
+import youtube from "../../assets/youtube.svg";
 
-function Footer() {
+export default function Footer() {
   return (
-    <footer>
-      <div className="footer-container">
+    <Wrapper>
+      <Container>
         <span className="copyright">©codeit - 2023</span>
         <div className="link-box">
           <a className="privacy" href="/privacy">
@@ -47,9 +47,51 @@ function Footer() {
             <img src={instagram} alt="instagram" />
           </a>
         </div>
-      </div>
-    </footer>
+      </Container>
+    </Wrapper>
   );
 }
 
-export default Footer;
+const Wrapper = styled.footer`
+  display: flex;
+  justify-content: space-between;
+  background-color: #111322;
+`;
+
+const Container = styled.div`
+  display: grid;
+  justify-content: space-between;
+  padding: 32px 104px 64px;
+  grid-template-areas: "copyright link-box sns-logo-box";
+  width: 100%;
+
+  @media (max-width: 767px) {
+    grid-template-columns: auto;
+    grid-template-areas: "link-box sns-logo-box" "copyright .";
+    row-gap: 60px;
+    padding: 32px;
+  }
+
+  .copyright {
+    grid-area: copyright;
+    color: #676767;
+  }
+
+  .privacy,
+  .faq {
+    color: #676767;
+    text-decoration: none;
+  }
+
+  .link-box {
+    grid-area: link-box;
+    display: flex;
+    gap: 30px;
+  }
+
+  .sns-logo-box {
+    grid-area: sns-logo-box;
+    display: flex;
+    gap: 12px;
+  }
+`;
