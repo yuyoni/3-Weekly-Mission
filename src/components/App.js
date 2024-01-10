@@ -1,29 +1,52 @@
 import "../css/App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Footer from "./Footer";
-import Navigator from "./Navigator";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Layout from "../routes/Layout";
 import Shared from "../routes/Shared";
 import Home from "../routes/Home";
 import Folder from "../routes/Folder";
 import SignIn from "../routes/SignIn";
 import SignUp from "../routes/SignUp";
+import styled from "styled-components";
 
-function App() {
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <Home />,
+      },
+      {
+        path: "shared",
+        element: <Shared />,
+      },
+      {
+        path: "folder",
+        element: <Folder />,
+      },
+      {
+        path: "signin",
+        element: <SignIn />,
+      },
+      {
+        path: "signup",
+        element: <SignUp />,
+      },
+    ],
+  },
+]);
+
+export default function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Navigator />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/shared" element={<Shared />} />
-          <Route path="/folder" element={<Folder />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Routes>
-        <Footer />
-      </div>
-    </BrowserRouter>
+    <Wrapper>
+      <RouterProvider router={router} />
+    </Wrapper>
   );
 }
 
-export default App;
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;

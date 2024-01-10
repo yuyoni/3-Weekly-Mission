@@ -28,6 +28,7 @@ const FolderList = styled.div`
   display: flex;
   gap: 8px;
 `;
+
 const FolderElement = styled.div`
   display: flex;
   padding: 8px 12px;
@@ -35,8 +36,8 @@ const FolderElement = styled.div`
   align-items: center;
   border-radius: 5px;
   border: 1px solid #6d6afe;
-  background: ${({ isSelected }) => (isSelected ? "#6d6afe" : "#fff")};
-  color: ${({ isSelected }) => (isSelected ? "#fff" : "#000")};
+  background: ${({ is_selected }) => (is_selected ? "#6d6afe" : "#fff")};
+  color: ${({ is_selected }) => (is_selected ? "#fff" : "#000")};
   cursor: pointer;
 `;
 
@@ -46,7 +47,7 @@ const EditBox = styled.div`
   width: 100%;
   font-size: 24px;
   font-weight: 600;
-  visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
+  visibility: ${({ is_visible }) => (is_visible ? "visible" : "hidden")};
 `;
 
 const Edit = styled.div`
@@ -78,35 +79,33 @@ export default function Folder() {
   };
 
   return (
-    <Container className="Folder">
+    <Container className="folder">
       <AddLink />
       <main>
         <SearchBar />
         <FolderBox>
           <FolderList>
             <FolderElement
-              isSelected={folderId === ""}
+              is_selected={folderId === ""}
               onClick={() => handleClick("")}
             >
               전체
             </FolderElement>
             {folderData
-              ? folderData.map((folder) => {
-                  return (
-                    <FolderElement
-                      key={folder.id}
-                      isSelected={folderId === folder.id}
-                      onClick={() => handleClick(folder.id, folder.name)}
-                    >
-                      {folder.name}
-                    </FolderElement>
-                  );
-                })
+              ? folderData.map((folder) => (
+                  <FolderElement
+                    key={folder.id}
+                    is_selected={folderId === folder.id}
+                    onClick={() => handleClick(folder.id, folder.name)}
+                  >
+                    {folder.name}
+                  </FolderElement>
+                ))
               : null}
           </FolderList>
           <img src={add} alt="add-icon" />
         </FolderBox>
-        <EditBox isVisible={folderId !== ""}>
+        <EditBox is_visible={folderId !== ""}>
           <div>{folderName}</div>
           <Edit>
             <div>
