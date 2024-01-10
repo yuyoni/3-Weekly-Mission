@@ -73,7 +73,7 @@ export default function Folder() {
   const folderData = useFetchData("users/1/folders")?.data;
   const linkData = useFetchData(`users/1/links?folderId=${folderId}`)?.data;
 
-  const handleClick = (clickedFolderId, clickedFolderName) => {
+  const handleClickFolder = (clickedFolderId, clickedFolderName) => {
     setFolderId(clickedFolderId);
     setFolderName(clickedFolderName);
   };
@@ -87,18 +87,18 @@ export default function Folder() {
           <FolderList>
             <FolderElement
               is_selected={folderId === ""}
-              onClick={() => handleClick("")}
+              onClick={() => handleClickFolder("")}
             >
               전체
             </FolderElement>
             {folderData
-              ? folderData.map((folder) => (
+              ? folderData.map(({ id, name }) => (
                   <FolderElement
-                    key={folder.id}
-                    is_selected={folderId === folder.id}
-                    onClick={() => handleClick(folder.id, folder.name)}
+                    key={id}
+                    is_selected={folderId === id}
+                    onClick={() => handleClickFolder(id, name)}
                   >
-                    {folder.name}
+                    {name}
                   </FolderElement>
                 ))
               : null}
