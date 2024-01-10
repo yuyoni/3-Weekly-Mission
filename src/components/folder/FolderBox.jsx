@@ -30,7 +30,10 @@ export default function FolderBox({ folderId, setFolderId, setFolderName }) {
             ))
           : null}
       </FolderList>
-      <img src={add} alt="add-icon" />
+      <FolderAdd>
+        <span>폴더 추가</span>
+        <img src={add} alt="add-icon" />
+      </FolderAdd>
     </Wrapper>
   );
 }
@@ -44,16 +47,35 @@ const Wrapper = styled.div`
 const FolderList = styled.div`
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 `;
 
 const FolderElement = styled.div`
   display: flex;
   padding: 8px 12px;
   flex-direction: column;
+
   align-items: center;
   border-radius: 5px;
   border: 1px solid #6d6afe;
   background: ${({ $isSelected }) => ($isSelected ? "#6d6afe" : "#fff")};
   color: ${({ $isSelected }) => ($isSelected ? "#fff" : "#000")};
   cursor: pointer;
+`;
+
+const FolderAdd = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+
+  span {
+    font-size: 16px;
+    color: #6d6afe;
+  }
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `;

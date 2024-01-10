@@ -17,17 +17,26 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 60px 320px 90px;
   background-color: #f0f6ff;
 `;
+
 const Container = styled.div`
   display: flex;
   width: 800px;
   padding: 16px 20px;
+  margin: 60px 200px 90px;
   gap: 8px;
   border-radius: 15px;
   border: 1px solid #6d6afe;
   background: white;
+
+  @media (max-width: 1124px) {
+    width: 100%;
+    margin: 60px 32px 90px;
+  }
+  @media (max-width: 767px) {
+    margin: 24px 32px 40px;
+  }
 `;
 
 const Input = styled.input`
