@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import useFetchData from "../../hooks/useFetchData";
 import convertKeyToCamelCase from "../../utils/convertKeyToCamelCase";
-import Card from "../Card/Card";
+import Card from "../card/Card";
 
 export default function Content({ folderId }) {
   const linkData = useFetchData(`users/1/links?folderId=${folderId}`)?.data;

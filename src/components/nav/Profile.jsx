@@ -40,6 +40,9 @@ const Wrapper = styled.div`
   .user-email {
     color: #373740;
     font-size: 14px;
+    @media (max-width: 767px) {
+      display: none;
+    }
   }
 
   .cta {

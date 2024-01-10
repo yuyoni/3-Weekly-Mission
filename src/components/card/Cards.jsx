@@ -12,7 +12,8 @@ export default function Cards({ folderData }) {
 }
 
 const Wrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
@@ -20,11 +21,13 @@ const Wrapper = styled.div`
   row-gap: 25px;
   column-gap: 20px;
 
-  @media (max-width: 767px) {
-    width: 325px;
-    margin: 20px 32px 60px;
-  }
   @media (max-width: 1124px) {
     width: 704px;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 767px) {
+    width: 325px;
+    grid-template-columns: 1fr;
+    margin: 20px 32px 60px;
   }
 `;

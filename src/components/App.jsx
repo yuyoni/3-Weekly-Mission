@@ -48,27 +48,4 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-
-  /* Mobile size */
-  @media (max-width: 767px) {
-    header {
-      padding: 18px 32px;
-    }
-    nav {
-      width: 100%;
-    }
-    .user-email {
-      display: none;
-    }
-  }
-
-  /* Tablet size */
-  @media (min-width: 768px) and (max-width: 1199px) {
-    header {
-      padding: 32px;
-    }
-    nav {
-      width: 800px;
-    }
-  }
 `;
