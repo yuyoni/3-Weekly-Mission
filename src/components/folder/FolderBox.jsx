@@ -61,6 +61,11 @@ const FolderElement = styled.div`
   background: ${({ $isSelected }) => ($isSelected ? "#6d6afe" : "#fff")};
   color: ${({ $isSelected }) => ($isSelected ? "#fff" : "#000")};
   cursor: pointer;
+
+  &:hover {
+    background-color: ${({ $isSelected }) =>
+      $isSelected ? "#6d6afe" : "#e7effb"};
+  }
 `;
 
 const FolderAdd = styled.div`

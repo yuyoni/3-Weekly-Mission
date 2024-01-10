@@ -1,37 +1,89 @@
 import styled from "styled-components";
 import noImage from "../../assets/no-image.svg";
 import formatDateAndDifference from "../../utils/FormatDate";
+import emptyStar from "../../assets/emptyStar.svg";
+import filledStar from "../../assets/filledStar.svg";
+import kebab from "../../assets/kebab.svg";
+import { useEffect, useState } from "react";
+import SelectMenu from "./SelectMenu";
 
 export default function Card({ link }) {
-  const handleClick = () => {
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isKebabClicked, setIsKebabClicked] = useState(false);
+
+  const handleClickCard = () => {
     window.location.href = link.url;
   };
+
+  const handleClickBookmark = (e) => {
+    e.stopPropagation();
+    setIsBookmarked(!isBookmarked);
+  };
+
+  const handleClickKebab = (e) => {
+    e.stopPropagation();
+    setIsKebabClicked(true);
+  };
+
+  // 케밥 아이콘 클릭한 경우 제외 - 여러가지 방법 있어서 더 찾아보고 변경하기
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (e.target.classList.contains("kebab-icon")) {
+        return;
+      }
+      setIsKebabClicked(false);
+    };
+
+    // 이벤트 리스너 등록
+    document.addEventListener("click", handleClickOutside);
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   const { formattedDate, elapsedTime } = formatDateAndDifference(
     link.createdAt
   );
 
   return (
-    <Wrapper className="card" onClick={handleClick}>
+    <Wrapper className="card" onClick={handleClickCard}>
       <Thumbnail>
+        <img
+          className="bookmark"
+          src={isBookmarked ? filledStar : emptyStar}
+          alt="bookmark-logo"
+          onClick={handleClickBookmark}
+        />
         <img
           className="link-img"
           src={link.imageSource || noImage}
           alt={link.title}
         />
       </Thumbnail>
+
       <Detail>
+        <img
+          className="kebab"
+          src={kebab}
+          alt="kebab-icon"
+          onClick={handleClickKebab}
+        />
+
         <span className="elapsed-time">{elapsedTime}</span>
         <p className="description">{link.description}</p>
         <span className="formatted-data">
           {formattedDate.replace(/-/g, ". ")}
         </span>
       </Detail>
+      {isKebabClicked ? <SelectMenu /> : null}
     </Wrapper>
   );
 }
 
 const Thumbnail = styled.div`
+  position: relative;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -49,6 +101,7 @@ const Thumbnail = styled.div`
 `;
 
 const Detail = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 15px 20px;
@@ -79,6 +132,7 @@ const Detail = styled.div`
 `;
 
 const Wrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 340px;
@@ -93,5 +147,25 @@ const Wrapper = styled.div`
   & :hover .link-img {
     transition: all 0.3s;
     transform: scale(1.3);
+  }
+
+  .bookmark {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 34px;
+    height: 34px;
+    z-index: 1;
+    cursor: pointer;
+  }
+
+  .kebab {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    width: 21px;
+    height: 17px;
+    z-index: 1;
+    cursor: pointer;
   }
 `;

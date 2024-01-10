@@ -39,6 +39,7 @@ const Container = styled.div`
   }
   @media (max-width: 767px) {
     margin: 24px 32px 40px;
+    padding: 8px 10px;
   }
 
   .cta {

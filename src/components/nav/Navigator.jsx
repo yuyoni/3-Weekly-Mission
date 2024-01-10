@@ -19,7 +19,7 @@ const Wrapper = styled.header`
   display: flex;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 2;
   justify-content: center;
   align-items: center;
   background-color: #f0f6ff;
