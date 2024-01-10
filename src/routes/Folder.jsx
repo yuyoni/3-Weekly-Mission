@@ -36,8 +36,8 @@ const FolderElement = styled.div`
   align-items: center;
   border-radius: 5px;
   border: 1px solid #6d6afe;
-  background: ${(prop) => (prop.is_selected ? "#6d6afe" : "#fff")};
-  color: ${({ is_selected }) => (is_selected ? "#fff" : "#000")};
+  background: ${({ $isSelected }) => ($isSelected ? "#6d6afe" : "#fff")};
+  color: ${({ $isSelected }) => ($isSelected ? "#fff" : "#000")};
   cursor: pointer;
 `;
 
@@ -47,7 +47,7 @@ const EditBox = styled.div`
   width: 100%;
   font-size: 24px;
   font-weight: 600;
-  visibility: ${({ is_visible }) => (is_visible ? "visible" : "hidden")};
+  visibility: ${({ $isVisible }) => ($isVisible ? "visible" : "hidden")};
 `;
 
 const Edit = styled.div`
@@ -86,7 +86,7 @@ export default function Folder() {
         <FolderBox>
           <FolderList>
             <FolderElement
-              is_selected={folderId === ""}
+              $isSelected={folderId === ""}
               onClick={() => handleClickFolder("")}
             >
               전체
@@ -95,7 +95,7 @@ export default function Folder() {
               ? folderData.map(({ id, name }) => (
                   <FolderElement
                     key={id}
-                    is_selected={folderId === id}
+                    $isSelected={folderId === id}
                     onClick={() => handleClickFolder(id, name)}
                   >
                     {name}
@@ -105,7 +105,7 @@ export default function Folder() {
           </FolderList>
           <img src={add} alt="add-icon" />
         </FolderBox>
-        <EditBox is_visible={folderId !== ""}>
+        <EditBox $isVisible={folderId !== ""}>
           <div>{folderName}</div>
           <Edit>
             <div>
