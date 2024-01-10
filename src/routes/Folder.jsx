@@ -36,7 +36,7 @@ const FolderElement = styled.div`
   align-items: center;
   border-radius: 5px;
   border: 1px solid #6d6afe;
-  background: ${({ is_selected }) => (is_selected ? "#6d6afe" : "#fff")};
+  background: ${(prop) => (prop.is_selected ? "#6d6afe" : "#fff")};
   color: ${({ is_selected }) => (is_selected ? "#fff" : "#000")};
   cursor: pointer;
 `;

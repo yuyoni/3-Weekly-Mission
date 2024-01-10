@@ -15,8 +15,14 @@ export default function Shared() {
   const folderData = useFetchData("sample/folder");
   return (
     <Container className="Shared">
-      <FolderInfo folderData={folderData?.folder} />
-      <Contents folderData={folderData?.folder} />
+      {folderData ? (
+        <>
+          <FolderInfo folderData={folderData.folder} />
+          <Contents folderData={folderData.folder} />
+        </>
+      ) : (
+        <></>
+      )}
     </Container>
   );
 }
