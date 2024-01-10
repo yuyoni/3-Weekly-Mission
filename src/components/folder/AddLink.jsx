@@ -7,6 +7,7 @@ export default function AddLink() {
       <Container className="add-link-box">
         <img src={link} alt="add-link-icon" />
         <Input className="add-link" placeholder=" 링크를 추가해 보세요" />
+        <a className="cta">추가하기</a>
       </Container>
     </Wrapper>
   );
@@ -36,6 +37,20 @@ const Container = styled.div`
   }
   @media (max-width: 767px) {
     margin: 24px 32px 40px;
+  }
+
+  .cta {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    padding: 10px 16px;
+    cursor: pointer;
+    background-image: linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%);
+    border-radius: 8px;
+    color: #f5f5f5;
+    font-size: 14px;
   }
 `;
 
