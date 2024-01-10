@@ -7,7 +7,9 @@ export default function AddLink() {
       <Container className="add-link-box">
         <img src={link} alt="add-link-icon" />
         <Input className="add-link" placeholder=" 링크를 추가해 보세요" />
-        <a className="cta">추가하기</a>
+        <a className="cta" href="/">
+          추가하기
+        </a>
       </Container>
     </Wrapper>
   );

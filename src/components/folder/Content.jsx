@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import add from "../../assets/white-add.svg";
 import useFetchData from "../../hooks/useFetchData";
 import convertKeyToCamelCase from "../../utils/convertKeyToCamelCase";
 import Card from "../card/Card";
@@ -29,6 +30,10 @@ export default function Content() {
             })
           : null}
       </Wrapper>
+      <Button>
+        추가하기
+        <img src={add} alt="add-icon" />
+      </Button>
     </Main>
   );
 }
@@ -69,5 +74,27 @@ const Wrapper = styled.div`
     width: 325px;
     grid-template-columns: 1fr;
     margin: 20px 32px 60px;
+  }
+`;
+
+const Button = styled.div`
+  display: none;
+
+  @media (max-width: 767px) {
+    position: fixed;
+    bottom: 101px;
+    width: 135px;
+    height: 36px;
+    border-radius: 20px;
+    border: 1px solid #fff;
+    background: #6d6afe;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+
+    font-size: 16px;
+    color: #e7effb;
   }
 `;

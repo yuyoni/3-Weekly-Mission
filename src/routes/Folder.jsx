@@ -6,7 +6,6 @@ export default function Folder() {
   return (
     <Wrapper className="folder">
       <AddLink />
-
       <Content />
     </Wrapper>
   );
