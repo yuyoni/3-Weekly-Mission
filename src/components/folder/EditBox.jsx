@@ -32,11 +32,19 @@ const Wrapper = styled.div`
   font-size: 24px;
   font-weight: 600;
   margin: 24px auto;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+  }
 `;
 
 const Edit = styled.div`
   display: ${({ $isVisible }) => ($isVisible ? "flex" : "none")};
   gap: 12px;
+  justify-content: left;
+
   & span {
     font-size: 14px;
     color: #9fa6b2;
@@ -47,5 +55,4 @@ const Edit = styled.div`
     justify-content: center;
     gap: 4px;
   }
-  justify-content: space-between;
 `;

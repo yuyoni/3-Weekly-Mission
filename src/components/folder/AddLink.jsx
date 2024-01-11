@@ -47,13 +47,14 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
+    width: 110px;
     padding: 10px 16px;
     cursor: pointer;
     background-image: linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%);
     border-radius: 8px;
     color: #f5f5f5;
     font-size: 14px;
+    font-weight: 500;
   }
 `;
 

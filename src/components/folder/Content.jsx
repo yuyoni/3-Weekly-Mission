@@ -40,5 +40,6 @@ const Main = styled.main`
   @media (max-width: 767px) {
     width: 325px;
     margin: 20px auto 40px;
+    gap: 20px;
   }
 `;
