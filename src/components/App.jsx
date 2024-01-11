@@ -10,7 +10,7 @@ import SignUp from "../routes/SignUp";
 export default function App() {
   return (
     <Wrapper>
-      <RouterProvider router={router} />
+      <RouterProvider router={router}></RouterProvider>
     </Wrapper>
   );
 }

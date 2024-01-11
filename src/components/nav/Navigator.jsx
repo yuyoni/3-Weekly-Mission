@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import logo from "../../assets/logo.svg";
 import Profile from "./Profile";
+import { useLocation } from "react-router-dom";
 
 export default function Navigator() {
+  const location = useLocation();
+  const isFolderPage = location.pathname.includes("folder");
+
   return (
-    <Wrapper>
+    <Wrapper $isFolderPage={isFolderPage}>
       <Nav>
         <a href="/">
           <img src={logo} alt="logo" />
@@ -18,6 +22,7 @@ export default function Navigator() {
 const Wrapper = styled.header`
   display: flex;
   position: sticky;
+  position: ${({ $isFolderPage }) => ($isFolderPage ? "relative" : "sticky")};
   top: 0;
   z-index: 2;
   justify-content: center;
