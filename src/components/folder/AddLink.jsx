@@ -1,16 +1,25 @@
 import { styled } from "styled-components";
 import link from "../../assets/link.svg";
+import { useState } from "react";
+import AddFolerModal from "../modal/AddFolderModal";
 
 export default function AddLink() {
+  const [modal, setModal] = useState(false);
   return (
     <Wrapper>
       <Container className="add-link-box">
         <img src={link} alt="add-link-icon" />
         <Input className="add-link" placeholder=" 링크를 추가해 보세요" />
-        <a className="cta" href="/">
+        <button
+          className="cta"
+          onClick={() => {
+            setModal(true);
+          }}
+        >
           추가하기
-        </a>
+        </button>
       </Container>
+      {modal ? <AddFolerModal setModal={setModal} /> : null}
     </Wrapper>
   );
 }
@@ -43,13 +52,11 @@ const Container = styled.div`
   }
 
   .cta {
-    text-decoration: none;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 110px;
     padding: 10px 16px;
-    cursor: pointer;
     background-image: linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%);
     border-radius: 8px;
     color: #f5f5f5;
@@ -60,8 +67,5 @@ const Container = styled.div`
 
 const Input = styled.input`
   width: 100%;
-  background-color: transparent;
-  border: none;
-  outline: none;
   font-size: 16px;
 `;

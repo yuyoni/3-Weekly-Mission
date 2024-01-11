@@ -65,4 +65,17 @@ body {
   font-style: normal;
   line-height: normal;
 }
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+button {
+  border: none;
+  cursor: pointer;
+}
+input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
 `;
