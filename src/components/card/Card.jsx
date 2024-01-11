@@ -4,7 +4,7 @@ import formatDateAndDifference from "../../utils/FormatDate";
 import emptyStar from "../../assets/emptyStar.svg";
 import filledStar from "../../assets/filledStar.svg";
 import kebab from "../../assets/kebab.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SelectMenu from "./SelectMenu";
 
 export default function Card({ link }) {
@@ -24,24 +24,6 @@ export default function Card({ link }) {
     e.stopPropagation();
     setIsKebabClicked(true);
   };
-
-  // 케밥 아이콘 클릭한 경우 제외 - 여러가지 방법 있어서 더 찾아보고 변경하기 (useRef로 특정영역)
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (e.target.classList.contains("kebab-icon")) {
-        return;
-      }
-      setIsKebabClicked(false);
-    };
-
-    // 이벤트 리스너 등록 - 리액트에서 권장하진 않음..
-    document.addEventListener("click", handleClickOutside);
-
-    // 컴포넌트 언마운트 시 이벤트 리스너 제거
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
 
   const { formattedDate, elapsedTime } = formatDateAndDifference(
     link.createdAt

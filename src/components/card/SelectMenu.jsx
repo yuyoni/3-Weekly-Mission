@@ -1,11 +1,21 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 
-export default function SelectMenu({ setIsKebabClicked }) {
-  //useRef()안에 null로 초기화
+export default function SelectMenu({ isKebabClicked, setIsKebabClicked }) {
   const wrapperRef = useRef(null);
 
-  // 클릭했을 때 wrapperRef를 클릭했는지 아닌지를 검사해서 setIsKebabClicked로 isKebabClicked 컨트롤
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+        setIsKebabClicked(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  });
+
   return (
     <Wrapper ref={wrapperRef}>
       <div onClick={(e) => e.stopPropagation()}>삭제하기</div>
