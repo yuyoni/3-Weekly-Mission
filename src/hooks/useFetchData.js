@@ -10,7 +10,7 @@ export default function useFetchData(endpoint) {
         const result = await fetchData(endpoint);
         setData(result);
       } catch (error) {
-        throw Error(error);
+        throw new Error(error);
       }
     };
 

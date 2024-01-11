@@ -25,7 +25,7 @@ export default function Card({ link }) {
     setIsKebabClicked(true);
   };
 
-  // 케밥 아이콘 클릭한 경우 제외 - 여러가지 방법 있어서 더 찾아보고 변경하기
+  // 케밥 아이콘 클릭한 경우 제외 - 여러가지 방법 있어서 더 찾아보고 변경하기 (useRef로 특정영역)
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (e.target.classList.contains("kebab-icon")) {
@@ -34,7 +34,7 @@ export default function Card({ link }) {
       setIsKebabClicked(false);
     };
 
-    // 이벤트 리스너 등록
+    // 이벤트 리스너 등록 - 리액트에서 권장하진 않음..
     document.addEventListener("click", handleClickOutside);
 
     // 컴포넌트 언마운트 시 이벤트 리스너 제거
@@ -77,7 +77,9 @@ export default function Card({ link }) {
           {formattedDate.replace(/-/g, ". ")}
         </span>
       </Detail>
-      {isKebabClicked ? <SelectMenu /> : null}
+      {isKebabClicked ? (
+        <SelectMenu setIsKebabClicked={setIsKebabClicked} />
+      ) : null}
     </Wrapper>
   );
 }

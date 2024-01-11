@@ -1,8 +1,13 @@
+import { useRef } from "react";
 import styled from "styled-components";
 
-export default function SelectMenu() {
+export default function SelectMenu({ setIsKebabClicked }) {
+  //useRef()안에 null로 초기화
+  const wrapperRef = useRef(null);
+
+  // 클릭했을 때 wrapperRef를 클릭했는지 아닌지를 검사해서 setIsKebabClicked로 isKebabClicked 컨트롤
   return (
-    <Wrapper>
+    <Wrapper ref={wrapperRef}>
       <div onClick={(e) => e.stopPropagation()}>삭제하기</div>
       <div onClick={(e) => e.stopPropagation()}>폴더에 추가</div>
     </Wrapper>
