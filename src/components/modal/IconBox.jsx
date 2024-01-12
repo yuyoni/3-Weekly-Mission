@@ -4,6 +4,7 @@ import kakao from "../../assets/modal/Kakao.svg";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import shareKakao from "../../utils/shareKakaoLink";
+import CopyToClipboard from "react-copy-to-clipboard";
 
 export default function IconBox({ folderId }) {
   useEffect(() => {
@@ -35,9 +36,11 @@ export default function IconBox({ folderId }) {
       <IconWrapper color="#1877F2">
         <img src={facebook} alt="facebook-icon" />
       </IconWrapper>
-      <IconWrapper color="rgba(157, 157, 157, 0.04)">
-        <img src={link} alt="link-icon" />
-      </IconWrapper>
+      <CopyToClipboard text={route} onCopy={() => alert("복사되었습니다.")}>
+        <IconWrapper color="rgba(157, 157, 157, 0.04)">
+          <img src={link} alt="link-icon" />
+        </IconWrapper>
+      </CopyToClipboard>
       <p>카카오톡</p>
       <p>페이스북</p>
       <p>링크복사</p>
