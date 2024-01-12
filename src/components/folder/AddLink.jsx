@@ -1,10 +1,10 @@
+import { useState } from "react";
 import { styled } from "styled-components";
 import link from "../../assets/link.svg";
-import { useState } from "react";
-import AddFolerModal from "../modal/AddFolderModal";
+import CommonModal from "../modal/CommonModal";
 
 export default function AddLink() {
-  const [modal, setModal] = useState(false);
+  const [addFolderModal, setAddFolderModal] = useState(false);
   return (
     <Wrapper>
       <Container className="add-link-box">
@@ -13,13 +13,21 @@ export default function AddLink() {
         <button
           className="cta"
           onClick={() => {
-            setModal(true);
+            setAddFolderModal(true);
           }}
         >
           추가하기
         </button>
       </Container>
-      {modal ? <AddFolerModal setModal={setModal} /> : null}
+      {addFolderModal ? (
+        <CommonModal
+          setter={setAddFolderModal}
+          title="폴더 추가"
+          placeholder="내용 이름"
+          buttonText="추가하기"
+          color="linear-gradient"
+        />
+      ) : null}
     </Wrapper>
   );
 }

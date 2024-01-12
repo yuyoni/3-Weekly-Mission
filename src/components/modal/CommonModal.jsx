@@ -1,7 +1,16 @@
 import styled from "styled-components";
 import close from "../../assets/_close.svg";
+import IconBox from "./IconBox";
 
-export default function AddFolerModal({ setModal }) {
+export default function CommonModal({
+  setter,
+  title,
+  subtitle = "",
+  placeholder,
+  buttonText,
+  color,
+  icon,
+}) {
   return (
     <Wrapper>
       <Container>
@@ -9,12 +18,14 @@ export default function AddFolerModal({ setModal }) {
           src={close}
           alt="x"
           onClick={() => {
-            setModal(false);
+            setter(false);
           }}
         />
-        <span>폴더 추가</span>
-        <input type="text" placeholder="내용 입력" />
-        <button>추가하기</button>
+        <span>{title}</span>
+        {placeholder ? <input type="text" placeholder={placeholder} /> : null}
+        <p>{subtitle}</p>
+        {buttonText ? <Button color={color}>{buttonText}</Button> : null}
+        {icon ? <IconBox /> : null}
       </Container>
     </Wrapper>
   );
@@ -50,10 +61,12 @@ const Container = styled.div`
     font-size: 20px;
     color: #373740;
     margin-bottom: 24px;
+    width: 280px;
   }
+
   input {
     display: flex;
-    width: 280px;
+    width: 100%;
     padding: 18px 15px;
     justify-content: center;
     align-items: center;
@@ -62,22 +75,36 @@ const Container = styled.div`
     background: #fff;
     margin-bottom: 15px;
   }
-  button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 110px;
-    padding: 10px 16px;
-    background-image: linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%);
-    border-radius: 8px;
-    color: #f5f5f5;
+
+  p {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
+    line-height: 22px;
+    color: #9fa6b2;
+    margin-bottom: 15px;
   }
+
   img {
     position: absolute;
     top: 16px;
     right: 16px;
     cursor: pointer;
   }
+`;
+
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: #f5f5f5;
+  font-size: 14px;
+  font-weight: 500;
+
+  ${({ color }) =>
+    color === "linear-gradient"
+      ? `background-image: linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%);`
+      : `background-color: ${color};`};
 `;
