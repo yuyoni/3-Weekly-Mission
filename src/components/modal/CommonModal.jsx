@@ -12,6 +12,7 @@ export default function CommonModal({
   color,
   selectFolder,
   icon,
+  folderId,
 }) {
   return (
     <Wrapper>
@@ -30,7 +31,7 @@ export default function CommonModal({
         <p className="subtitle">{subtitle}</p>
         {selectFolder ? <SelectFolder /> : null}
         {buttonText ? <Button color={color}>{buttonText}</Button> : null}
-        {icon ? <IconBox /> : null}
+        {icon ? <IconBox folderId={folderId} /> : null}
       </Container>
     </Wrapper>
   );

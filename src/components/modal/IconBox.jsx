@@ -2,11 +2,34 @@ import link from "../../assets/modal/link.svg";
 import facebook from "../../assets/modal/Facebook.svg";
 import kakao from "../../assets/modal/Kakao.svg";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import shareKakao from "../../utils/shareKakaoLink";
 
-export default function IconBox() {
+export default function IconBox({ folderId }) {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://developers.kakao.com/sdk/js/kakao.js";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => document.body.removeChild(script);
+  }, []);
+
+  const [host, setHost] = useState("");
+
+  useEffect(() => {
+    const currentHost = window.location.origin;
+    setHost(currentHost);
+  }, []);
+
+  // userId 임시로 1로 설정
+  const route = host + `/shared?user=${"1"}&folder=${folderId}`;
+
   return (
     <Container>
-      <IconWrapper color="#FEE500">
+      <IconWrapper
+        color="#FEE500"
+        onClick={() => shareKakao(route, "folderData")}
+      >
         <img src={kakao} alt="kakao-icon" />
       </IconWrapper>
       <IconWrapper color="#1877F2">

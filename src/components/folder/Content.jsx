@@ -1,13 +1,8 @@
-import { useState } from "react";
 import styled from "styled-components";
-import useFetchData from "../../hooks/useFetchData";
 import SearchBar from "../searchbar/SearchBar";
 import FolderData from "./\bFolderData";
 
-export default function Content() {
-  const [folderId, setFolderId] = useState("");
-  const linkData = useFetchData(`users/1/links?folderId=${folderId}`)?.data;
-
+export default function Content({ folderId, setFolderId, linkData }) {
   return (
     <Main>
       <SearchBar />
