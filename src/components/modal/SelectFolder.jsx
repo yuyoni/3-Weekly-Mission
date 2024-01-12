@@ -61,7 +61,7 @@ const Container = styled.div`
 
   img {
     position: absolute;
-    top: 13px;
+    top: 12px;
     right: 8px;
   }
 `;
