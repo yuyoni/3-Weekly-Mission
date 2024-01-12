@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import close from "../../assets/_close.svg";
 import IconBox from "./IconBox";
+import SelectFolder from "./SelectFolder";
 
 export default function CommonModal({
   setter,
@@ -9,6 +10,7 @@ export default function CommonModal({
   placeholder,
   buttonText,
   color,
+  selectFolder,
   icon,
 }) {
   return (
@@ -17,13 +19,16 @@ export default function CommonModal({
         <img
           src={close}
           alt="x"
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             setter(false);
           }}
         />
-        <span>{title}</span>
+        <span className="title">{title}</span>
+        {/* 이 부분 너무 복잡함 => if문이나 switch case로 수정하기 */}
         {placeholder ? <input type="text" placeholder={placeholder} /> : null}
-        <p>{subtitle}</p>
+        <p className="subtitle">{subtitle}</p>
+        {selectFolder ? <SelectFolder /> : null}
         {buttonText ? <Button color={color}>{buttonText}</Button> : null}
         {icon ? <IconBox /> : null}
       </Container>
@@ -56,7 +61,7 @@ const Container = styled.div`
   border: 1px solid #ccd5e3;
   background: #fff;
 
-  span {
+  .title {
     font-weight: 600;
     font-size: 20px;
     color: #373740;
@@ -81,6 +86,9 @@ const Container = styled.div`
     font-weight: 400;
     line-height: 22px;
     color: #9fa6b2;
+  }
+
+  .subtitle {
     margin-bottom: 15px;
   }
 

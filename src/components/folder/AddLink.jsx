@@ -23,7 +23,7 @@ export default function AddLink() {
         <CommonModal
           setter={setAddFolderModal}
           title="폴더 추가"
-          placeholder="내용 이름"
+          placeholder="내용 입력"
           buttonText="추가하기"
           color="linear-gradient"
         />

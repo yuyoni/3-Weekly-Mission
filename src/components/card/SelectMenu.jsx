@@ -1,12 +1,15 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import CommonModal from "../modal/CommonModal";
 
 export default function SelectMenu({ isKebabClicked, setIsKebabClicked }) {
-  const wrapperRef = useRef(null);
+  const containerRef = useRef(null);
+  const [deleteLinkModal, setDeleteLinkModal] = useState(false);
+  const [addLinkModal, setAddLinkModal] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
         setIsKebabClicked(false);
       }
     };
@@ -16,15 +19,48 @@ export default function SelectMenu({ isKebabClicked, setIsKebabClicked }) {
     };
   });
 
+  const handleDeleteClick = (e) => {
+    e.stopPropagation();
+    setDeleteLinkModal(true);
+  };
+
+  const handleAddLinkClick = (e) => {
+    e.stopPropagation();
+    setAddLinkModal(true);
+  };
+
   return (
-    <Wrapper ref={wrapperRef}>
-      <div onClick={(e) => e.stopPropagation()}>삭제하기</div>
-      <div onClick={(e) => e.stopPropagation()}>폴더에 추가</div>
+    <Wrapper>
+      <Container ref={containerRef}>
+        <div onClick={handleDeleteClick}>삭제하기</div>
+        <div onClick={handleAddLinkClick}>폴더에 추가</div>
+      </Container>
+      {deleteLinkModal ? (
+        <CommonModal
+          setter={setDeleteLinkModal}
+          title="링크 삭제"
+          subtitle="www.naver.com"
+          buttonText="삭제하기"
+          color="#FF5B56"
+        />
+      ) : null}
+      {addLinkModal ? (
+        <CommonModal
+          setter={setAddLinkModal}
+          title="폴더에 추가"
+          subtitle="링크 주소"
+          buttonText="추가하기"
+          selectFolder="true"
+          color="linear-gradient"
+        />
+      ) : null}
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.div``;
+
+const Container = styled.div`
   position: absolute;
   top: 230px;
   left: 300px;

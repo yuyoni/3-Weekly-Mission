@@ -41,7 +41,7 @@ export default function EditBox({ folderId, folderName = "전체" }) {
           setter={setShareFolderModal}
           title="폴더 공유"
           subtitle="폴더명"
-          icon="icon"
+          icon="true"
         />
       ) : null}
       {deleteFolderModal ? (
