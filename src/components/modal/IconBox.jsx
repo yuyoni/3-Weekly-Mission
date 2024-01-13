@@ -1,11 +1,11 @@
-import link from "../../assets/modal/link.svg";
+import { useEffect, useState } from "react";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { FacebookShareButton } from "react-share";
+import styled from "styled-components";
 import facebook from "../../assets/modal/Facebook.svg";
 import kakao from "../../assets/modal/Kakao.svg";
-import styled from "styled-components";
-import { useEffect, useState } from "react";
+import link from "../../assets/modal/link.svg";
 import shareKakao from "../../utils/shareKakaoLink";
-import { FacebookShareButton } from "react-share";
-import CopyToClipboard from "react-copy-to-clipboard";
 
 export default function IconBox({ userId, folderId, folderName }) {
   const [host, setHost] = useState("");

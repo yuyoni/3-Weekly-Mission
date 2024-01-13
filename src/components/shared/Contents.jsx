@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import SearchBar from "../searchbar/SearchBar";
 import Card from "../card/Card";
+import SearchBar from "../searchbar/SearchBar";
 
 export default function Contents({ folderData }) {
   return (

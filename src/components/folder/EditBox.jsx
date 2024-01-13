@@ -1,8 +1,8 @@
+import { useState } from "react";
 import styled from "styled-components";
 import pen from "../../assets/pen.svg";
 import share from "../../assets/share.svg";
 import trashcan from "../../assets/trashcan.svg";
-import { useState } from "react";
 import CommonModal from "../modal/CommonModal";
 
 export default function EditBox({ userId, folderId, currentFolderName }) {

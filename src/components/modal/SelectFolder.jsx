@@ -1,6 +1,6 @@
+import { useState } from "react";
 import styled from "styled-components";
 import check from "../../assets/modal/check.svg";
-import { useState } from "react";
 
 export default function SelectFolder({ folderData }) {
   const [checkedFolders, setCheckedFolders] = useState({});
@@ -12,8 +12,6 @@ export default function SelectFolder({ folderData }) {
       [folderId]: !prevCheckedFolders[folderId],
     }));
   };
-
-  console.log(folderData);
 
   return (
     <Wrapper>

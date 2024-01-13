@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import useFetchData from "../../hooks/useFetchData";
 import SearchBar from "../searchbar/SearchBar";
 import Content from "./Content";
-import { useState } from "react";
-import useFetchData from "../../hooks/useFetchData";
 
 export default function FolderLinkContainer() {
   // 폴더 아이디 (아무값도 없으면 전체 폴더. 폴더 선택할 떄 필요함)
@@ -16,6 +16,12 @@ export default function FolderLinkContainer() {
 
   // 유저 정보 (유저id로 해당 유저의 이름, 프로필이미지, 생성일 등 정보를 알 수 있음)
   const userInfo = useFetchData(`users/${userId}`);
+
+  // eslint에서 선언되고 사용안됐다고 배포안해줘서 임시로 사용하는 코드 씀..
+  console.log(userInfo);
+  useEffect(() => {
+    setUserId("1");
+  }, [userId]);
 
   return (
     <Main>

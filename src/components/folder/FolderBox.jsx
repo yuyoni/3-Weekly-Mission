@@ -1,7 +1,6 @@
+import { useState } from "react";
 import styled from "styled-components";
 import add from "../../assets/add.svg";
-import useFetchData from "../../hooks/useFetchData";
-import { useState } from "react";
 import CommonModal from "../modal/CommonModal";
 
 export default function FolderBox({

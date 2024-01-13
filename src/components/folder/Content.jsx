@@ -1,19 +1,16 @@
-import EditBox from "./EditBox";
-import FolderBox from "./FolderBox";
-
-import add from "../../assets/white-add.svg";
-
-import convertKeyToCamelCase from "../../utils/convertKeyToCamelCase";
-import Card from "../card/Card";
 import { useState } from "react";
 import styled from "styled-components";
+import add from "../../assets/white-add.svg";
 import useFetchData from "../../hooks/useFetchData";
+import convertKeyToCamelCase from "../../utils/convertKeyToCamelCase";
+import Card from "../card/Card";
+import EditBox from "./EditBox";
+import FolderBox from "./FolderBox";
 
 export default function Content({ userId, folderId, setFolderId, linkList }) {
   const [currentFolderName, setCurrentFolderName] = useState("전체");
   const folderData = useFetchData(`users/${userId}/folders`)?.data;
 
-  console.log(folderData);
   return (
     <>
       <FolderBox
