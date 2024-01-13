@@ -52,6 +52,7 @@ const Container = styled.div`
   padding: 8px;
   align-items: center;
   width: 100%;
+  cursor: pointer;
 
   ${({ $checkFolder }) =>
     $checkFolder
