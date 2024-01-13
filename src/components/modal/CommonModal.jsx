@@ -10,12 +10,12 @@ export default function CommonModal({
   placeholder,
   buttonText,
   color,
-  selectFolder,
+  folderData,
   icon,
   folderId,
 }) {
   return (
-    <Wrapper>
+    <Wrapper onClick={(e) => e.stopPropagation()}>
       <Container>
         <img
           src={close}
@@ -29,8 +29,12 @@ export default function CommonModal({
         {/* 이 부분 너무 복잡함 => if문이나 switch case로 수정하기 */}
         {placeholder ? <input type="text" placeholder={placeholder} /> : null}
         <p className="subtitle">{subtitle}</p>
-        {selectFolder ? <SelectFolder /> : null}
-        {buttonText ? <Button color={color}>{buttonText}</Button> : null}
+        {folderData ? <SelectFolder folderData={folderData} /> : null}
+        {buttonText ? (
+          <Button color={color} onClick={(e) => e.stopPropagation()}>
+            {buttonText}
+          </Button>
+        ) : null}
         {icon ? <IconBox folderId={folderId} /> : null}
       </Container>
     </Wrapper>

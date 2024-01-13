@@ -7,7 +7,7 @@ import kebab from "../../assets/kebab.svg";
 import { useState } from "react";
 import SelectMenu from "./SelectMenu";
 
-export default function Card({ link }) {
+export default function Card({ folderData, link }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isKebabClicked, setIsKebabClicked] = useState(false);
 
@@ -60,7 +60,11 @@ export default function Card({ link }) {
         </span>
       </Detail>
       {isKebabClicked ? (
-        <SelectMenu setIsKebabClicked={setIsKebabClicked} />
+        <SelectMenu
+          setIsKebabClicked={setIsKebabClicked}
+          linkUrl={link.url}
+          folderData={folderData}
+        />
       ) : null}
     </Wrapper>
   );

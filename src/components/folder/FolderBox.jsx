@@ -4,14 +4,20 @@ import useFetchData from "../../hooks/useFetchData";
 import { useState } from "react";
 import CommonModal from "../modal/CommonModal";
 
-export default function FolderBox({ folderId, setFolderId, setFolderName }) {
-  const folderData = useFetchData("users/1/folders")?.data;
+export default function FolderBox({
+  folderData,
+  userId,
+  folderId,
+  setFolderId,
+  setCurrentFolderName,
+}) {
   const [addFolderModal, setAddFolderModal] = useState(false);
 
   const handleClickFolder = (clickedFolderId, clickedFolderName) => {
     setFolderId(clickedFolderId);
-    setFolderName(clickedFolderName);
+    setCurrentFolderName(clickedFolderName);
   };
+
   return (
     <Wrapper>
       <FolderList>
@@ -48,7 +54,7 @@ export default function FolderBox({ folderId, setFolderId, setFolderName }) {
         <CommonModal
           setter={setAddFolderModal}
           title="폴더 추가"
-          placeholder="내용 입력"
+          placeholder="폴더명"
           buttonText="추가하기"
           color="linear-gradient"
         />
@@ -93,6 +99,7 @@ const FolderAdd = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 4px;
+  cursor: pointer;
 
   span {
     font-size: 16px;

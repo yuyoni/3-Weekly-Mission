@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { styled } from "styled-components";
 import link from "../../assets/link.svg";
-import CommonModal from "../modal/CommonModal";
 
 export default function AddLink() {
   return (
