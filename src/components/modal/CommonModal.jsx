@@ -71,6 +71,7 @@ const Container = styled.div`
   background: #fff;
 
   .title {
+    text-align: center;
     font-weight: 600;
     font-size: 20px;
     color: #373740;
