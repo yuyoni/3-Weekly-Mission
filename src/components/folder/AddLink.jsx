@@ -1,14 +1,53 @@
 import { styled } from "styled-components";
 import link from "../../assets/link.svg";
+import { useState } from "react";
+import CommonModal from "../modal/CommonModal";
 
-export default function AddLink() {
+export default function AddLink({ folderData }) {
+  const [inputValue, setInputValue] = useState("");
+  const [addLinkModal, setAddLinkModal] = useState(false);
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleAddLinkClick = (e, inputValue) => {
+    e.stopPropagation();
+    if (inputValue.trim().length) {
+      setAddLinkModal(true);
+    } else {
+      alert("링크를 입력해 주세요.");
+    }
+  };
+
   return (
     <Wrapper>
       <Container className="add-link-box">
         <img src={link} alt="add-link-icon" />
-        <Input className="add-link" placeholder=" 링크를 추가해 보세요" />
-        <button className="cta">추가하기</button>
+        <Input
+          className="add-link"
+          placeholder=" 링크를 추가해 보세요"
+          onChange={handleInputChange}
+        />
+        <button
+          className="cta"
+          onClick={(e) => {
+            handleAddLinkClick(e, inputValue);
+          }}
+        >
+          추가하기
+        </button>
       </Container>
+      {addLinkModal ? (
+        <CommonModal
+          setter={setAddLinkModal}
+          title="폴더에 추가"
+          subtitle={inputValue}
+          buttonText="추가하기"
+          folderData={folderData}
+          color="linear-gradient"
+        />
+      ) : null}
     </Wrapper>
   );
 }

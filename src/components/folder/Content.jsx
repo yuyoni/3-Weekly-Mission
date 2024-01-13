@@ -1,14 +1,18 @@
 import { useState } from "react";
 import styled from "styled-components";
-import useFetchData from "../../hooks/useFetchData";
 import convertKeyToCamelCase from "../../utils/convertKeyToCamelCase";
 import Card from "../card/Card";
 import EditBox from "./EditBox";
 import FolderBox from "./FolderBox";
 
-export default function Content({ userId, folderId, setFolderId, linkList }) {
+export default function Content({
+  userId,
+  folderId,
+  setFolderId,
+  linkList,
+  folderData,
+}) {
   const [currentFolderName, setCurrentFolderName] = useState("전체");
-  const folderData = useFetchData(`users/${userId}/folders`)?.data;
 
   return (
     <>

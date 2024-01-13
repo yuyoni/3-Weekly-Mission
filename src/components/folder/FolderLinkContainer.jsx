@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import useFetchData from "../../hooks/useFetchData";
 import SearchBar from "../searchbar/SearchBar";
 import Content from "./Content";
 
-export default function FolderLinkContainer() {
+export default function FolderLinkContainer({ userId, folderData }) {
   // 폴더 아이디 (아무값도 없으면 전체 폴더. 폴더 선택할 떄 필요함)
   const [folderId, setFolderId] = useState("");
-
-  // 유저 아이디 (임시로 1로 초기화. 폴더 리스트, 유저정보, 링크리스트 불러올 때 필요함)
-  const [userId, setUserId] = useState("1");
 
   // 링크 리스트 (유저아이디와 폴더 아이디를 이용해서 특정유저의 특정 폴더안에 있는 링크들을 불러올 수 있음)
   const linkList = useFetchData(`users/${userId}/links?folderId=${folderId}`);
@@ -19,9 +16,6 @@ export default function FolderLinkContainer() {
 
   // eslint에서 선언되고 사용안됐다고 배포안해줘서 임시로 사용하는 코드 씀..
   console.log(userInfo);
-  useEffect(() => {
-    setUserId("1");
-  }, [userId]);
 
   return (
     <Main>
@@ -32,6 +26,7 @@ export default function FolderLinkContainer() {
           folderId={folderId}
           setFolderId={setFolderId}
           linkList={linkList.data}
+          folderData={folderData}
         />
       ) : (
         <p>저장된 링크가 없습니다</p>
