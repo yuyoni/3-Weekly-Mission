@@ -19,6 +19,7 @@ export default function CommonModal({
     <Wrapper onClick={(e) => e.stopPropagation()}>
       <Container>
         <img
+          className="exit-button"
           src={close}
           alt="x"
           onClick={(e) => {
@@ -100,7 +101,7 @@ const Container = styled.div`
     margin-bottom: 15px;
   }
 
-  img {
+  .exit-button {
     position: absolute;
     top: 16px;
     right: 16px;
