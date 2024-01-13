@@ -7,7 +7,9 @@ import shareKakao from "../../utils/shareKakaoLink";
 import { FacebookShareButton } from "react-share";
 import CopyToClipboard from "react-copy-to-clipboard";
 
-export default function IconBox({ folderId }) {
+export default function IconBox({ userId, folderId, folderName }) {
+  const [host, setHost] = useState("");
+
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://developers.kakao.com/sdk/js/kakao.js";
@@ -16,21 +18,19 @@ export default function IconBox({ folderId }) {
     return () => document.body.removeChild(script);
   }, []);
 
-  const [host, setHost] = useState("");
-
   useEffect(() => {
     const currentHost = window.location.origin;
     setHost(currentHost);
   }, []);
 
-  // userId 임시로 1로 설정
-  const route = host + `/shared?user=${"1"}&folder=${folderId}`;
+  // 아직 shared 경로에서 userId와 folderId에 따라 다른 화면을 보여주고 있지 않아서 sample folder(즐겨찾기)화면만 뜸
+  const route = host + `/shared?user=${userId}&folder=${folderId}`;
 
   return (
     <Container>
       <IconWrapper
         color="#FEE500"
-        onClick={() => shareKakao(route, "folderData")}
+        onClick={() => shareKakao(route, folderName)}
       >
         <img src={kakao} alt="kakao-icon" />
       </IconWrapper>
@@ -39,7 +39,10 @@ export default function IconBox({ folderId }) {
           <img src={facebook} alt="facebook-icon" />
         </IconWrapper>
       </FacebookShareButton>
-      <CopyToClipboard text={route} onCopy={() => alert("복사되었습니다.")}>
+      <CopyToClipboard
+        text={route}
+        onCopy={() => alert("클립보드에 복사되었습니다.")}
+      >
         <IconWrapper color="rgba(157, 157, 157, 0.04)">
           <img src={link} alt="link-icon" />
         </IconWrapper>

@@ -5,7 +5,7 @@ import trashcan from "../../assets/trashcan.svg";
 import { useState } from "react";
 import CommonModal from "../modal/CommonModal";
 
-export default function EditBox({ folderId, currentFolderName }) {
+export default function EditBox({ userId, folderId, currentFolderName }) {
   const [editFolderModal, setEditFolderModal] = useState(false);
   const [shareFolderModal, setShareFolderModal] = useState(false);
   const [deleteFolderModal, setDeleteFolderModal] = useState(false);
@@ -43,6 +43,7 @@ export default function EditBox({ folderId, currentFolderName }) {
           subtitle={currentFolderName}
           icon="true"
           folderId={folderId}
+          userId={userId}
         />
       ) : null}
       {deleteFolderModal ? (

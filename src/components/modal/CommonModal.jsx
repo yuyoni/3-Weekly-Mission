@@ -13,6 +13,7 @@ export default function CommonModal({
   folderData,
   icon,
   folderId,
+  userId,
 }) {
   return (
     <Wrapper onClick={(e) => e.stopPropagation()}>
@@ -35,7 +36,9 @@ export default function CommonModal({
             {buttonText}
           </Button>
         ) : null}
-        {icon ? <IconBox folderId={folderId} /> : null}
+        {icon ? (
+          <IconBox userId={userId} folderId={folderId} folderName={subtitle} />
+        ) : null}
       </Container>
     </Wrapper>
   );

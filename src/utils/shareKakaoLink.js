@@ -1,4 +1,6 @@
-export default function shareKakao(route, title) {
+import banner from "../assets/banner.png";
+
+export default function shareKakao(route, folderName) {
   // url이 id값에 따라 변경되기 때문에 route를 인자값으로 받아줌
   if (window.Kakao) {
     const kakao = window.Kakao;
@@ -9,9 +11,8 @@ export default function shareKakao(route, title) {
     kakao.Link.sendDefault({
       objectType: "feed",
       content: {
-        title: "폴더 이름",
-        description: "폴더 설명",
-        imageUrl: "폴더 이미지 url",
+        title: folderName,
+        imageUrl: banner,
         link: {
           mobileWebUrl: route, // 인자값으로 받은 route(uri 형태)
           webUrl: route,

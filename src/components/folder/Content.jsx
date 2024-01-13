@@ -13,6 +13,7 @@ export default function Content({ userId, folderId, setFolderId, linkList }) {
   const [currentFolderName, setCurrentFolderName] = useState("전체");
   const folderData = useFetchData(`users/${userId}/folders`)?.data;
 
+  console.log(folderData);
   return (
     <>
       <FolderBox
@@ -22,7 +23,11 @@ export default function Content({ userId, folderId, setFolderId, linkList }) {
         setFolderId={setFolderId}
         setCurrentFolderName={setCurrentFolderName}
       />
-      <EditBox folderId={folderId} currentFolderName={currentFolderName} />
+      <EditBox
+        userId={userId}
+        folderId={folderId}
+        currentFolderName={currentFolderName}
+      />
       <Wrapper>
         {linkList.map((link) => {
           const newLink = convertKeyToCamelCase(link);
