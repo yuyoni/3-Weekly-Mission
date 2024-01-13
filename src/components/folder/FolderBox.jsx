@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import add from "../../assets/add.svg";
+import whiteAdd from "../../assets/white-add.svg";
 import CommonModal from "../modal/CommonModal";
 
 export default function FolderBox({
@@ -39,14 +40,25 @@ export default function FolderBox({
           : null}
       </FolderList>
       <FolderAdd>
-        <span
+        <div
+          className="folder-add-text"
           onClick={() => {
             setAddFolderModal(true);
           }}
         >
-          폴더 추가
-        </span>
-        <img src={add} alt="add-icon" />
+          <span>폴더 추가</span>
+          <img src={add} alt="add-icon" />
+        </div>
+
+        <div
+          className="folder-add-button"
+          onClick={() => {
+            setAddFolderModal(true);
+          }}
+        >
+          추가하기
+          <img src={whiteAdd} alt="add-icon" />
+        </div>
       </FolderAdd>
 
       {addFolderModal ? (
@@ -94,18 +106,46 @@ const FolderElement = styled.div`
 
 const FolderAdd = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
 
-  span {
-    font-size: 16px;
-    color: #6d6afe;
+  .folder-add-text {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+
+    span {
+      font-size: 16px;
+      color: #6d6afe;
+    }
+
+    @media (max-width: 767px) {
+      display: none;
+    }
   }
 
-  @media (max-width: 767px) {
+  .folder-add-button {
     display: none;
+    cursor: pointer;
+    z-index: 2;
+    @media (max-width: 767px) {
+      position: fixed;
+      bottom: 101px;
+      left: 32%;
+      width: 135px;
+      height: 36px;
+      border-radius: 20px;
+      border: 1px solid #fff;
+      background: #6d6afe;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+
+      font-size: 16px;
+      color: #e7effb;
+    }
   }
 `;
