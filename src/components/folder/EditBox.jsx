@@ -65,7 +65,6 @@ const Wrapper = styled.div`
   width: 100%;
   font-size: 24px;
   font-weight: 600;
-  margin: 24px auto;
 
   @media (max-width: 767px) {
     flex-direction: column;

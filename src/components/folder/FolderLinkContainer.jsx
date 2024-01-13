@@ -48,7 +48,7 @@ const Main = styled.main`
   align-items: center;
   justify-content: center;
   margin: 40px auto 100px;
-  gap: 40px;
+  gap: 24px;
 
   @media (max-width: 1124px) {
     width: 704px;
