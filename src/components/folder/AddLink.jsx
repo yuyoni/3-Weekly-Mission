@@ -4,30 +4,13 @@ import link from "../../assets/link.svg";
 import CommonModal from "../modal/CommonModal";
 
 export default function AddLink() {
-  const [addFolderModal, setAddFolderModal] = useState(false);
   return (
     <Wrapper>
       <Container className="add-link-box">
         <img src={link} alt="add-link-icon" />
         <Input className="add-link" placeholder=" 링크를 추가해 보세요" />
-        <button
-          className="cta"
-          onClick={() => {
-            setAddFolderModal(true);
-          }}
-        >
-          추가하기
-        </button>
+        <button className="cta">추가하기</button>
       </Container>
-      {addFolderModal ? (
-        <CommonModal
-          setter={setAddFolderModal}
-          title="폴더 추가"
-          placeholder="내용 입력"
-          buttonText="추가하기"
-          color="linear-gradient"
-        />
-      ) : null}
     </Wrapper>
   );
 }
