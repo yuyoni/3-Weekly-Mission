@@ -112,6 +112,7 @@ const FolderAdd = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    width: 87px;
     gap: 4px;
     cursor: pointer;
 
