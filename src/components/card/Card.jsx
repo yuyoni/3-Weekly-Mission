@@ -1,13 +1,13 @@
+import { useState } from "react";
 import styled from "styled-components";
-import noImage from "../../assets/no-image.svg";
-import formatDateAndDifference from "../../utils/FormatDate";
 import emptyStar from "../../assets/emptyStar.svg";
 import filledStar from "../../assets/filledStar.svg";
 import kebab from "../../assets/kebab.svg";
-import { useState } from "react";
+import noImage from "../../assets/no-image.svg";
+import formatDateAndDifference from "../../utils/FormatDate";
 import SelectMenu from "./SelectMenu";
 
-export default function Card({ link }) {
+export default function Card({ folderData, link }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isKebabClicked, setIsKebabClicked] = useState(false);
 
@@ -60,7 +60,11 @@ export default function Card({ link }) {
         </span>
       </Detail>
       {isKebabClicked ? (
-        <SelectMenu setIsKebabClicked={setIsKebabClicked} />
+        <SelectMenu
+          setIsKebabClicked={setIsKebabClicked}
+          linkUrl={link.url}
+          folderData={folderData}
+        />
       ) : null}
     </Wrapper>
   );

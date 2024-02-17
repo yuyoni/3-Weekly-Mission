@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import CommonModal from "../modal/CommonModal";
 
-export default function SelectMenu({ isKebabClicked, setIsKebabClicked }) {
+export default function SelectMenu({ setIsKebabClicked, folderData, linkUrl }) {
   const containerRef = useRef(null);
   const [deleteLinkModal, setDeleteLinkModal] = useState(false);
   const [addLinkModal, setAddLinkModal] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
+      e.stopPropagation();
       if (containerRef.current && !containerRef.current.contains(e.target)) {
         setIsKebabClicked(false);
       }
@@ -39,7 +40,7 @@ export default function SelectMenu({ isKebabClicked, setIsKebabClicked }) {
         <CommonModal
           setter={setDeleteLinkModal}
           title="링크 삭제"
-          subtitle="www.naver.com"
+          subtitle={linkUrl}
           buttonText="삭제하기"
           color="#FF5B56"
         />
@@ -48,9 +49,9 @@ export default function SelectMenu({ isKebabClicked, setIsKebabClicked }) {
         <CommonModal
           setter={setAddLinkModal}
           title="폴더에 추가"
-          subtitle="링크 주소"
+          subtitle={linkUrl}
           buttonText="추가하기"
-          selectFolder="true"
+          folderData={folderData}
           color="linear-gradient"
         />
       ) : null}

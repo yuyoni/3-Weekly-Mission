@@ -1,18 +1,18 @@
+import { useState } from "react";
 import styled from "styled-components";
 import pen from "../../assets/pen.svg";
 import share from "../../assets/share.svg";
 import trashcan from "../../assets/trashcan.svg";
-import { useState } from "react";
 import CommonModal from "../modal/CommonModal";
 
-export default function EditBox({ folderId, folderName = "전체" }) {
+export default function EditBox({ userId, folderId, currentFolderName }) {
   const [editFolderModal, setEditFolderModal] = useState(false);
   const [shareFolderModal, setShareFolderModal] = useState(false);
   const [deleteFolderModal, setDeleteFolderModal] = useState(false);
 
   return (
     <Wrapper>
-      <div>{folderName}</div>
+      <div>{currentFolderName}</div>
       <Edit $isVisible={folderId !== ""}>
         <div onClick={() => setShareFolderModal(true)}>
           <img src={share} alt="share-icon" />
@@ -31,7 +31,7 @@ export default function EditBox({ folderId, folderName = "전체" }) {
         <CommonModal
           setter={setEditFolderModal}
           title="폴더 이름 변경"
-          placeholder="유용한 팁"
+          placeholder={currentFolderName}
           buttonText="변경하기"
           color="linear-gradient"
         />
@@ -40,15 +40,17 @@ export default function EditBox({ folderId, folderName = "전체" }) {
         <CommonModal
           setter={setShareFolderModal}
           title="폴더 공유"
-          subtitle="폴더명"
+          subtitle={currentFolderName}
           icon="true"
+          folderId={folderId}
+          userId={userId}
         />
       ) : null}
       {deleteFolderModal ? (
         <CommonModal
           setter={setDeleteFolderModal}
           title="폴더 삭제"
-          subtitle="폴더명"
+          subtitle={currentFolderName}
           buttonText="삭제하기"
           color="#FF5B56"
         />
@@ -63,7 +65,6 @@ const Wrapper = styled.div`
   width: 100%;
   font-size: 24px;
   font-weight: 600;
-  margin: 24px auto;
 
   @media (max-width: 767px) {
     flex-direction: column;

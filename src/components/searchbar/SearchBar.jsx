@@ -20,6 +20,7 @@ const Wrapper = styled.div`
   border-radius: 10px;
   background: #f5f5f5;
   gap: 10px;
+  margin-bottom: 16px;
 
   & input {
     width: 100%;

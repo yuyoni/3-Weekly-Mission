@@ -1,24 +1,37 @@
+import { useState } from "react";
 import styled from "styled-components";
 import check from "../../assets/modal/check.svg";
-import { useState } from "react";
 
-export default function SelectFolder() {
-  const [checkFolder, setCheckFolder] = useState(false);
+export default function SelectFolder({ folderData }) {
+  const [checkedFolders, setCheckedFolders] = useState({});
 
-  const handleFolderClick = (e) => {
+  const handleFolderClick = (e, folderId) => {
     e.stopPropagation();
-    setCheckFolder(!checkFolder);
+    setCheckedFolders((prevCheckedFolders) => ({
+      ...prevCheckedFolders,
+      [folderId]: !prevCheckedFolders[folderId],
+    }));
   };
+
   return (
     <Wrapper>
-      {/* 데이터 불러와서 map으로 표시 */}
-      <Container $checkFolder={checkFolder} onClick={handleFolderClick}>
-        <div className="folder-info">
-          폴더이름
-          <p>n개 링크</p>
-        </div>
-        {checkFolder ? <img src={check} alt="check-icon" /> : null}
-      </Container>
+      {folderData.map((folder) => {
+        return (
+          <Container
+            key={folder.id}
+            $checkFolder={checkedFolders[folder.id]}
+            onClick={(e) => handleFolderClick(e, folder.id)}
+          >
+            <div className="folder-info">
+              {folder.name}
+              <p>{folder.link.count}개 링크</p>
+            </div>
+            {checkedFolders[folder.id] ? (
+              <img src={check} alt="check-icon" />
+            ) : null}
+          </Container>
+        );
+      })}
     </Wrapper>
   );
 }
@@ -32,12 +45,14 @@ const Wrapper = styled.div`
   width: 100%;
   row-gap: 4px;
 `;
+
 const Container = styled.div`
   position: relative;
   display: flex;
   padding: 8px;
   align-items: center;
   width: 100%;
+  cursor: pointer;
 
   ${({ $checkFolder }) =>
     $checkFolder
