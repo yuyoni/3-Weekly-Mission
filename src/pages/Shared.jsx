@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Contents from "../components/shared/Contents";
 import FolderInfo from "../components/shared/FolderInfo";
-import useFetchData from "../hooks/useFetchData";
+import useFetchData from "../../hooks/useFetchData";
 
 export default function Shared() {
   const folderData = useFetchData("sample/folder");
