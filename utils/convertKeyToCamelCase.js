@@ -7,4 +7,5 @@ const convertKeyToCamelCase = (obj) => {
   });
   return newObj;
 };
+
 export default convertKeyToCamelCase;
