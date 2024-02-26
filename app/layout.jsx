@@ -1,6 +1,4 @@
 import StyledComponentsRegistry from "../lib/registry";
-import Footer from "./components/footer/Footer";
-import Navigator from "./components/nav/Navigator";
 
 export const metadata = {
   title: "Next.js",
@@ -11,9 +9,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko">
       <body>
-        <Navigator />
         <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
-        <Footer />
       </body>
     </html>
   );
