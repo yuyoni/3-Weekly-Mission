@@ -1,24 +1,27 @@
 {
-  "name": "fe-weekly-mission",
-  "version": "0.1.0",
-  "private": true,
+  "name": "3-weekly-mission",
+  "version": "1.0.0",
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": "index.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
   "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "13.5.6"
+    "@types/jest": "^29.5.12",
+    "@types/react-dom": "^18.2.19",
+    "next": "^14.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "13.5.6"
+    "@types/node": "20.11.20",
+    "@types/react": "18.2.58",
+    "typescript": "5.3.3"
   }
 }
