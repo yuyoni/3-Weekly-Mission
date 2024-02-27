@@ -23,7 +23,9 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "app/components/sign/FormInput.jsx"
+    "app/components/sign/FormInput.jsx",
+    "lib/GlobalStyles.jsx",
+    "lib/registry.jsx"
   ],
   "exclude": ["node_modules"]
 }
