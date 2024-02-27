@@ -38,8 +38,8 @@ export default function Card({ folderData, link }) {
           src={isBookmarked ? filledStar : emptyStar}
           alt="bookmark-logo"
           onClick={handleClickBookmark}
-          width="34px"
-          height="34px"
+          width={34}
+          height={34}
         />
         <img
           className="link-img"
@@ -56,8 +56,8 @@ export default function Card({ folderData, link }) {
           src={kebab}
           alt="kebab-icon"
           onClick={handleClickKebab}
-          width="34px"
-          height="34px"
+          width={34}
+          height={34}
         />
 
         <span className="elapsed-time">{elapsedTime}</span>
