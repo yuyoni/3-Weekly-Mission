@@ -5,7 +5,7 @@ import styled from "styled-components";
 import google from "../../public/assets/google.svg";
 import kakao from "../../public/assets/kakao.svg";
 import logo from "../../public/assets/logo.svg";
-import SignInForm from "../components/sign/SignInForm";
+import AuthForm from "../components/sign/AuthForm";
 
 export default function SignIn() {
   return (
@@ -18,7 +18,7 @@ export default function SignIn() {
           <p>회원이 아니신가요?</p>
           <SignUpLink href="/signup">회원가입하기</SignUpLink>
         </LinkContainer>
-        <SignInForm />
+        <AuthForm isSignUp={false} />
         <SocialLogin>
           <span>소셜 로그인</span>
           <div style={{ display: "flex", gap: "16px" }}>

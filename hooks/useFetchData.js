@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import fetchData from "../apis/api";
 
-export default function useFetchData(endpoint) {
+export default function useFetchData(param) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
     const fetchDataAsync = async () => {
       try {
-        const result = await fetchData(endpoint);
+        const result = await fetchData(param);
         setData(result);
       } catch (error) {
-        throw new Error(error);
+        console.log(error);
       }
     };
 
     fetchDataAsync();
-  }, [endpoint]);
+  }, [param]);
 
   return data;
 }
