@@ -24,8 +24,8 @@
     "**/*.ts",
     "**/*.tsx",
     "app/components/sign/FormInput.jsx",
-    "lib/GlobalStyles.jsx",
-    "lib/registry.jsx"
+    "app/_lib/GlobalStyles.jsx",
+    "app/_lib/registry.jsx"
   ],
   "exclude": ["node_modules"]
 }
