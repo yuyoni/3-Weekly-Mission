@@ -4,6 +4,7 @@ import useFetchData from "../../_hooks/useFetchData";
 import Contents from "./_components/Contents";
 import FolderInfo from "./_components/FolderInfo";
 
+// 테스트
 export default function Shared() {
   const folderData = useFetchData("sample/folder");
   return (
