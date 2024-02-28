@@ -56,8 +56,8 @@ export default function Card({ folderData, link }) {
           src={kebab}
           alt="kebab-icon"
           onClick={handleClickKebab}
-          width={34}
-          height={34}
+          width={21}
+          height={17}
         />
 
         <span className="elapsed-time">{elapsedTime}</span>
