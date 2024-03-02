@@ -1,0 +1,84 @@
+.thumbnail {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 200px;
+  flex-shrink: 0;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+}
+
+.link_img {
+  max-width: 120%;
+  max-height: 100%;
+}
+
+.detail {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 20px;
+  gap: 10px;
+  background-color: #fff;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.description {
+  margin: 0;
+  font-size: 16px;
+  height: 40px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.elapsed_time {
+  color: #666;
+  font-size: 13px;
+}
+
+.formatted_data {
+  color: #333;
+  font-size: 14px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+.card:hover > .detail {
+  background-color: #f0f6ff;
+}
+
+.card:hover .link_img {
+  transition: all 0.3s;
+  transform: scale(1.2);
+}
+
+.bookmark {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.kebab {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  z-index: 1;
+  cursor: pointer;
+}

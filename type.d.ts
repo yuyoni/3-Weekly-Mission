@@ -18,8 +18,10 @@ interface UserData {
 interface LinkList {
   id: number;
   title: string;
+  createdAt: string;
   description: string;
   url: string;
+  imageSource: string;
 }
 
 interface FolderData {
