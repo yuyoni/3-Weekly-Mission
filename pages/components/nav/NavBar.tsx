@@ -1,4 +1,4 @@
-import Profile from "@components/user/Profile";
+import Profile from "pages/components/user/Profile";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./NavBar.module.css";

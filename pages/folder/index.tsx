@@ -1,4 +1,4 @@
-import Layout from "@components/common/Layout";
+import Layout from "pages/components/common/Layout";
 
 export default function Folder() {
   return (

@@ -1,5 +1,5 @@
-import Layout from "@components/common/Layout";
-import styles from "@styles/Home.module.css";
+import Layout from "pages/components/common/Layout";
+import styles from "./Home.module.css";
 import Link from "next/link";
 
 export default function Home() {
