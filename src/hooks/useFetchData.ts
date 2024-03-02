@@ -5,9 +5,9 @@ import camelcaseKeys from "camelcase-keys";
 export default function useFetchData<T>(
   param: string,
   method = "GET",
-  body?: T
+  body?: any
 ) {
-  const [data, setData] = useState<T>();
+  const [data, setData] = useState<T | undefined>();
 
   useEffect(() => {
     (async () => {
@@ -18,7 +18,7 @@ export default function useFetchData<T>(
         console.error(error);
       }
     })();
-  }, [param]);
+  }, [param, method, body]);
 
   return data;
 }

@@ -1,0 +1,81 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.folder_list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.folder_element {
+  display: flex;
+  padding: 8px 12px;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid #6d6afe;
+  cursor: pointer;
+}
+
+.nullFolder {
+  background: #6d6afe;
+  color: #fff;
+}
+
+.nonNullFolder {
+  background: #fff;
+  color: #000;
+}
+
+.nonNullFolder:hover {
+  background-color: #e7effb;
+}
+
+.folder_add {
+  display: flex;
+}
+
+.folder_add .folder_add_text {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 87px;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.folder_add .folder_add_text span {
+  font-size: 16px;
+  color: #6d6afe;
+}
+
+.folder_add .folder_add_button {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .folder_add .folder_add_text {
+    display: none;
+  }
+
+  .folder_add .folder_add_button {
+    position: fixed;
+    bottom: 101px;
+    left: 32%;
+    width: 135px;
+    height: 36px;
+    border-radius: 20px;
+    border: 1px solid #fff;
+    background: #6d6afe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 16px;
+    color: #e7effb;
+  }
+}

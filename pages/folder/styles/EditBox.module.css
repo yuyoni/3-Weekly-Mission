@@ -1,0 +1,35 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 24px;
+  font-weight: 600;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+  }
+}
+
+.edit {
+  justify-content: left;
+}
+
+.button_text {
+  font-size: 14px;
+  color: #9fa6b2;
+}
+
+.share_icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.isVisible {
+  display: flex;
+  gap: 12px;
+}

@@ -3,20 +3,8 @@ import Link from "next/link";
 import styles from "./Profile.module.css";
 import { useEffect, useState } from "react";
 
-type UserId = {
-  id: number;
-};
-
-type UserData = {
-  id: number;
-  createdAt: string;
-  name: string;
-  imageSource: string;
-  email: string;
-};
-
 export default function Profile() {
-  const [userId, setUserId] = useState<number>();
+  const [id, setId] = useState<Id>();
   const [userData, setUserData] = useState<UserData>();
 
   const currentUser = useFetchData<UserId>("users");
@@ -24,8 +12,8 @@ export default function Profile() {
   console.log(currentUser);
 
   if (currentUser) {
-    setUserId(currentUser.id);
-    const data = useFetchData<UserData[]>(`users/${userId}`);
+    setId(currentUser.id);
+    const data = useFetchData<UserData[]>(`users/${id}`);
 
     if (data) {
       setUserData(data[0]);
