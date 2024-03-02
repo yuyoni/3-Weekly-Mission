@@ -1,21 +1,32 @@
+:root {
+  --primary: #6d6afe;
+  --red: #ff5b56;
+  --black: #111322;
+  --white: #ffffff;
+
+  --gray100: #373740;
+  --gray60: #9fa6b2;
+  --gray20: #ccd5e3;
+  --gray10: #e7effb;
+  --gray-light: #f5f5f5;
+
+  --light-blue: #f0f6ff;
+
+  --text-gray: #676767;
+  --text-content-gray: #666666;
+  --text-content-black: #333333;
+}
+
 * {
   box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  font-family: "Pretendard";
+  word-break: keep-all;
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  font-family: "Pretendard";
-  font-weight: 400;
   font-size: 14px;
-  font-style: normal;
-  line-height: normal;
 }
 
 a {
@@ -24,13 +35,23 @@ a {
   cursor: pointer;
 }
 
-button {
+input {
   border: none;
-  cursor: pointer;
+  padding: none;
+}
+input:focus {
+  outline: none;
+}
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
 }
 
-input {
-  background-color: transparent;
+button {
   border: none;
-  outline: none;
+  padding: unset;
+  background-color: unset;
+  cursor: pointer;
 }

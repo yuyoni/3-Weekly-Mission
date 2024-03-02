@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+.link {
+  width: 100px;
+  display: block;
+  border-radius: 20px;
+  border: 1px solid #fff;
+  background: #6d6afe;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+}
