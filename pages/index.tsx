@@ -1,20 +1,21 @@
-import Link from "next/link";
+import Layout from "@components/common/Layout";
 import styles from "@styles/Home.module.css";
-import NavBar from "@components/nav/NavBar";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <>
-      <NavBar />
-      <div className={styles.container}>
-        <h1>Home</h1>
-        <Link href={"/shared"} legacyBehavior>
-          <a className={styles.link}>shared</a>
-        </Link>
-        <Link href={"/folder"} legacyBehavior>
-          <a className={styles.link}>folder</a>
-        </Link>
-      </div>
+      <Layout>
+        <div className={styles.container}>
+          <h1>Home</h1>
+          <Link href={"/shared"} legacyBehavior>
+            <a className={styles.link}>shared</a>
+          </Link>
+          <Link href={"/folder"} legacyBehavior>
+            <a className={styles.link}>folder</a>
+          </Link>
+        </div>
+      </Layout>
     </>
   );
 }
