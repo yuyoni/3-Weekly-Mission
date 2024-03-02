@@ -7,6 +7,7 @@ import styles from "./folder.module.css";
 
 export default function Folder() {
   const [id, setId] = useState<number | null>(null);
+  const [folders, setFolders] = useState<FolderData[] | null>(null);
   const userId = useFetchData<UserId>(`users`);
 
   useEffect(() => {
@@ -19,17 +20,23 @@ export default function Folder() {
 
   const folderData = useFetchData<FolderData[]>(`users/${id}/folders`);
 
-  if (!folderData) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    if (folderData) {
+      setFolders(folderData);
+    }
+  }, [folderData]);
 
   return (
     <div>
       <Layout>
-        <div className={styles.wrapper}>
-          <AddLink folderData={folderData[0]} />
-          <FolderLinkContainer id={id} folderData={folderData} />
-        </div>
+        {folders ? (
+          <div className={styles.wrapper}>
+            <AddLink folders={folders} />
+            <FolderLinkContainer id={id} folders={folders} />
+          </div>
+        ) : (
+          <div>Loading...</div>
+        )}
       </Layout>
     </div>
   );

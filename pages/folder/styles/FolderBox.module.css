@@ -20,17 +20,17 @@
   cursor: pointer;
 }
 
-.nullFolder {
+.selected_folder_color {
   background: #6d6afe;
   color: #fff;
 }
 
-.nonNullFolder {
+.default_folder_color {
   background: #fff;
   color: #000;
 }
 
-.nonNullFolder:hover {
+.default_folder_color:hover {
   background-color: #e7effb;
 }
 

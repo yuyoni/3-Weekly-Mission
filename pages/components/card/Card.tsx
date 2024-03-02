@@ -1,5 +1,5 @@
-type Props = { key: number; folderData: FolderData[]; link: LinkList };
+type Props = { key: number; folders: FolderData[]; link: LinkList };
 
-export default function Card({ folderData, link }: Props) {
+export default function Card({ folders, link }: Props) {
   return <div></div>;
 }

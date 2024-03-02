@@ -4,9 +4,9 @@ import { useState } from "react";
 import styles from "../styles/FolderLinkContainer.module.css";
 import Content from "./Content";
 
-type Props = { id: Id; folderData: FolderData[] };
+type Props = { id: Id; folders: FolderData[] };
 
-export default function FolderLinkContainer({ id, folderData }: Props) {
+export default function FolderLinkContainer({ id, folders }: Props) {
   const [folderId, setFolderId] = useState<Id>(null);
   const [inputText, setInputText] = useState<string>("");
 
@@ -32,7 +32,7 @@ export default function FolderLinkContainer({ id, folderData }: Props) {
           folderId={folderId}
           updateFolderId={updateFolderId}
           linkList={linkList}
-          folderData={folderData}
+          folders={folders}
           inputText={inputText}
         />
       ) : (

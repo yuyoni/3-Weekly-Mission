@@ -10,6 +10,6 @@ export async function fetchData(param: string, method = "GET", data?: any) {
     return response.data;
   }
 
-  const response = await axios.get(url, data);
+  const response = await axios.get(url);
   return response.data;
 }

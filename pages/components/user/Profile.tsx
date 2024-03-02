@@ -9,8 +9,6 @@ export default function Profile() {
 
   const currentUser = useFetchData<UserId>("users");
 
-  console.log(currentUser);
-
   if (currentUser) {
     setId(currentUser.id);
     const data = useFetchData<UserData[]>(`users/${id}`);

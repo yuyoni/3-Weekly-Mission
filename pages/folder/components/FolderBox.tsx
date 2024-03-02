@@ -3,49 +3,52 @@ import styles from "../styles/FolderBox.module.css";
 import Image from "next/image";
 
 type Props = {
-  folderData: FolderData[];
+  folders: FolderData[];
   id: Id;
   folderId: FolderId;
-  updateFolderId: (id: FolderId) => void;
-  updateFolderName: (name: string) => void;
+  updateFolder: (id: FolderId | null, name: string) => void;
 };
 
 export default function FolderBox({
-  folderData,
+  folders,
   id,
   folderId,
-  updateFolderId,
-  updateFolderName,
+  updateFolder,
 }: Props) {
   const [addFolderModal, setAddFolderModal] = useState(false);
 
   const handleClickFolder = (
-    clickedFolderId: Id,
+    clickedFolderId: Id | null,
     clickedFolderName: string
   ) => {
-    updateFolderId(clickedFolderId);
-    updateFolderName(clickedFolderName);
+    updateFolder(clickedFolderId, clickedFolderName);
   };
 
-  const folderElementClass =
-    folderId === null ? styles.nullFolder : styles.nonNullFolder;
+  const isFolderSelected =
+    folderId === null
+      ? styles.selected_folder_color
+      : styles.default_folder_color;
 
-  const isSelected = (id: FolderId) =>
-    folderId === id ? styles.folder_selected : styles.folder_nonselected;
+  const getFolderColorClassName = (id: FolderId) =>
+    folderId === id
+      ? styles.selected_folder_color
+      : styles.default_folder_color;
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.folder_list}>
         <div
-          className={`${styles.folder_element} ${folderElementClass}`}
-          onClick={() => handleClickFolder(id, "전체")}
+          className={`${styles.folder_element} ${isFolderSelected}`}
+          onClick={() => handleClickFolder(null, "전체")}
         >
           전체
         </div>
-        {folderData
-          ? folderData.map(({ id, name }) => (
+        {folders
+          ? folders.map(({ id, name }) => (
               <div
-                className={`${styles.folder_element} ${isSelected(id)}`}
+                className={`${styles.folder_element} ${getFolderColorClassName(
+                  id
+                )}`}
                 key={id}
                 onClick={() => handleClickFolder(id, name)}
               >

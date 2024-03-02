@@ -9,7 +9,7 @@ type Props = {
   folderId: FolderId;
   updateFolderId: (id: Id) => void;
   linkList: LinkList[];
-  folderData: FolderData[];
+  folders: FolderData[];
   inputText: string;
 };
 
@@ -18,23 +18,23 @@ export default function Content({
   folderId,
   updateFolderId,
   linkList,
-  folderData,
+  folders,
   inputText,
 }: Props) {
   const [currentFolderName, setCurrentFolderName] = useState("전체");
 
-  const updateFolderName = (name: string) => {
+  const updateFolder = (id: number | null, name: string) => {
     setCurrentFolderName(name);
+    updateFolderId(id);
   };
 
   return (
     <>
       <FolderBox
-        folderData={folderData}
+        folders={folders}
         id={id}
         folderId={folderId}
-        updateFolderId={updateFolderId}
-        updateFolderName={updateFolderName}
+        updateFolder={updateFolder}
       />
       <EditBox folderId={folderId} currentFolderName={currentFolderName} />
       <div className={styles.wrapper}>
@@ -48,9 +48,9 @@ export default function Content({
               description?.includes(searchText) ||
               url?.includes(searchText))
           ) {
-            return <Card key={id} folderData={folderData} link={link} />;
+            return <Card key={id} folders={folders} link={link} />;
           } else if (!inputText) {
-            return <Card key={id} folderData={folderData} link={link} />;
+            return <Card key={id} folders={folders} link={link} />;
           }
           return null;
         })}

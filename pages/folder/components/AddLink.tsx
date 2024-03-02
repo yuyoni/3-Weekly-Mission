@@ -3,10 +3,10 @@ import { useState } from "react";
 import styles from "../styles/AddLink.module.css";
 
 interface Props {
-  folderData: FolderData;
+  folders: FolderData[];
 }
 
-export default function AddLink({ folderData }: Props) {
+export default function AddLink({ folders }: Props) {
   const [inputValue, setInputValue] = useState("");
   const [addLinkModal, setAddLinkModal] = useState(false);
 
