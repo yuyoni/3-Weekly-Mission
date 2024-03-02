@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "../styles/FolderBox.module.css";
 import Image from "next/image";
+import CommonModal from "@components/modal/CommonModal";
 
 type Props = {
   folders: FolderData[];
@@ -86,8 +87,15 @@ export default function FolderBox({
           />
         </div>
       </div>
-
-      {addFolderModal ? <div>모달자리</div> : null}
+      {addFolderModal ? (
+        <CommonModal
+          setter={setAddFolderModal}
+          title="폴더 추가"
+          placeholder="폴더명"
+          buttonText="추가하기"
+          color="linear-gradient"
+        />
+      ) : null}
     </div>
   );
 }

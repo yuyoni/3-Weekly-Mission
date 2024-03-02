@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./SelectMenu.module.css";
+import CommonModal from "@components/modal/CommonModal";
 
 type Props = {
   handleClickKebab: (
@@ -50,8 +51,25 @@ export default function SelectMenu({
           폴더에 추가
         </div>
       </div>
-      {deleteLinkModal ? <div>모달자리</div> : null}
-      {addLinkModal ? <div>모달자리</div> : null}
+      {deleteLinkModal ? (
+        <CommonModal
+          setter={setDeleteLinkModal}
+          title="링크 삭제"
+          subtitle={linkUrl}
+          buttonText="삭제하기"
+          color="#FF5B56"
+        />
+      ) : null}
+      {addLinkModal ? (
+        <CommonModal
+          setter={setAddLinkModal}
+          title="폴더에 추가"
+          subtitle={linkUrl}
+          buttonText="추가하기"
+          folders={folders}
+          color="linear-gradient"
+        />
+      ) : null}
     </div>
   );
 }

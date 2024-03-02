@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import styles from "../styles/AddLink.module.css";
+import CommonModal from "@components/modal/CommonModal";
 
 interface Props {
   folders: FolderData[];
@@ -50,7 +51,16 @@ export default function AddLink({ folders }: Props) {
           추가하기
         </button>
       </div>
-      {addLinkModal ? <div>모달</div> : null}
+      {addLinkModal ? (
+        <CommonModal
+          setter={setAddLinkModal}
+          title="폴더에 추가"
+          subtitle={inputValue}
+          buttonText="추가하기"
+          folders={folders}
+          color="linear-gradient"
+        />
+      ) : null}
     </div>
   );
 }

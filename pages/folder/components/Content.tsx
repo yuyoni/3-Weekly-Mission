@@ -36,7 +36,11 @@ export default function Content({
         folderId={folderId}
         updateFolder={updateFolder}
       />
-      <EditBox folderId={folderId} currentFolderName={currentFolderName} />
+      <EditBox
+        id={id}
+        folderId={folderId}
+        currentFolderName={currentFolderName}
+      />
       <div className={styles.wrapper}>
         {linkList.map((link) => {
           const searchText = inputText.toLowerCase();
