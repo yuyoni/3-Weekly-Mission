@@ -35,3 +35,9 @@ interface FolderInfo {
   name: string;
   userId: number;
 }
+
+interface FormData {
+  email: string;
+  password: string;
+  passwordCheck?: string;
+}

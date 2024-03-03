@@ -1,0 +1,42 @@
+.auth_form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.input_container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input_form_container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 12px;
+}
+
+.submit_button {
+  display: flex;
+  width: 400px;
+  padding: 16px 20px;
+  margin-top: 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  border-radius: 8px;
+  background: var(
+    --gra-purpleblue-to-skyblue,
+    linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%)
+  );
+}
+
+.eye_icon {
+  cursor: pointer;
+  position: absolute;
+  right: 15px;
+  top: 18px;
+}

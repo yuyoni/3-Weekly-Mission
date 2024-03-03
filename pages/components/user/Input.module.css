@@ -1,0 +1,20 @@
+.input_form {
+  display: flex;
+  width: 400px;
+  padding: 18px 15px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--Linkbrary-gray20, #ccd5e3);
+  background: var(--Linkbrary-white, #fff);
+}
+
+.input_form:focus {
+  border: 1px solid var(--Linkbrary-primary-color, #6d6afe);
+}
+
+.error_message {
+  color: #ff5b56;
+  position: relative;
+  top: -6px;
+}

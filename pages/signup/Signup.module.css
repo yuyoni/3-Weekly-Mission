@@ -1,0 +1,38 @@
+.wrapper {
+  background-color: #f0f6ff;
+  width: 1440px;
+  height: 982px;
+  padding-top: 238px;
+  padding-bottom: 117px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+
+.link_container {
+  display: flex;
+}
+
+.signup_link {
+  color: var(--Linkbrary-primary-color, #6d6afe);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.social_login {
+  display: flex;
+  width: 400px;
+  padding: 12px 24px;
+  justify-content: space-between;
+  align-items: center;
+
+  border-radius: 8px;
+  border: 1px solid var(--Linkbrary-gray20, #ccd5e3);
+  background: var(--Linkbrary-gray10, #e7effb);
+}
