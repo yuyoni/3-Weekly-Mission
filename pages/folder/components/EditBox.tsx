@@ -1,7 +1,7 @@
+import CommonModal from "@components/modal/CommonModal";
 import Image from "next/image";
 import { useState } from "react";
 import styles from "../styles/EditBox.module.css";
-import CommonModal from "@components/modal/CommonModal";
 
 type Props = {
   id: Id;
@@ -14,13 +14,13 @@ export default function EditBox({ id, folderId, currentFolderName }: Props) {
   const [shareFolderModal, setShareFolderModal] = useState(false);
   const [deleteFolderModal, setDeleteFolderModal] = useState(false);
 
-  const isVisible = (folderId: number | null) =>
-    folderId ? styles.isVisible : "";
+  const isInVisible = (folderId: number | null) =>
+    folderId === null ? styles.isInVisible : "";
 
   return (
     <div className={styles.wrapper}>
       <div>{currentFolderName}</div>
-      <div className={`${styles.edit} ${isVisible(folderId)}`}>
+      <div className={`${styles.edit} ${isInVisible(folderId)}`}>
         <div className={styles.icon} onClick={() => setShareFolderModal(true)}>
           <Image
             src="images/share.svg"

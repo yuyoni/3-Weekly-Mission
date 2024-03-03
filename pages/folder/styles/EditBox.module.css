@@ -13,6 +13,8 @@
 }
 
 .edit {
+  display: flex;
+  gap: 12px;
   justify-content: left;
 }
 
@@ -29,7 +31,6 @@
   cursor: pointer;
 }
 
-.isVisible {
-  display: flex;
-  gap: 12px;
+.isInVisible {
+  display: none;
 }
