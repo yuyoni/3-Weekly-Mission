@@ -1,6 +1,5 @@
+import SearchContent from "@pages/components/common/SearchContent";
 import { useState } from "react";
-import styles from "../styles/Content.module.css";
-import Card from "@components/card/Card";
 import EditBox from "./EditBox";
 import FolderBox from "./FolderBox";
 
@@ -41,28 +40,7 @@ export default function Content({
         folderId={folderId}
         currentFolderName={currentFolderName}
       />
-      <div className={styles.wrapper}>
-        {links ? (
-          links.map((link) => {
-            const searchText = inputText.toLowerCase();
-            const { id, title, description, url } = link;
-
-            if (
-              inputText &&
-              (title?.includes(searchText) ||
-                description?.includes(searchText) ||
-                url?.includes(searchText))
-            ) {
-              return <Card key={id} folders={folders} link={link} />;
-            } else if (!inputText) {
-              return <Card key={id} folders={folders} link={link} />;
-            }
-            return null;
-          })
-        ) : (
-          <>"저장된 링크가 없습니다"</>
-        )}
-      </div>
+      <SearchContent inputText={inputText} links={links} folders={folders} />
     </>
   );
 }

@@ -2,7 +2,7 @@ import Layout from "@components/common/Layout";
 import { CurrentUserContext } from "@pages/_app";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import Contents from "./components/Contents";
+import Content from "./components/Content";
 import FolderInfo from "./components/FolderInfo";
 import styles from "./styles/Shared.module.css";
 
@@ -23,7 +23,7 @@ export default function Shared() {
         {folderId ? (
           <>
             <FolderInfo id={id} folderId={+folderId} />
-            <Contents id={id} folderId={+folderId} />
+            <Content id={id} folderId={+folderId} />
           </>
         ) : (
           <></>
