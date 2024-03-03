@@ -44,19 +44,18 @@ export default function FolderBox({
         >
           전체
         </div>
-        {folders
-          ? folders.map(({ id, name }) => (
-              <div
-                className={`${styles.folder_element} ${getFolderColorClassName(
-                  id
-                )}`}
-                key={id}
-                onClick={() => handleClickFolder(id, name)}
-              >
-                {name}
-              </div>
-            ))
-          : null}
+        {folders &&
+          folders.map(({ id, name }) => (
+            <div
+              className={`${styles.folder_element} ${getFolderColorClassName(
+                id
+              )}`}
+              key={id}
+              onClick={() => handleClickFolder(id, name)}
+            >
+              {name}
+            </div>
+          ))}
       </div>
       <div className={styles.folder_add}>
         <div
