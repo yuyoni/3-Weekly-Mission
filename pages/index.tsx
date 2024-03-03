@@ -2,7 +2,7 @@ import Link from "next/link";
 import Layout from "pages/components/common/Layout";
 import styles from "./Home.module.css";
 
-export default function Home({ currentUser }: { currentUser: User | null }) {
+export default function Home() {
   return (
     <>
       <Layout>

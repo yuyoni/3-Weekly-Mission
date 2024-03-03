@@ -1,22 +1,19 @@
-import useFetchData from "@hooks/useFetchData";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import styles from "./styles/Shared.module.css";
-import FolderInfo from "./components/FolderInfo";
-import Contents from "./components/Contents";
 import Layout from "@components/common/Layout";
+import { CurrentUserContext } from "@pages/_app";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
+import Contents from "./components/Contents";
+import FolderInfo from "./components/FolderInfo";
+import styles from "./styles/Shared.module.css";
 
 export default function Shared() {
-  // const id = useFetchData(`users`);
-  const [id, setId] = useState<Id>(null);
   const { folderId } = useRouter().query;
-
-  // const currentUser = useFetchData<User[]>(`users`);
-  const currentUser = useFetchData<User[]>(`sample/users`);
+  const currentUser = useContext(CurrentUserContext);
+  const [id, setId] = useState<Id | null>(null);
 
   useEffect(() => {
     if (currentUser) {
-      setId(currentUser[0].id);
+      setId(currentUser.id);
     }
   }, [currentUser]);
 

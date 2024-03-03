@@ -15,6 +15,7 @@ export const CurrentUserContext = React.createContext<User | null>(null);
 
 export default function App({ Component, pageProps }: AppProps) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+
   const accessToken = useAccessToken();
 
   useEffect(() => {
