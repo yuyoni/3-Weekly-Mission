@@ -6,33 +6,25 @@ import FolderLinkContainer from "./components/FolderLinkContainer";
 import styles from "./folder.module.css";
 
 export default function Folder() {
-  const [id, setId] = useState<number | null>(null);
-  const [folders, setFolders] = useState<FolderData[] | null>(null);
-  const userId = useFetchData<UserId>(`users`);
+  const [id, setId] = useState<Id>();
+
+  // const data = useFetchData<User[]>("users");
+  const data = useFetchData<User[]>("sample/users");
+  console.log(data);
 
   useEffect(() => {
-    if (!userId) {
-      setId(4); // 임시 값
-    } else {
-      setId(userId.id);
+    if (data) {
+      setId(data[0].id);
     }
-  }, []);
-
-  const folderData = useFetchData<FolderData[]>(`users/${id}/folders`);
-
-  useEffect(() => {
-    if (folderData) {
-      setFolders(folderData);
-    }
-  }, [folderData]);
+  }, [data]);
 
   return (
     <div>
       <Layout>
-        {folders ? (
+        {id ? (
           <div className={styles.wrapper}>
-            <AddLink folders={folders} />
-            <FolderLinkContainer id={id} folders={folders} />
+            <AddLink id={id} />
+            <FolderLinkContainer id={id} />
           </div>
         ) : (
           <div>Loading...</div>

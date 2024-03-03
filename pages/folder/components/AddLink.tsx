@@ -1,15 +1,17 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/AddLink.module.css";
 import CommonModal from "@components/modal/CommonModal";
+import useFetchData from "@hooks/useFetchData";
 
 interface Props {
-  folders: FolderData[];
+  id: Id;
 }
 
-export default function AddLink({ folders }: Props) {
+export default function AddLink({ id }: Props) {
   const [inputValue, setInputValue] = useState("");
   const [addLinkModal, setAddLinkModal] = useState(false);
+  const [folders, setFolders] = useState<FolderData[]>();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -26,6 +28,12 @@ export default function AddLink({ folders }: Props) {
       alert("링크를 입력해 주세요.");
     }
   };
+
+  const data = useFetchData<FolderData[]>(`users/${id}/folders`);
+
+  useEffect(() => {
+    setFolders(data);
+  }, [data]);
 
   return (
     <div className={styles.wrapper}>

@@ -4,6 +4,14 @@
   gap: 6px;
 }
 
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 54px;
+  gap: 6px;
+}
+
 .profile_icon {
   width: 28px;
   height: 28px;

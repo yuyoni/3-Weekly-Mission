@@ -1,19 +1,19 @@
 import SearchBar from "@components/searchbar/SearchBar";
 import useFetchData from "@hooks/useFetchData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/FolderLinkContainer.module.css";
 import Content from "./Content";
 
-type Props = { id: Id; folders: FolderData[] };
+type Props = { id: Id };
 
-export default function FolderLinkContainer({ id, folders }: Props) {
+export default function FolderLinkContainer({ id }: Props) {
   const [folderId, setFolderId] = useState<Id>(null);
   const [inputText, setInputText] = useState<string>("");
+  const [folders, setFolders] = useState<FolderData[]>([]);
 
   const linkList = useFetchData<LinkList[]>(
     `users/${id}/links?folderId=${folderId}`
   );
-  const userInfo = useFetchData(`users/${id}`);
 
   const updateInputText = (value: string) => {
     setInputText(value);
@@ -22,6 +22,14 @@ export default function FolderLinkContainer({ id, folders }: Props) {
   const updateFolderId = (id: Id) => {
     setFolderId(id);
   };
+
+  const data = useFetchData<FolderData[]>(`users/${id}/folders`);
+
+  useEffect(() => {
+    if (data) {
+      setFolders(data);
+    }
+  }, [data]);
 
   return (
     <main className={styles.main}>

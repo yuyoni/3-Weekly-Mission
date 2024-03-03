@@ -4,31 +4,29 @@ import styles from "./Profile.module.css";
 import { useEffect, useState } from "react";
 
 export default function Profile() {
-  const [id, setId] = useState<Id>();
-  const [userData, setUserData] = useState<UserData>();
+  const [currentUser, setCurrentUser] = useState<User>();
 
-  const currentUser = useFetchData<UserId>("users");
+  // const data = useFetchData<User[]>("users");
+  const data = useFetchData<User[]>("sample/users");
+  console.log(data);
 
-  if (currentUser) {
-    setId(currentUser.id);
-    const data = useFetchData<UserData[]>(`users/${id}`);
-
+  useEffect(() => {
     if (data) {
-      setUserData(data[0]);
+      setCurrentUser(data[0]);
     }
-  }
+  }, [data]);
 
   return (
     <div className={styles.wrapper}>
-      {userData ? (
-        <>
+      {currentUser ? (
+        <div className={styles.profile}>
           <img
             className={styles.profile_icon}
-            src={userData.imageSource}
+            src={currentUser.imageSource}
             alt="profile-icon"
           />
-          <span className={styles.user_email}>{userData.email}</span>
-        </>
+          <span className={styles.user_email}>{currentUser.email}</span>
+        </div>
       ) : (
         <Link href="/signin" legacyBehavior>
           <a className={styles.cta}>로그인</a>
