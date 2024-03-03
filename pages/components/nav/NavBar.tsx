@@ -7,14 +7,16 @@ export default function NavBar() {
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <Link href="/">
-          <Image
-            src="images/logo.svg"
-            alt="logo"
-            width={132}
-            height={24}
-            priority
-          />
+        <Link href="/" legacyBehavior>
+          <a className={styles.logo}>
+            <Image
+              src="images/logo.svg"
+              alt="logo"
+              width={132}
+              height={24}
+              priority
+            />
+          </a>
         </Link>
         <Profile />
       </nav>
