@@ -68,14 +68,19 @@
     left: 32%;
     width: 135px;
     height: 36px;
+
     border-radius: 20px;
     border: 1px solid #fff;
     background: #6d6afe;
+    color: #e7effb;
+
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 4px;
+
     font-size: 16px;
-    color: #e7effb;
+    z-index: 3;
+    cursor: pointer;
   }
 }

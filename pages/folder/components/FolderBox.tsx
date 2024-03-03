@@ -1,7 +1,7 @@
+import CommonModal from "@components/modal/CommonModal";
+import Image from "next/image";
 import { useState } from "react";
 import styles from "../styles/FolderBox.module.css";
-import Image from "next/image";
-import CommonModal from "@components/modal/CommonModal";
 
 type Props = {
   folders: FolderData[];
