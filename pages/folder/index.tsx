@@ -4,8 +4,11 @@ import { useEffect, useState } from "react";
 import AddLink from "./components/AddLink";
 import FolderLinkContainer from "./components/FolderLinkContainer";
 import styles from "./folder.module.css";
+import useRedirect from "@hooks/useRedirect";
 
 export default function Folder() {
+  useRedirect("/signin");
+
   const [id, setId] = useState<Id>();
 
   // const data = useFetchData<User[]>("users");
