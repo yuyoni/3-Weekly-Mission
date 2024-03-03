@@ -17,7 +17,6 @@ export default function Input({
   borderError,
   register,
   errors,
-  ...rest
 }: Props) {
   return (
     <>
@@ -29,7 +28,6 @@ export default function Input({
         type={type}
         placeholder={placeholder}
         {...register}
-        {...rest}
       />
       {errors && <span className={styles.error_message}>{errors.message}</span>}
     </>
