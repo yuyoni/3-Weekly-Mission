@@ -18,7 +18,9 @@ export default function Card({ folders, link }: Props) {
   const selectMenuRef = useRef<HTMLDivElement | null>(null);
 
   const handleClickCard = () => {
-    window.location.href = link.url;
+    if (link) {
+      window.location.href = link.url;
+    }
   };
 
   const handleClickBookmark = (
@@ -36,9 +38,9 @@ export default function Card({ folders, link }: Props) {
     setIsKebabClicked(isOpen);
   };
 
-  const { formattedDate, elapsedTime } = formatDateAndDifference(
-    link.createdAt
-  );
+  const { formattedDate, elapsedTime } = link
+    ? formatDateAndDifference(link.createdAt)
+    : { formattedDate: "", elapsedTime: "" };
 
   const handleIsKebabClicked = (status: boolean) => {
     setIsKebabClicked(status);
@@ -59,8 +61,8 @@ export default function Card({ folders, link }: Props) {
         />
         <img
           className={styles.link_img}
-          src={link.imageSource}
-          alt={link.title}
+          src={link ? link.imageSource : noImage.src}
+          alt={link ? link.title : ""}
           onError={(e) => {
             e.currentTarget.src = noImage.src;
           }}
@@ -79,7 +81,7 @@ export default function Card({ folders, link }: Props) {
         />
 
         <span className={styles.elapsed_time}>{elapsedTime}</span>
-        <p className={styles.description}>{link.description}</p>
+        <p className={styles.description}>{link ? link.description : ""}</p>
         <span className={styles.formatted_data}>
           {formattedDate.replace(/-/g, ". ")}
         </span>
