@@ -1,8 +1,8 @@
-import Profile from "pages/components/user/Profile";
+import logo from "@public/images/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
+import Profile from "pages/components/user/Profile";
 import styles from "./NavBar.module.css";
-import logo from "@public/images/logo.svg";
 
 export default function NavBar() {
   return (

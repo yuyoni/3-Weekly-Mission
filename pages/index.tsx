@@ -1,8 +1,8 @@
+import Link from "next/link";
 import Layout from "pages/components/common/Layout";
 import styles from "./Home.module.css";
-import Link from "next/link";
 
-export default function Home() {
+export default function Home({ currentUser }: { currentUser: User | null }) {
   return (
     <>
       <Layout>
