@@ -1,21 +1,14 @@
+import CommonModal from "@components/modal/CommonModal";
 import { useState } from "react";
 import styles from "./SelectMenu.module.css";
-import CommonModal from "@components/modal/CommonModal";
 
 type Props = {
-  handleClickKebab: (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    isOpen: boolean
-  ) => void;
   folders: FolderData[];
   linkUrl: string;
+  selectMenuRef: React.RefObject<HTMLDivElement>;
 };
 
-export default function SelectMenu({
-  handleClickKebab,
-  folders,
-  linkUrl,
-}: Props) {
+export default function SelectMenu({ folders, linkUrl, selectMenuRef }: Props) {
   const [deleteLinkModal, setDeleteLinkModal] = useState(false);
   const [addLinkModal, setAddLinkModal] = useState(false);
 
@@ -33,17 +26,9 @@ export default function SelectMenu({
     setAddLinkModal(true);
   };
 
-  const handleClickOutside = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    if (e.currentTarget === e.target) {
-      handleClickKebab(e, false);
-    }
-  };
-
   return (
-    <div onClick={handleClickOutside}>
-      <div className={styles.select_menu}>
+    <div>
+      <div ref={selectMenuRef} className={styles.select_menu}>
         <div className={styles.option} onClick={handleClickDelete}>
           삭제하기
         </div>

@@ -1,15 +1,18 @@
 import noImage from "@public/images/no-image.svg";
 import formatDateAndDifference from "@utils/formatDate";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./Card.module.css";
 import SelectMenu from "./SelectMenu";
+import useClickOutside from "@hooks/useClickOutside";
 
 type Props = { key: number; folders: FolderData[]; link: LinkList };
 
 export default function Card({ folders, link }: Props) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isKebabClicked, setIsKebabClicked] = useState(false);
+
+  const selectMenuRef = useRef<HTMLDivElement | null>(null);
 
   const handleClickCard = () => {
     window.location.href = link.url;
@@ -33,6 +36,12 @@ export default function Card({ folders, link }: Props) {
   const { formattedDate, elapsedTime } = formatDateAndDifference(
     link.createdAt
   );
+
+  const handleIsKebabClicked = (status: boolean) => {
+    setIsKebabClicked(status);
+  };
+
+  useClickOutside(selectMenuRef, handleIsKebabClicked);
 
   return (
     <div className={styles.card} onClick={handleClickCard}>
@@ -74,7 +83,7 @@ export default function Card({ folders, link }: Props) {
       </div>
       {isKebabClicked ? (
         <SelectMenu
-          handleClickKebab={handleClickKebab}
+          selectMenuRef={selectMenuRef}
           linkUrl={link.url}
           folders={folders}
         />
