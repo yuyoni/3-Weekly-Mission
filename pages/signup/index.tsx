@@ -1,4 +1,4 @@
-import AuthForm from "@components/user/AuthForm";
+import AuthForm from "@components/auth/AuthForm";
 import google from "@public/images/google.svg";
 import kakao from "@public/images/kakao.svg";
 import logo from "@public/images/logo.svg";

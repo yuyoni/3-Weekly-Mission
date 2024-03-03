@@ -1,3 +1,4 @@
+import axios, { AxiosError } from "axios"; // Import AxiosError
 import { fetchData } from "@apis/fetchData";
 import eyeOffIcon from "@public/images/eye-off.svg";
 import eyeOnIcon from "@public/images/eye-on.svg";
@@ -8,41 +9,52 @@ import { useForm } from "react-hook-form";
 import styles from "./AuthForm.module.css";
 import Input from "./Input";
 
-type FormData = {
-  email: string;
-  password: string;
-  passwordCheck?: string; // Optional for sign-in
-};
-
 export default function AuthForm({ isSignUp }: { isSignUp: boolean }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordCheck, setShowPasswordCheck] = useState(false);
-
   const {
     register,
     handleSubmit,
+    setError, // Add setError function
     formState: { errors },
     watch,
   } = useForm<FormData>({ mode: "onChange" });
-
   const router = useRouter();
 
   const emailRegex = /\S+@\S+\.\S+/;
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
   const onSubmit = async (data: FormData) => {
-    const endpoint = isSignUp ? "sign-up" : "sign-in";
-
+    const endpoint = isSignUp ? "auth/sign-up" : "auth/sign-in";
     try {
       const response = await fetchData(endpoint, "POST", data);
-      const accessToken = response.data?.accessToken;
 
-      if (accessToken) {
-        localStorage.setItem("accessToken", accessToken);
+      // Check if response has accessToken
+      if (response.accessToken) {
+        localStorage.setItem("accessToken", response.accessToken);
         router.push("/folder");
       }
-    } catch (error) {
-      console.error(`Error ${isSignUp ? "signup" : "signin"}:`, error);
+    } catch (error: any) {
+      // Handle error
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response?.status === 400) {
+          setError("email", {
+            type: "manual",
+            message: isSignUp
+              ? "이미 사용중인 아이디 입니다"
+              : "아이디를 확인해주세요",
+          });
+          setError("password", {
+            type: "manual",
+            message: isSignUp ? "" : "비밀번호를 확인해주세요",
+          });
+        } else {
+          console.error("Unexpected error:", axiosError.message);
+        }
+      } else {
+        console.error("Unexpected error:", error.message);
+      }
     }
   };
 
@@ -61,7 +73,7 @@ export default function AuthForm({ isSignUp }: { isSignUp: boolean }) {
           id="email"
           type="text"
           placeholder="email@example.com"
-          className={errors.email ? "invalid-border" : ""}
+          borderError={!!errors.email}
           register={register("email", {
             required: "이메일을 입력해 주세요.",
             pattern: {
@@ -79,7 +91,7 @@ export default function AuthForm({ isSignUp }: { isSignUp: boolean }) {
             id="password"
             type={showPassword ? "text" : "password"}
             placeholder="영문, 숫자를 조합해 8자 이상으로 입력해 주세요."
-            className={errors.password ? "invalid-border" : ""}
+            borderError={!!errors.password}
             register={register("password", {
               required: "비밀번호를 입력해 주세요.",
               pattern: {
@@ -110,7 +122,7 @@ export default function AuthForm({ isSignUp }: { isSignUp: boolean }) {
               id="passwordCheck"
               type={showPasswordCheck ? "text" : "password"}
               placeholder="영문, 숫자를 조합해 8자 이상으로 입력해 주세요."
-              className={errors.passwordCheck ? "invalid-border" : ""}
+              borderError={!!errors.passwordCheck}
               register={register("passwordCheck", {
                 required: "비밀번호를 입력해 주세요.",
                 pattern: {

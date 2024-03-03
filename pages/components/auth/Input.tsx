@@ -1,16 +1,11 @@
+import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import styles from "./Input.module.css";
-import { DetailedHTMLProps, InputHTMLAttributes } from "react";
-import {
-  FieldError,
-  RegisterOptions,
-  UseFormRegisterReturn,
-} from "react-hook-form";
 
 type Props = {
   id: string;
   type: string;
   placeholder: string;
-  className?: string;
+  borderError?: boolean;
   register: UseFormRegisterReturn;
   errors?: FieldError | undefined;
 };
@@ -19,7 +14,7 @@ export default function Input({
   id,
   type,
   placeholder,
-  className,
+  borderError,
   register,
   errors,
   ...rest
@@ -27,7 +22,9 @@ export default function Input({
   return (
     <>
       <input
-        className={`${className} ${styles.input_form}`}
+        className={`${styles.input_form} ${
+          borderError ? styles.invalid_border : ""
+        }`}
         id={id}
         type={type}
         placeholder={placeholder}
