@@ -24,16 +24,18 @@ export default function Contents({ id, folderId }: Props) {
     if (linkData) {
       setLinks(linkData);
     }
-  }, [data]);
+  }, [data, linkData]);
 
   const updateInputText = (value: string) => {};
+
+  const linksToRender = folders && links ? links : null;
 
   return (
     <main className={styles.content}>
       <SearchBar inputText={inputText} updateInputText={updateInputText} />
       <div className={styles.wrapper}>
-        {links
-          ? links.map((link) => (
+        {linksToRender
+          ? linksToRender.map((link) => (
               <Card key={link.id} folders={folders} link={link} />
             ))
           : "저장된 링크가 없습니다"}
