@@ -18,3 +18,11 @@
     margin: 20px 32px 60px;
   }
 }
+
+.no_link {
+  width: 100%;
+  margin-top: 41px;
+  margin-bottom: 35px;
+  text-align: center;
+  font-size: 16px;
+}

@@ -8,28 +8,30 @@ type Props = {
 };
 
 export default function SearchContent({ inputText, links, folders }: Props) {
-  return (
-    <div className={styles.wrapper}>
-      {links ? (
-        links.map((link) => {
-          const searchText = inputText.toLowerCase();
-          const { id, title, description, url } = link;
+  const filteredLinks = links?.filter(filterLinksBySearchText) ?? [];
 
-          if (
-            inputText &&
-            (title?.includes(searchText) ||
-              description?.includes(searchText) ||
-              url?.includes(searchText))
-          ) {
-            return <Card key={id} folders={folders} link={link} />;
-          } else if (!inputText) {
-            return <Card key={id} folders={folders} link={link} />;
-          }
-          return null;
-        })
+  return (
+    <>
+      {filteredLinks.length > 0 ? (
+        <div className={styles.wrapper}>
+          {filteredLinks.map((link) => (
+            <Card key={link.id} folders={folders} link={link} />
+          ))}
+        </div>
       ) : (
-        <>"저장된 링크가 없습니다"</>
+        <p className={styles.no_link}>저장된 링크가 없습니다</p>
       )}
-    </div>
+    </>
   );
+
+  function filterLinksBySearchText(link: LinkList): boolean {
+    const searchText = inputText.toLowerCase();
+    const { title, description, url } = link;
+    if (!inputText) return true;
+    return (
+      title?.includes(searchText) ||
+      description?.includes(searchText) ||
+      url?.includes(searchText)
+    );
+  }
 }

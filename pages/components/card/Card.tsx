@@ -61,7 +61,7 @@ export default function Card({ folders, link }: Props) {
         />
         <img
           className={styles.link_img}
-          src={link ? link.imageSource : noImage.src}
+          src={link.imageSource || noImage.src}
           alt={link ? link.title : ""}
           onError={(e) => {
             e.currentTarget.src = noImage.src;

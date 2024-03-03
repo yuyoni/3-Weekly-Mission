@@ -37,18 +37,14 @@ export default function FolderLinkContainer({ id }: Props) {
   return (
     <main className={styles.main}>
       <SearchBar inputText={inputText} updateInputText={updateInputText} />
-      {links ? (
-        <Content
-          id={id}
-          folderId={folderId}
-          updateFolderId={updateFolderId}
-          links={links}
-          folders={folders}
-          inputText={inputText}
-        />
-      ) : (
-        <p>저장된 링크가 없습니다</p>
-      )}
+      <Content
+        id={id}
+        folderId={folderId}
+        updateFolderId={updateFolderId}
+        links={links}
+        folders={folders}
+        inputText={inputText}
+      />
     </main>
   );
 }
