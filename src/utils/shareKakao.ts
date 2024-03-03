@@ -1,19 +1,18 @@
-import banner from "@public/images/banner.png";
-
 export default function shareKakao(route: string, folderName: string) {
   if (window.Kakao) {
     const kakao = window.Kakao;
     if (!kakao.isInitialized()) {
-      kakao.init(process.env.NEXT_PUBLIC_SHARE_KAKAO_LINK_KEY);
+      kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
     }
 
     kakao.Share.sendDefault({
       objectType: "feed",
       content: {
         title: folderName,
-        imageUrl: banner,
+        imageUrl:
+          "https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg",
         link: {
-          mobileWebUrl: route, // 인자값으로 받은 route(uri 형태)
+          mobileWebUrl: route,
           webUrl: route,
         },
       },
