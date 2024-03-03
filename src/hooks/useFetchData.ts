@@ -5,20 +5,20 @@ import camelcaseKeys from "camelcase-keys";
 export default function useFetchData<T>(
   param: string,
   method = "GET",
-  body?: any
+  requestData?: any
 ) {
-  const [data, setData] = useState<T | undefined>();
+  const [responseData, setResponseData] = useState<T | undefined>();
 
   useEffect(() => {
     (async () => {
       try {
-        const result = await fetchData(param, method, body);
-        setData(camelcaseKeys(result));
+        const result = await fetchData(param, method, requestData);
+        setResponseData(camelcaseKeys(result));
       } catch (error) {
         console.error(error);
       }
     })();
-  }, [param, body]);
+  }, [param, requestData]);
 
-  return data;
+  return responseData;
 }

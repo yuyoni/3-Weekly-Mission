@@ -2,18 +2,34 @@ import useFetchData from "@hooks/useFetchData";
 import Link from "next/link";
 import styles from "./Profile.module.css";
 import { useEffect, useState } from "react";
+import { fetchData } from "@apis/fetchData";
+import camelcaseKeys from "camelcase-keys";
 
 export default function Profile() {
   const [currentUser, setCurrentUser] = useState<User>();
-
-  // const data = useFetchData<User[]>("users");
-  const data = useFetchData<User[]>("sample/users");
+  const [accessToken, setAccessToken] = useState<string | null>(null);
 
   useEffect(() => {
-    if (data) {
-      setCurrentUser(data[0]);
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      setAccessToken(token);
     }
-  }, [data]);
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (accessToken) {
+        const data = await fetchData("users", "GET", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        if (data) {
+          setCurrentUser(camelcaseKeys(data[0]));
+        }
+      }
+    })();
+  }, [accessToken]);
 
   return (
     <div className={styles.wrapper}>
