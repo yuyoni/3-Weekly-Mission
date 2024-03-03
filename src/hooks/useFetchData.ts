@@ -18,7 +18,7 @@ export default function useFetchData<T>(
         console.error(error);
       }
     })();
-  }, []);
+  }, [param, body]);
 
   return data;
 }

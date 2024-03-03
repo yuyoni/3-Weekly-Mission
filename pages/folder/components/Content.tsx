@@ -8,7 +8,7 @@ type Props = {
   id: Id;
   folderId: FolderId;
   updateFolderId: (id: Id) => void;
-  linkList: LinkList[];
+  links: LinkList[];
   folders: FolderData[];
   inputText: string;
 };
@@ -17,7 +17,7 @@ export default function Content({
   id,
   folderId,
   updateFolderId,
-  linkList,
+  links,
   folders,
   inputText,
 }: Props) {
@@ -42,7 +42,7 @@ export default function Content({
         currentFolderName={currentFolderName}
       />
       <div className={styles.wrapper}>
-        {linkList.map((link) => {
+        {links.map((link) => {
           const searchText = inputText.toLowerCase();
           const { id, title, description, url } = link;
 

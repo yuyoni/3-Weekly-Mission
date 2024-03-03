@@ -10,10 +10,7 @@ export default function FolderLinkContainer({ id }: Props) {
   const [folderId, setFolderId] = useState<Id>(null);
   const [inputText, setInputText] = useState<string>("");
   const [folders, setFolders] = useState<FolderData[]>([]);
-
-  const linkList = useFetchData<LinkList[]>(
-    `users/${id}/links?folderId=${folderId}`
-  );
+  const [links, setLinks] = useState<LinkList[]>([]);
 
   const updateInputText = (value: string) => {
     setInputText(value);
@@ -24,22 +21,28 @@ export default function FolderLinkContainer({ id }: Props) {
   };
 
   const data = useFetchData<FolderData[]>(`users/${id}/folders`);
+  const linkData = useFetchData<LinkList[]>(
+    folderId ? `folders/${folderId}/links` : `users/${id}/links`
+  );
 
   useEffect(() => {
     if (data) {
       setFolders(data);
     }
-  }, [data]);
+    if (linkData) {
+      setLinks(linkData);
+    }
+  }, [data, linkData]);
 
   return (
     <main className={styles.main}>
       <SearchBar inputText={inputText} updateInputText={updateInputText} />
-      {linkList ? (
+      {links ? (
         <Content
           id={id}
           folderId={folderId}
           updateFolderId={updateFolderId}
-          linkList={linkList}
+          links={links}
           folders={folders}
           inputText={inputText}
         />

@@ -7,7 +7,7 @@ type Props = {
   folders: FolderData[];
   id: Id;
   folderId: FolderId;
-  updateFolder: (id: FolderId | null, name: string) => void;
+  updateFolder: (id: FolderId, name: string) => void;
 };
 
 export default function FolderBox({
@@ -19,7 +19,7 @@ export default function FolderBox({
   const [addFolderModal, setAddFolderModal] = useState(false);
 
   const handleClickFolder = (
-    clickedFolderId: Id | null,
+    clickedFolderId: Id,
     clickedFolderName: string
   ) => {
     updateFolder(clickedFolderId, clickedFolderName);
