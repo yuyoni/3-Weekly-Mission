@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./SelectMenu.module.css";
 
 type Props = {
-  folders: FolderData[];
+  folders: FolderData[] | null;
   linkUrl: string;
   selectMenuRef: React.RefObject<HTMLDivElement>;
 };

@@ -2,6 +2,7 @@ import styles from "./CommonModal.module.css";
 import Image from "next/image";
 import SelectFolder from "./SelectFolder";
 import IconBox from "./IconBox";
+import close from "@public/images/_close.svg";
 
 type Props = {
   setter: (arg: boolean) => void;
@@ -10,7 +11,7 @@ type Props = {
   placeholder?: string;
   buttonText?: string;
   color?: string;
-  folders?: FolderData[];
+  folders?: FolderData[] | null;
   icon?: boolean;
   folderId?: FolderId;
   userId?: Id;
@@ -49,7 +50,7 @@ export default function CommonModal({
     >
       <div className={styles.container}>
         <Image
-          src="images/_close.svg"
+          src={close}
           className={styles.exit_button}
           alt="x"
           onClick={(e) => {

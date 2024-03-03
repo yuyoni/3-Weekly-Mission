@@ -1,12 +1,15 @@
+import useClickOutside from "@hooks/useClickOutside";
+import emptyStar from "@public/images/emptyStar.svg";
+import filledStar from "@public/images/filledStar.svg";
+import kebab from "@public/images/kebab.svg";
 import noImage from "@public/images/no-image.svg";
 import formatDateAndDifference from "@utils/formatDate";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import styles from "./Card.module.css";
 import SelectMenu from "./SelectMenu";
-import useClickOutside from "@hooks/useClickOutside";
 
-type Props = { key: number; folders: FolderData[]; link: LinkList };
+type Props = { key: number; folders: FolderData[] | null; link: LinkList };
 
 export default function Card({ folders, link }: Props) {
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -48,7 +51,7 @@ export default function Card({ folders, link }: Props) {
       <div className={styles.thumbnail}>
         <Image
           className={styles.bookmark}
-          src={isBookmarked ? "images/filledStar.svg" : "images/emptyStar.svg"}
+          src={isBookmarked ? filledStar : emptyStar}
           alt="bookmark-logo"
           onClick={handleClickBookmark}
           width={34}
@@ -66,7 +69,7 @@ export default function Card({ folders, link }: Props) {
       <div className={styles.detail}>
         <Image
           className={styles.kebab}
-          src="images/kebab.svg"
+          src={kebab}
           alt="kebab-icon"
           onClick={(e) => {
             handleClickKebab(e, true);

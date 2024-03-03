@@ -10,7 +10,6 @@ export default function Folder() {
 
   // const data = useFetchData<User[]>("users");
   const data = useFetchData<User[]>("sample/users");
-  console.log(data);
 
   useEffect(() => {
     if (data) {

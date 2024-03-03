@@ -27,3 +27,11 @@ interface FolderData {
   favorite: boolean;
   linkCount: number;
 }
+
+interface FolderInfo {
+  id: number;
+  createdAt: string;
+  favorite: boolean;
+  name: string;
+  userId: number;
+}

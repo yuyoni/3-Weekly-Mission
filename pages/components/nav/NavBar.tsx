@@ -2,6 +2,7 @@ import Profile from "pages/components/user/Profile";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./NavBar.module.css";
+import logo from "@public/images/logo.svg";
 
 export default function NavBar() {
   return (
@@ -9,13 +10,7 @@ export default function NavBar() {
       <nav className={styles.nav}>
         <Link href="/" legacyBehavior>
           <a className={styles.logo}>
-            <Image
-              src="images/logo.svg"
-              alt="logo"
-              width={132}
-              height={24}
-              priority
-            />
+            <Image src={logo} alt="logo" width={132} height={24} priority />
           </a>
         </Link>
         <Profile />

@@ -8,7 +8,7 @@ export default function Home() {
       <Layout>
         <div className={styles.container}>
           <h1>Home</h1>
-          <Link href={"/shared"} legacyBehavior>
+          <Link href={`/shared/${14}`} legacyBehavior>
             <a className={styles.link}>shared</a>
           </Link>
           <Link href={"/folder"} legacyBehavior>
