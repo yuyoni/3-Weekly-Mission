@@ -19,6 +19,10 @@
 .link_container {
   display: flex;
 }
+.icon_box {
+  display: flex;
+  gap: 16px;
+}
 
 .signup_link {
   color: var(--Linkbrary-primary-color, #6d6afe);
