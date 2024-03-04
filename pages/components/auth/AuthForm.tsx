@@ -1,13 +1,13 @@
-import axios, { AxiosError } from "axios"; // Import AxiosError
 import { fetchData } from "@apis/fetchData";
 import eyeOffIcon from "@public/images/eye-off.svg";
 import eyeOnIcon from "@public/images/eye-on.svg";
+import axios, { AxiosError } from "axios";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./AuthForm.module.css";
 import Input from "./Input";
+import { useRouter } from "next/navigation";
 
 export default function AuthForm({ isSignUp }: { isSignUp: boolean }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,7 +15,7 @@ export default function AuthForm({ isSignUp }: { isSignUp: boolean }) {
   const {
     register,
     handleSubmit,
-    setError, // Add setError function
+    setError,
     formState: { errors },
     watch,
   } = useForm<FormData>({ mode: "onChange" });
@@ -29,13 +29,12 @@ export default function AuthForm({ isSignUp }: { isSignUp: boolean }) {
     try {
       const response = await fetchData(endpoint, "POST", data);
 
-      // Check if response has accessToken
       if (response.accessToken) {
         localStorage.setItem("accessToken", response.accessToken);
         router.push("/folder");
+        router.refresh();
       }
     } catch (error: any) {
-      // Handle error
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
         if (axiosError.response?.status === 400) {

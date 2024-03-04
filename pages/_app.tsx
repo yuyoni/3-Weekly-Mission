@@ -33,10 +33,9 @@ export default function App({ Component, pageProps }: AppProps) {
     })();
   }, [accessToken]);
 
-  const updatedPageProps = { ...pageProps, currentUser };
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Component {...updatedPageProps} />
+      <Component {...pageProps} />
     </CurrentUserContext.Provider>
   );
 }
