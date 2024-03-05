@@ -1,0 +1,41 @@
+.wrappper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 54px;
+  gap: 6px;
+}
+
+.profile_icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.user_email {
+  color: var(--gray100);
+  font-size: 14px;
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+.cta {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 54px;
+  width: 128px;
+  cursor: pointer;
+  background-image: var(--gra-purpleblue-to-skyblue);
+  border-radius: 8px;
+  color: var(--gray-light);
+  font-size: 18px;
+}

@@ -1,0 +1,28 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 1060px;
+  row-gap: 25px;
+  column-gap: 20px;
+
+  @media (max-width: 1124px) {
+    width: 704px;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 767px) {
+    width: 325px;
+    grid-template-columns: 1fr;
+    margin: 20px 32px 60px;
+  }
+}
+
+.no_link {
+  width: 100%;
+  margin-top: 41px;
+  margin-bottom: 35px;
+  text-align: center;
+  font-size: 16px;
+}

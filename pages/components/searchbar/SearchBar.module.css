@@ -1,0 +1,39 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 15px 16px;
+  border-radius: 10px;
+  background: var(--gray-light);
+  gap: 10px;
+}
+
+.search_input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+.erase_button :active {
+  filter: brightness(80%);
+}
+
+.input_value {
+  color: var(--gray60);
+  font-size: 32px;
+  font-weight: var(--font-bold);
+  width: 100%;
+  text-align: left;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.input_value_description {
+  color: var(--gray100);
+  font-size: 32px;
+  font-weight: var(--font-bold);
+}

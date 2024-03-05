@@ -1,0 +1,43 @@
+type Id = number | null;
+type FolderId = number | null;
+type CreateAt = string;
+type Name = string;
+
+interface User {
+  id: Id;
+  name: Name;
+  email: string;
+  imageSource: string;
+  createdAt?: CreateAt;
+}
+
+interface LinkList {
+  id: number;
+  title: string;
+  createdAt: CreateAt;
+  description: string;
+  url: string;
+  imageSource: string;
+}
+
+interface FolderData {
+  id: Id;
+  createdAt: CreateAt;
+  name: Name;
+  favorite: boolean;
+  linkCount: number;
+}
+
+interface FolderInfo {
+  id: number;
+  createdAt: string;
+  favorite: boolean;
+  name: string;
+  userId: number;
+}
+
+interface FormData {
+  email: string;
+  password: string;
+  passwordCheck?: string;
+}

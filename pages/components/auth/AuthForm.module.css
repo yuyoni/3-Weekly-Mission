@@ -1,0 +1,18 @@
+.auth_form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.submit_button {
+  display: flex;
+  width: 400px;
+  padding: 16px 20px;
+  margin-top: 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  border-radius: 8px;
+  background: var(--gra-purpleblue-to-skyblue);
+}
