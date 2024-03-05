@@ -15,6 +15,15 @@
   --text-gray: #676767;
   --text-content-gray: #666666;
   --text-content-black: #333333;
+  --gra-purpleblue-to-skyblue: linear-gradient(
+    91deg,
+    #6d6afe 0.12%,
+    #6ae3fe 101.84%
+  );
+
+  --font-regular: 400;
+  --font-semibold: 500;
+  --font-bold: 600;
 }
 
 * {
@@ -27,6 +36,7 @@
 html,
 body {
   font-size: 14px;
+  font-weight: var(--font-regular);
 }
 
 a {

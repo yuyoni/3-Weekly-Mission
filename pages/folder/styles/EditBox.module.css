@@ -3,7 +3,7 @@
   justify-content: space-between;
   width: 100%;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: var(--font-bold);
 
   @media (max-width: 767px) {
     flex-direction: column;
@@ -20,7 +20,7 @@
 
 .button_text {
   font-size: 14px;
-  color: #9fa6b2;
+  color: var(--gray60);
 }
 
 .icon {

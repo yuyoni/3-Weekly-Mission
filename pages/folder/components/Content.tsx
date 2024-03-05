@@ -3,6 +3,10 @@ import { useState } from "react";
 import EditBox from "./EditBox";
 import FolderBox from "./FolderBox";
 
+const FOLDER_NAME = {
+  ALL: "전체",
+};
+
 type Props = {
   id: Id;
   folderId: FolderId;
@@ -20,7 +24,9 @@ export default function Content({
   folders,
   inputText,
 }: Props) {
-  const [currentFolderName, setCurrentFolderName] = useState("전체");
+  const [currentFolderName, setCurrentFolderName] = useState(
+    FOLDER_NAME["ALL"]
+  );
 
   const updateFolder = (id: number | null, name: string) => {
     setCurrentFolderName(name);

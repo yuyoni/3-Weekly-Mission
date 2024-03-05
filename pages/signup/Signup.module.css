@@ -1,5 +1,5 @@
 .wrapper {
-  background-color: #f0f6ff;
+  background-color: var(--light-blue);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,9 +25,9 @@
 }
 
 .signup_link {
-  color: var(--Linkbrary-primary-color, #6d6afe);
+  color: var(--primary);
   text-decoration: underline;
-  font-weight: 600;
+  font-weight: var(--font-bold);
 }
 
 .social_login {
@@ -38,6 +38,6 @@
   align-items: center;
 
   border-radius: 8px;
-  border: 1px solid var(--Linkbrary-gray20, #ccd5e3);
-  background: var(--Linkbrary-gray10, #e7effb);
+  border: 1px solid var(--gray20);
+  background: var(--gray10);
 }

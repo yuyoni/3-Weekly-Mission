@@ -73,8 +73,8 @@ export default function CommonModal({
             />
           ) : null}
           <p className={styles.subtitle}>{subtitle}</p>
-          {folders ? <SelectFolder folders={folders} /> : null}
-          {buttonText ? (
+          {folders && <SelectFolder folders={folders} />}
+          {buttonText && (
             <button
               className={`${styles.button} ${buttonColor}`}
               onClick={(e: React.MouseEvent<Element, MouseEvent>) =>
@@ -83,14 +83,14 @@ export default function CommonModal({
             >
               {buttonText}
             </button>
-          ) : null}
-          {icon && userId && folderId ? (
+          )}
+          {icon && userId && folderId && (
             <IconBox
               userId={userId}
               folderId={folderId}
               folderName={subtitle}
             />
-          ) : null}
+          )}
         </div>
       </div>
     )

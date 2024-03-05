@@ -21,14 +21,14 @@
 
 .container:hover {
   border-radius: 8px;
-  background: #f0f6ff;
-  color: #6d6afe;
+  background: var(--light-blue);
+  color: var(--primary);
 }
 
 .checked {
   border-radius: 8px;
-  background: #f0f6ff;
-  color: #6d6afe;
+  background: var(--light-blue);
+  color: var(--primary);
 }
 
 .folder_info {
@@ -44,7 +44,7 @@
 }
 .link_count {
   font-size: 14px;
-  color: var(--Linkbrary-gray60, #9fa6b2);
+  color: var(--gray60);
 }
 
 .icon {
