@@ -52,34 +52,31 @@ export default function EditBox({ id, folderId, currentFolderName }: Props) {
           <span className={styles.button_text}>삭제</span>
         </div>
       </div>
-      {editFolderModal ? (
-        <CommonModal
-          setter={setEditFolderModal}
-          title="폴더 이름 변경"
-          placeholder={currentFolderName}
-          buttonText="변경하기"
-          color="linear-gradient"
-        />
-      ) : null}
-      {shareFolderModal ? (
-        <CommonModal
-          setter={setShareFolderModal}
-          title="폴더 공유"
-          subtitle={currentFolderName}
-          icon={true}
-          folderId={folderId}
-          userId={id}
-        />
-      ) : null}
-      {deleteFolderModal ? (
-        <CommonModal
-          setter={setDeleteFolderModal}
-          title="폴더 삭제"
-          subtitle={currentFolderName}
-          buttonText="삭제하기"
-          color="#FF5B56"
-        />
-      ) : null}
+      <CommonModal
+        isModalShow={editFolderModal}
+        setter={setEditFolderModal}
+        title="폴더 이름 변경"
+        placeholder={currentFolderName}
+        buttonText="변경하기"
+        color="linear-gradient"
+      />
+      <CommonModal
+        isModalShow={shareFolderModal}
+        setter={setShareFolderModal}
+        title="폴더 공유"
+        subtitle={currentFolderName}
+        icon={true}
+        folderId={folderId}
+        userId={id}
+      />
+      <CommonModal
+        isModalShow={deleteFolderModal}
+        setter={setDeleteFolderModal}
+        title="폴더 삭제"
+        subtitle={currentFolderName}
+        buttonText="삭제하기"
+        color="#FF5B56"
+      />
     </div>
   );
 }

@@ -86,15 +86,14 @@ export default function FolderBox({
           />
         </div>
       </div>
-      {addFolderModal ? (
-        <CommonModal
-          setter={setAddFolderModal}
-          title="폴더 추가"
-          placeholder="폴더명"
-          buttonText="추가하기"
-          color="linear-gradient"
-        />
-      ) : null}
+      <CommonModal
+        isModalShow={addFolderModal}
+        setter={setAddFolderModal}
+        title="폴더 추가"
+        placeholder="폴더명"
+        buttonText="추가하기"
+        color="linear-gradient"
+      />
     </div>
   );
 }

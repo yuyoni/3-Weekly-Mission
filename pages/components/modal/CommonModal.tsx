@@ -5,6 +5,7 @@ import IconBox from "./IconBox";
 import close from "@public/images/_close.svg";
 
 type Props = {
+  isModalShow: boolean;
   setter: (arg: boolean) => void;
   title: string;
   subtitle?: string;
@@ -18,6 +19,7 @@ type Props = {
 };
 
 export default function CommonModal({
+  isModalShow,
   setter,
   title,
   subtitle = "",
@@ -41,50 +43,56 @@ export default function CommonModal({
   };
 
   return (
-    <div
-      className={styles.wrapper}
-      onClick={(e) => {
-        e.stopPropagation();
-        handleClickOutside(e);
-      }}
-    >
-      <div className={styles.container}>
-        <Image
-          src={close}
-          className={styles.exit_button}
-          alt="x"
-          onClick={(e) => {
-            e.stopPropagation();
-            setter(false);
-          }}
-          width={24}
-          height={24}
-          priority
-        />
-        <span className={styles.title}>{title}</span>
-        {placeholder ? (
-          <input
-            className={styles.input}
-            type="text"
-            placeholder={placeholder}
+    isModalShow && (
+      <div
+        className={styles.wrapper}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleClickOutside(e);
+        }}
+      >
+        <div className={styles.container}>
+          <Image
+            src={close}
+            className={styles.exit_button}
+            alt="x"
+            onClick={(e) => {
+              e.stopPropagation();
+              setter(false);
+            }}
+            width={24}
+            height={24}
+            priority
           />
-        ) : null}
-        <p className={styles.subtitle}>{subtitle}</p>
-        {folders ? <SelectFolder folders={folders} /> : null}
-        {buttonText ? (
-          <button
-            className={`${styles.button} ${buttonColor}`}
-            onClick={(e: React.MouseEvent<Element, MouseEvent>) =>
-              e.stopPropagation()
-            }
-          >
-            {buttonText}
-          </button>
-        ) : null}
-        {icon && userId && folderId ? (
-          <IconBox userId={userId} folderId={folderId} folderName={subtitle} />
-        ) : null}
+          <span className={styles.title}>{title}</span>
+          {placeholder ? (
+            <input
+              className={styles.input}
+              type="text"
+              placeholder={placeholder}
+            />
+          ) : null}
+          <p className={styles.subtitle}>{subtitle}</p>
+          {folders ? <SelectFolder folders={folders} /> : null}
+          {buttonText ? (
+            <button
+              className={`${styles.button} ${buttonColor}`}
+              onClick={(e: React.MouseEvent<Element, MouseEvent>) =>
+                e.stopPropagation()
+              }
+            >
+              {buttonText}
+            </button>
+          ) : null}
+          {icon && userId && folderId ? (
+            <IconBox
+              userId={userId}
+              folderId={folderId}
+              folderName={subtitle}
+            />
+          ) : null}
+        </div>
       </div>
-    </div>
+    )
   );
 }

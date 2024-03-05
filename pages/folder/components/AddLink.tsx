@@ -59,16 +59,15 @@ export default function AddLink({ id }: Props) {
           추가하기
         </button>
       </div>
-      {addLinkModal ? (
-        <CommonModal
-          setter={setAddLinkModal}
-          title="폴더에 추가"
-          subtitle={inputValue}
-          buttonText="추가하기"
-          folders={folders}
-          color="linear-gradient"
-        />
-      ) : null}
+      <CommonModal
+        isModalShow={addLinkModal}
+        setter={setAddLinkModal}
+        title="폴더에 추가"
+        subtitle={inputValue}
+        buttonText="추가하기"
+        folders={folders}
+        color="linear-gradient"
+      />
     </div>
   );
 }
