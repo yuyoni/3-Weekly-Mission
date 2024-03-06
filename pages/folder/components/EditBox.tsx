@@ -3,13 +3,17 @@ import Image from "next/image";
 import { useState } from "react";
 import styles from "../styles/EditBox.module.css";
 
-type Props = {
+type EditBoxProps = {
   id: Id;
   folderId: number | null;
   currentFolderName: string;
 };
 
-export default function EditBox({ id, folderId, currentFolderName }: Props) {
+export default function EditBox({
+  id,
+  folderId,
+  currentFolderName,
+}: EditBoxProps) {
   const [editFolderModal, setEditFolderModal] = useState(false);
   const [shareFolderModal, setShareFolderModal] = useState(false);
   const [deleteFolderModal, setDeleteFolderModal] = useState(false);

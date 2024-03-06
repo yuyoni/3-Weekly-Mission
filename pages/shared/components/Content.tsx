@@ -4,12 +4,12 @@ import SearchContent from "@pages/components/common/SearchContent";
 import { useEffect, useState } from "react";
 import styles from "../styles/Content.module.css";
 
-type Props = {
+type ShredContentProps = {
   id?: Id;
   folderId: Id;
 };
 
-export default function Content({ id, folderId }: Props) {
+export default function Content({ id, folderId }: ShredContentProps) {
   const [inputText, setInputText] = useState<string>("");
   const [folders, setFolders] = useState<FolderData[] | null>(null);
   const [links, setLinks] = useState<LinkList[] | null>(null);

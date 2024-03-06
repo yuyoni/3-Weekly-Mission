@@ -2,11 +2,11 @@ import { useState } from "react";
 import styles from "./SelectFolder.module.css";
 import Image from "next/image";
 
-type Props = {
+type SelectFolderProps = {
   folders: FolderData[];
 };
 
-export default function SelectFolder({ folders }: Props) {
+export default function SelectFolder({ folders }: SelectFolderProps) {
   const [checkedFolderId, setCheckedFolderId] = useState<Id | null>(null);
 
   const handleFolderClick = (
@@ -17,7 +17,7 @@ export default function SelectFolder({ folders }: Props) {
     setCheckedFolderId(folderId === checkedFolderId ? null : folderId);
   };
 
-  const isFolderChecked = (folderId: Id) => {
+  const getFolderClassName = (folderId: Id) => {
     return folderId === checkedFolderId ? styles.checked : "";
   };
 
@@ -27,7 +27,7 @@ export default function SelectFolder({ folders }: Props) {
         folders.map((folder) => {
           return (
             <div
-              className={`${styles.container} ${isFolderChecked(folder.id)}`}
+              className={`${styles.container} ${getFolderClassName(folder.id)}`}
               key={folder.id}
               onClick={(e) => handleFolderClick(e, folder.id)}
             >

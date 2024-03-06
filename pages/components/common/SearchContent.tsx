@@ -1,13 +1,17 @@
 import Card from "@components/card/Card";
 import styles from "./SearchContent.module.css";
 
-type Props = {
+type SearchContentProps = {
   inputText: string;
   links: LinkList[] | null;
   folders: FolderData[] | null;
 };
 
-export default function SearchContent({ inputText, links, folders }: Props) {
+export default function SearchContent({
+  inputText,
+  links,
+  folders,
+}: SearchContentProps) {
   const filteredLinks = links?.filter(filterLinksBySearchText) ?? [];
 
   return (
@@ -27,7 +31,9 @@ export default function SearchContent({ inputText, links, folders }: Props) {
   function filterLinksBySearchText(link: LinkList): boolean {
     const searchText = inputText.toLowerCase();
     const { title, description, url } = link;
+
     if (!inputText) return true;
+
     return (
       title?.includes(searchText) ||
       description?.includes(searchText) ||

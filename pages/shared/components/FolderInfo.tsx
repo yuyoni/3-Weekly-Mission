@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import styles from "../styles/FolderInfo.module.css";
 import UserInfo from "./UserInfo";
 
-type Props = {
+type FolderInfoProps = {
   id: Id;
   folderId: Id;
 };
 
-export default function FolderInfo({ id, folderId }: Props) {
+export default function FolderInfo({ id, folderId }: FolderInfoProps) {
   const [folderInfo, setFolderInfo] = useState<FolderInfo | null>(null);
 
   const data = useFetchData<FolderInfo[]>(`folders/${folderId}`);

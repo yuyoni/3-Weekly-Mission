@@ -7,7 +7,7 @@ const FOLDER_NAME = {
   ALL: "전체",
 };
 
-type Props = {
+type FolderContentProps = {
   id: Id;
   folderId: FolderId;
   updateFolderId: (id: Id) => void;
@@ -23,7 +23,7 @@ export default function Content({
   links,
   folders,
   inputText,
-}: Props) {
+}: FolderContentProps) {
   const [currentFolderName, setCurrentFolderName] = useState(
     FOLDER_NAME["ALL"]
   );

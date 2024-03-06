@@ -5,9 +5,13 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import { FacebookShareButton } from "react-share";
 import styles from "./IconBox.module.css";
 
-type Props = { userId: number; folderId: number; folderName: string };
+type IconBoxProps = { userId: number; folderId: number; folderName: string };
 
-export default function IconBox({ userId, folderId, folderName }: Props) {
+export default function IconBox({
+  userId,
+  folderId,
+  folderName,
+}: IconBoxProps) {
   const [host, setHost] = useState("");
 
   useEffect(() => {

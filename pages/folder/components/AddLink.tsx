@@ -4,11 +4,11 @@ import styles from "../styles/AddLink.module.css";
 import CommonModal from "@components/modal/CommonModal";
 import useFetchData from "@hooks/useFetchData";
 
-interface Props {
+type AddLinkProps = {
   id: Id;
-}
+};
 
-export default function AddLink({ id }: Props) {
+export default function AddLink({ id }: AddLinkProps) {
   const [inputValue, setInputValue] = useState("");
   const [addLinkModal, setAddLinkModal] = useState(false);
   const [folders, setFolders] = useState<FolderData[]>();

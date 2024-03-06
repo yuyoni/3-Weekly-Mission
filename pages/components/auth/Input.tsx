@@ -4,14 +4,14 @@ import Image from "next/image";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import styles from "./Input.module.css";
 
-type Props = {
+type InputProps = {
   label: string;
   id: string;
   type: string;
   placeholder: string;
   borderError?: boolean;
   register: UseFormRegisterReturn;
-  errors?: FieldError | undefined;
+  errors?: FieldError;
   isShow?: boolean;
   handleShowPassword?: (isShow: boolean) => void;
 };
@@ -26,7 +26,7 @@ export default function Input({
   errors,
   isShow,
   handleShowPassword,
-}: Props) {
+}: InputProps) {
   return (
     <div className={styles.input_container}>
       <label>{label}</label>

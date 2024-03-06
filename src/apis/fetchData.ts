@@ -4,7 +4,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export async function fetchData(
   param: string,
-  method = "GET",
+  method: "GET" | "POST" = "GET",
   requestData?: any
 ) {
   const url = `${BASE_URL}${param}`;

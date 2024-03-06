@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import styles from "../styles/FolderLinkContainer.module.css";
 import Content from "./Content";
 
-type Props = { id: Id };
+type FolderLinkContainerProps = { id: Id };
 
-export default function FolderLinkContainer({ id }: Props) {
+export default function FolderLinkContainer({ id }: FolderLinkContainerProps) {
   const [folderId, setFolderId] = useState<Id>(null);
   const [inputText, setInputText] = useState<string>("");
   const [folders, setFolders] = useState<FolderData[]>([]);

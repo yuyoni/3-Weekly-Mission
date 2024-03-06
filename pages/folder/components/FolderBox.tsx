@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import styles from "../styles/FolderBox.module.css";
 
-type Props = {
+type FolderBoxProps = {
   folders: FolderData[];
   id: Id;
   folderId: FolderId;
@@ -15,7 +15,7 @@ export default function FolderBox({
   id,
   folderId,
   updateFolder,
-}: Props) {
+}: FolderBoxProps) {
   const [addFolderModal, setAddFolderModal] = useState(false);
 
   const handleClickFolder = (

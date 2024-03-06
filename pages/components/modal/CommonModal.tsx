@@ -4,7 +4,7 @@ import SelectFolder from "./SelectFolder";
 import IconBox from "./IconBox";
 import close from "@public/images/_close.svg";
 
-type Props = {
+type ModalProps = {
   isModalShow: boolean;
   setter: (arg: boolean) => void;
   title: string;
@@ -30,7 +30,7 @@ export default function CommonModal({
   icon,
   folderId,
   userId,
-}: Props) {
+}: ModalProps) {
   const buttonColor =
     color === "linear-gradient" ? styles.gradient : styles.red;
 
@@ -65,13 +65,13 @@ export default function CommonModal({
             priority
           />
           <span className={styles.title}>{title}</span>
-          {placeholder ? (
+          {placeholder && (
             <input
               className={styles.input}
               type="text"
               placeholder={placeholder}
             />
-          ) : null}
+          )}
           <p className={styles.subtitle}>{subtitle}</p>
           {folders && <SelectFolder folders={folders} />}
           {buttonText && (

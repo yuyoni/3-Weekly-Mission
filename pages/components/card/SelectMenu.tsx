@@ -2,24 +2,26 @@ import CommonModal from "@components/modal/CommonModal";
 import { useState } from "react";
 import styles from "./SelectMenu.module.css";
 
-type Props = {
+type SelectMenuProps = {
   folders: FolderData[] | null;
   linkUrl: string;
   selectMenuRef: React.RefObject<HTMLDivElement>;
 };
 
-export default function SelectMenu({ folders, linkUrl, selectMenuRef }: Props) {
+export default function SelectMenu({
+  folders,
+  linkUrl,
+  selectMenuRef,
+}: SelectMenuProps) {
   const [deleteLinkModal, setDeleteLinkModal] = useState(false);
   const [addLinkModal, setAddLinkModal] = useState(false);
 
-  const handleClickDelete = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
+  const openDeleteModal = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     setDeleteLinkModal(true);
   };
 
-  const handleClickAddLink = (
+  const openAddLinkModal = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     e.stopPropagation();
@@ -29,10 +31,10 @@ export default function SelectMenu({ folders, linkUrl, selectMenuRef }: Props) {
   return (
     <div>
       <div ref={selectMenuRef} className={styles.select_menu}>
-        <div className={styles.option} onClick={handleClickDelete}>
+        <div className={styles.option} onClick={openDeleteModal}>
           삭제하기
         </div>
-        <div className={styles.option} onClick={handleClickAddLink}>
+        <div className={styles.option} onClick={openAddLinkModal}>
           폴더에 추가
         </div>
       </div>
