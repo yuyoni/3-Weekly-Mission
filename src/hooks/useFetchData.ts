@@ -4,7 +4,7 @@ import camelcaseKeys from "camelcase-keys";
 
 export default function useFetchData<T>(
   param: string,
-  method = "GET",
+  method: "GET" | "POST" = "GET",
   requestData?: any
 ) {
   const [responseData, setResponseData] = useState<T | undefined>();
