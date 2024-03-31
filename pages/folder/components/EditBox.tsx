@@ -113,7 +113,7 @@ export default function EditBox({
         buttonText="변경하기"
         color="linear-gradient"
         handleClickButton={(value) => {
-          const requestData = { name: value };
+          const requestData = { name: value as string };
           editMutation.mutate(requestData);
         }}
       />

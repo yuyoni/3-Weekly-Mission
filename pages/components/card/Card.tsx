@@ -86,13 +86,13 @@ export default function Card({ folders, link }: CardProps) {
           {formattedDate.replace(/-/g, ". ")}
         </span>
       </div>
-      {isKebabClicked && (
-        <SelectMenu
-          selectMenuRef={selectMenuRef}
-          linkUrl={link.url}
-          folders={folders}
-        />
-      )}
+      <SelectMenu
+        isKebabClicked={isKebabClicked}
+        selectMenuRef={selectMenuRef}
+        linkId={link.id}
+        linkUrl={link.url}
+        folders={folders}
+      />
     </div>
   );
 }
