@@ -29,8 +29,7 @@ export default function IconBox({
     setHost(currentHost);
   }, []);
 
-  // 아직 shared 경로에서 userId와 folderId에 따라 다른 화면을 보여주고 있지 않아서 sample folder(즐겨찾기)화면만 뜸
-  const route = host + `/shared?user=${userId}&folder=${folderId}`;
+  const route = host + `/shared/${userId}/${folderId}`;
 
   return (
     <div className={styles.container}>

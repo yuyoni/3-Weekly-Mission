@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { LinkList, User } from "type";
 import Content from "../components/Content";
 import FolderInfo from "../components/FolderInfo";
-import styles from "./styles/Shared.module.css";
+import styles from "../styles/Shared.module.css";
 
 export default function Shared() {
   const { userId, folderId } = useRouter().query;

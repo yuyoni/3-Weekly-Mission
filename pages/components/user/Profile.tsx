@@ -7,11 +7,7 @@ import styles from "./Profile.module.css";
 
 export default function Profile() {
   const [accessToken, setAccessToken] = useState<string>();
-  const {
-    data: userInfo,
-    isPending,
-    isError,
-  } = useQuery<User[]>({
+  const { data: userInfo } = useQuery<User[]>({
     queryKey: ["userInfo"],
     queryFn: () => getData({ endpoint: "/users", token: accessToken }),
     enabled: !!accessToken,
@@ -21,9 +17,6 @@ export default function Profile() {
     const token = localStorage.getItem("accessToken");
     if (token) setAccessToken(token);
   }, []);
-
-  if (isPending) return "loading...";
-  if (isError) return "error";
 
   return (
     <div className={styles.wrapper}>
