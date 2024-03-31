@@ -1,32 +1,35 @@
+import getData from "@apis/getData";
 import Layout from "@components/common/Layout";
-import { CurrentUserContext } from "@pages/_app";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { User } from "type";
 import Content from "./components/Content";
 import FolderInfo from "./components/FolderInfo";
 import styles from "./styles/Shared.module.css";
 
 export default function Shared() {
   const { folderId } = useRouter().query;
-  const currentUser = useContext(CurrentUserContext);
-  const [id, setId] = useState<Id | null>(null);
+  const {
+    data: userInfo,
+    isPending,
+    isError,
+  } = useQuery<User[]>({
+    queryKey: ["userInfo"],
+    queryFn: () => getData({ endpoint: "/users" }),
+  });
 
-  useEffect(() => {
-    if (currentUser) {
-      setId(currentUser.id);
-    }
-  }, [currentUser]);
+  if (isPending) return "loading...";
+  if (isError) return "error";
+  if (!userInfo) return "no user information";
 
   return (
     <Layout>
       <div className={styles.container}>
-        {folderId ? (
+        {folderId && (
           <>
-            <FolderInfo id={id} folderId={+folderId} />
-            <Content id={id} folderId={+folderId} />
+            <FolderInfo id={userInfo[0].id} folderId={Number(folderId)} />
+            <Content id={userInfo[0].id} folderId={Number(folderId)} />
           </>
-        ) : (
-          <></>
         )}
       </div>
     </Layout>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import SelectFolder from "./SelectFolder";
 import IconBox from "./IconBox";
 import close from "@public/images/_close.svg";
+import { FolderData, FolderId, Id } from "type";
 
 type ModalProps = {
   isModalShow: boolean;

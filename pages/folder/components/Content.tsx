@@ -2,6 +2,7 @@ import SearchContent from "@pages/components/common/SearchContent";
 import { useState } from "react";
 import EditBox from "./EditBox";
 import FolderBox from "./FolderBox";
+import { FolderData, FolderId, Id, LinkList } from "type";
 
 const FOLDER_NAME = {
   ALL: "전체",

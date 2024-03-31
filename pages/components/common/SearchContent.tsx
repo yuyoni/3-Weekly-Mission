@@ -1,5 +1,6 @@
 import Card from "@components/card/Card";
 import styles from "./SearchContent.module.css";
+import { FolderData, LinkList } from "type";
 
 type SearchContentProps = {
   inputText: string;

@@ -1,8 +1,10 @@
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import styles from "../styles/AddLink.module.css";
+import getData from "@apis/getData";
 import CommonModal from "@components/modal/CommonModal";
-import useFetchData from "@hooks/useFetchData";
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
+import { useState } from "react";
+import { FolderData, Id } from "type";
+import styles from "../styles/AddLink.module.css";
 
 type AddLinkProps = {
   id: Id;
@@ -11,7 +13,6 @@ type AddLinkProps = {
 export default function AddLink({ id }: AddLinkProps) {
   const [inputValue, setInputValue] = useState("");
   const [addLinkModal, setAddLinkModal] = useState(false);
-  const [folders, setFolders] = useState<FolderData[]>();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -29,11 +30,17 @@ export default function AddLink({ id }: AddLinkProps) {
     }
   };
 
-  const data = useFetchData<FolderData[]>(`users/${id}/folders`);
+  const {
+    data: folderData,
+    isPending,
+    isError,
+  } = useQuery<FolderData[]>({
+    queryKey: ["folderData", id],
+    queryFn: () => getData({ endpoint: `/users/${id}/folders` }),
+  });
 
-  useEffect(() => {
-    setFolders(data);
-  }, [data]);
+  if (isPending) return "loading...";
+  if (isError) return "error";
 
   return (
     <div className={styles.wrapper}>
@@ -65,7 +72,7 @@ export default function AddLink({ id }: AddLinkProps) {
         title="폴더에 추가"
         subtitle={inputValue}
         buttonText="추가하기"
-        folders={folders}
+        folders={folderData}
         color="linear-gradient"
       />
     </div>

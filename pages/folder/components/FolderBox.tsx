@@ -2,6 +2,7 @@ import CommonModal from "@components/modal/CommonModal";
 import Image from "next/image";
 import { useState } from "react";
 import styles from "../styles/FolderBox.module.css";
+import { FolderData, FolderId, Id } from "type";
 
 type FolderBoxProps = {
   folders: FolderData[];

@@ -1,4 +1,4 @@
-import { LegacyRef, useEffect } from "react";
+import { useEffect } from "react";
 
 export default function useClickOutside(
   reference: React.RefObject<HTMLDivElement>,

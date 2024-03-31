@@ -9,6 +9,9 @@ const INVALID_PASSWORD = "비밀번호는 영문, 숫자 조합 8자 이상 입�
 
 const WRONG_PASSWORD_CHECK = "비밀번호가 일치하지 않습니다.";
 
+const emailRegex = /\S+@\S+\.\S+/;
+const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
 export {
   USED_EMAIL,
   INVALID_EMAIL,
@@ -18,4 +21,6 @@ export {
   WRONG_PASSWORD,
   INVALID_PASSWORD,
   WRONG_PASSWORD_CHECK,
+  emailRegex,
+  passwordRegex,
 };

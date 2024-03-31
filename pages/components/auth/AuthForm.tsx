@@ -1,24 +1,36 @@
-import { fetchData } from "@apis/fetchData";
-import axios from "axios";
+import postData from "@apis/postData";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   INVALID_EMAIL,
   INVALID_PASSWORD,
   REQUIRED_EMAIL,
   REQUIRED_PASSWORD,
-  USED_EMAIL,
   WRONG_EMAIL,
   WRONG_PASSWORD,
   WRONG_PASSWORD_CHECK,
+  emailRegex,
+  passwordRegex,
 } from "src/constants/errorMessages";
 import styles from "./AuthForm.module.css";
 import Input from "./Input";
+import {
+  AuthResponseType,
+  EmailCheckResponseType,
+  EmailCheckType,
+  FormDataType,
+} from "./types/authTypes";
 
-export default function AuthForm({ isSignUp }: { isSignUp: boolean }) {
+interface AuthFormProps {
+  isSignUp: boolean;
+}
+
+export default function AuthForm({ isSignUp }: AuthFormProps) {
   const router = useRouter();
-
+  const endpoint = isSignUp ? `/auth/sign-up` : `/auth/sign-in`;
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordCheck, setShowPasswordCheck] = useState(false);
 
@@ -27,49 +39,80 @@ export default function AuthForm({ isSignUp }: { isSignUp: boolean }) {
     handleSubmit,
     setError,
     formState: { errors },
+    getValues,
     watch,
-  } = useForm<FormData>({ mode: "onChange" });
+  } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      email: "",
+      password: "",
+      passwordCheck: "",
+    },
+  });
 
-  const emailRegex = /\S+@\S+\.\S+/;
-  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-
-  const onSubmit = async (data: FormData) => {
-    const endpoint = isSignUp ? "auth/sign-up" : "auth/sign-in";
-    try {
-      const response = await fetchData(endpoint, "POST", data);
-
-      if (response.accessToken) {
-        localStorage.setItem("accessToken", response.accessToken);
-        router.replace("/folder");
-        router.refresh();
+  const formDataMutation = useMutation<
+    AuthResponseType,
+    AxiosError,
+    FormDataType
+  >({
+    mutationFn: (requestData) =>
+      postData<AuthResponseType>({
+        endpoint,
+        requestData,
+      }),
+    onSuccess: (data) => {
+      const { accessToken } = data;
+      if (accessToken) {
+        localStorage.setItem("accessToken", accessToken);
+        router.push("/folder");
       }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 400) {
-          setError("email", {
-            type: "manual",
-            message: isSignUp ? USED_EMAIL : WRONG_EMAIL,
-          });
-          setError("password", {
-            type: "manual",
-            message: isSignUp ? "" : WRONG_PASSWORD,
-          });
-        } else {
-          console.error("Unexpected error:", error.message);
-        }
+    },
+    onError: () => {
+      setError("email", {
+        type: "manual",
+        message: WRONG_EMAIL,
+      });
+      setError("password", {
+        type: "manual",
+        message: WRONG_PASSWORD,
+      });
+    },
+  });
+
+  const checkEmailMutation = useMutation<
+    EmailCheckResponseType,
+    AxiosError,
+    EmailCheckType
+  >({
+    mutationFn: (requestData) => {
+      return postData({
+        endpoint: "/users/check-email",
+        requestData: requestData,
+      });
+    },
+  });
+
+  const handleFormSubmit = handleSubmit((data) => {
+    const requestData = { email: data.email, password: data.password };
+    formDataMutation.mutate(requestData);
+  });
+
+  const checkValidEmail = async () => {
+    const email = getValues("email");
+    if (isSignUp && email) {
+      try {
+        await checkEmailMutation.mutateAsync({ email });
+      } catch (error: any) {
+        setError("email", {
+          type: "manual",
+          message: error.response.data.message,
+        });
       }
     }
   };
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-      router.push("/folder");
-    }
-  }, [router]);
-
   return (
-    <form className={styles.auth_form} onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles.auth_form} onSubmit={handleFormSubmit}>
       <Input
         label="이메일"
         id="email"
@@ -82,6 +125,7 @@ export default function AuthForm({ isSignUp }: { isSignUp: boolean }) {
             value: emailRegex,
             message: INVALID_EMAIL,
           },
+          onBlur: checkValidEmail,
         })}
         errors={errors.email}
       />
@@ -90,7 +134,7 @@ export default function AuthForm({ isSignUp }: { isSignUp: boolean }) {
           label="비밀번호"
           id="password"
           type={showPassword ? "text" : "password"}
-          placeholder={INVALID_PASSWORD}
+          placeholder="비밀번호 입력"
           borderError={!!errors.password}
           register={register("password", {
             required: REQUIRED_PASSWORD,
@@ -106,14 +150,13 @@ export default function AuthForm({ isSignUp }: { isSignUp: boolean }) {
           }}
         />
       </div>
-
       {isSignUp && (
         <div className={styles.input_container}>
           <Input
             label="비밀번호 확인"
             id="passwordCheck"
             type={showPasswordCheck ? "text" : "password"}
-            placeholder={INVALID_PASSWORD}
+            placeholder="비밀번호 재입력"
             borderError={!!errors.passwordCheck}
             register={register("passwordCheck", {
               required: REQUIRED_PASSWORD,
@@ -132,7 +175,11 @@ export default function AuthForm({ isSignUp }: { isSignUp: boolean }) {
           />
         </div>
       )}
-      <button className={styles.submit_button} type="submit">
+      <button
+        className={styles.submit_button}
+        type="submit"
+        disabled={Object.keys(errors).length > 0}
+      >
         {isSignUp ? "회원가입" : "로그인"}
       </button>
     </form>

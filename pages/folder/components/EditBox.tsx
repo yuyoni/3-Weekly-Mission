@@ -2,6 +2,7 @@ import CommonModal from "@components/modal/CommonModal";
 import Image from "next/image";
 import { useState } from "react";
 import styles from "../styles/EditBox.module.css";
+import { Id } from "type";
 
 type EditBoxProps = {
   id: Id;

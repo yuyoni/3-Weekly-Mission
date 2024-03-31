@@ -9,6 +9,7 @@ import { useRef, useState } from "react";
 import styles from "./Card.module.css";
 import SelectMenu from "./SelectMenu";
 import { useRouter } from "next/navigation";
+import { FolderData, LinkList } from "type";
 
 type CardProps = { key: number; folders: FolderData[] | null; link: LinkList };
 

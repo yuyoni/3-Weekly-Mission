@@ -1,6 +1,7 @@
 import CommonModal from "@components/modal/CommonModal";
 import { useState } from "react";
 import styles from "./SelectMenu.module.css";
+import { FolderData } from "type";
 
 type SelectMenuProps = {
   folders: FolderData[] | null;

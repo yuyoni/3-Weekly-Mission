@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./SelectFolder.module.css";
 import Image from "next/image";
+import { FolderData, Id } from "type";
 
 type SelectFolderProps = {
   folders: FolderData[];

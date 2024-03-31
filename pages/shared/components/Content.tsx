@@ -1,39 +1,54 @@
+import getData from "@apis/getData";
 import SearchBar from "@components/searchbar/SearchBar";
-import useFetchData from "@hooks/useFetchData";
 import SearchContent from "@pages/components/common/SearchContent";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { FolderData, FolderId, Id, LinkList } from "type";
 import styles from "../styles/Content.module.css";
 
 type ShredContentProps = {
   id?: Id;
-  folderId: Id;
+  folderId: FolderId;
 };
 
 export default function Content({ id, folderId }: ShredContentProps) {
   const [inputText, setInputText] = useState<string>("");
-  const [folders, setFolders] = useState<FolderData[] | null>(null);
-  const [links, setLinks] = useState<LinkList[] | null>(null);
 
-  const data = useFetchData<FolderData[]>(`users/${id}/folders`);
-  const linkData = useFetchData<LinkList[]>(`folders/${folderId}/links`);
-
-  useEffect(() => {
-    if (data) {
-      setFolders(data);
-    }
-    if (linkData) {
-      setLinks(linkData);
-    }
-  }, [data, linkData]);
+  const {
+    data: folderData,
+    isPending,
+    isError,
+  } = useQuery<FolderData[]>({
+    queryKey: ["folderData", folderId],
+    queryFn: () => getData({ endpoint: `/users/${id}/folders` }),
+  });
+  const {
+    data: linkData,
+    isPending: isLinkPending,
+    isError: isLinkError,
+  } = useQuery<LinkList[]>({
+    queryKey: ["linkData", folderId, id],
+    queryFn: () => getData({ endpoint: `/folders/${folderId}/links` }),
+  });
 
   const updateInputText = (value: string) => {
     setInputText(value);
   };
 
+  if (isPending) return "loading...";
+  if (isError) return "error";
+
+  if (isLinkPending) return "link loading...";
+  if (isLinkError) return "link error";
+
   return (
     <main className={styles.content}>
       <SearchBar inputText={inputText} updateInputText={updateInputText} />
-      <SearchContent inputText={inputText} links={links} folders={folders} />
+      <SearchContent
+        inputText={inputText}
+        links={linkData}
+        folders={folderData}
+      />
     </main>
   );
 }
