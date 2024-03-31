@@ -7,10 +7,10 @@ import { FolderData, Id } from "type";
 import styles from "../styles/AddLink.module.css";
 
 type AddLinkProps = {
-  id: Id;
+  userId: Id;
 };
 
-export default function AddLink({ id }: AddLinkProps) {
+export default function AddLink({ userId }: AddLinkProps) {
   const [inputValue, setInputValue] = useState("");
   const [addLinkModal, setAddLinkModal] = useState(false);
 
@@ -35,8 +35,8 @@ export default function AddLink({ id }: AddLinkProps) {
     isPending,
     isError,
   } = useQuery<FolderData[]>({
-    queryKey: ["folderData", id],
-    queryFn: () => getData({ endpoint: `/users/${id}/folders` }),
+    queryKey: ["folderData", userId],
+    queryFn: () => getData({ endpoint: `/users/${userId}/folders` }),
   });
 
   if (isPending) return "loading...";

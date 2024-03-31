@@ -1,23 +1,73 @@
 import CommonModal from "@components/modal/CommonModal";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/FolderBox.module.css";
-import { FolderData, FolderId, Id } from "type";
+import { FolderData, FolderId, FolderInfoResponseType, Id } from "type";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import postData from "@apis/postData";
 
 type FolderBoxProps = {
   folders: FolderData[];
-  id: Id;
+  userId: Id;
   folderId: FolderId;
   updateFolder: (id: FolderId, name: string) => void;
 };
 
 export default function FolderBox({
   folders,
-  id,
+  userId,
   folderId,
   updateFolder,
 }: FolderBoxProps) {
   const [addFolderModal, setAddFolderModal] = useState(false);
+  const [accessToken, setAccessToken] = useState("");
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) setAccessToken(token);
+  }, []);
+
+  const isFolderSelected =
+    folderId === null
+      ? styles.selected_folder_color
+      : styles.default_folder_color;
+
+  const getFolderColorClassName = (currentFolderId: FolderId) =>
+    folderId === currentFolderId
+      ? styles.selected_folder_color
+      : styles.default_folder_color;
+
+  const { mutate, isPending } = useMutation<
+    FolderInfoResponseType,
+    AxiosError,
+    { name: string }
+  >({
+    mutationFn: (requestData) =>
+      postData<FolderInfoResponseType>({
+        endpoint: "/folders",
+        requestData,
+        token: accessToken,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["folders"] }); // invalidateQueries 추가하면 refetch를 자동으로 한다던데 안함.. 나중에 확인해보기
+      setAddFolderModal(false);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const handleAddLink = (value: string) => {
+    const requestData = { name: value };
+    if (accessToken)
+      mutate(requestData, {
+        onSuccess: () => {
+          console.log("폴더 등록 성공");
+        },
+      });
+  };
 
   const handleClickFolder = (
     clickedFolderId: Id,
@@ -25,16 +75,6 @@ export default function FolderBox({
   ) => {
     updateFolder(clickedFolderId, clickedFolderName);
   };
-
-  const isFolderSelected =
-    folderId === null
-      ? styles.selected_folder_color
-      : styles.default_folder_color;
-
-  const getFolderColorClassName = (id: FolderId) =>
-    folderId === id
-      ? styles.selected_folder_color
-      : styles.default_folder_color;
 
   return (
     <div className={styles.wrapper}>
@@ -72,7 +112,6 @@ export default function FolderBox({
             priority
           />
         </div>
-
         <div
           className={styles.folder_add_button}
           onClick={() => setAddFolderModal(true)}
@@ -94,6 +133,8 @@ export default function FolderBox({
         placeholder="폴더명"
         buttonText="추가하기"
         color="linear-gradient"
+        handleClickButton={handleAddLink}
+        isPending={isPending}
       />
     </div>
   );

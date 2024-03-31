@@ -7,33 +7,36 @@ export interface User {
   id: Id;
   name: Name;
   email: string;
-  imageSource: string;
-  createdAt?: CreateAt;
+  image_source: string;
+  created_at?: CreateAt;
 }
 
 export interface LinkList {
   id: number;
   title: string;
-  createdAt: CreateAt;
+  created_at: CreateAt;
   description: string;
   url: string;
-  imageSource: string;
+  image_source: string;
 }
 
 export interface FolderData {
   id: Id;
-  createdAt: CreateAt;
+  created_at: CreateAt;
   name: Name;
   favorite: boolean;
-  linkCount: number;
+  link_count: number;
 }
 
-export interface FolderInfo {
+export interface FolderInfoResponseType {
   id: number;
-  createdAt: string;
+  created_at: string;
   favorite: boolean;
   name: string;
-  userId: number;
+}
+
+export interface FolderInfo extends FolderInfoResponse {
+  user_id: number;
 }
 
 export interface SigninData {

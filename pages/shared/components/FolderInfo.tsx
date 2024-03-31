@@ -1,15 +1,15 @@
 import getData from "@apis/getData";
 import { useQuery } from "@tanstack/react-query";
-import { FolderId, FolderInfo, Id } from "type";
+import { FolderId, FolderInfo, Id, User } from "type";
 import styles from "../styles/FolderInfo.module.css";
 import UserInfo from "./UserInfo";
 
 type FolderInfoProps = {
-  id: Id;
   folderId: FolderId;
+  userInfo: User;
 };
 
-export default function FolderInfo({ id, folderId }: FolderInfoProps) {
+export default function FolderInfo({ folderId, userInfo }: FolderInfoProps) {
   const {
     data: folderData,
     isPending,
@@ -26,7 +26,7 @@ export default function FolderInfo({ id, folderId }: FolderInfoProps) {
     folderData && (
       <div className={styles.wrapper}>
         <div className={styles.folder_info}>
-          <UserInfo userId={id} />
+          <UserInfo userInfo={userInfo} />
           <span className={styles.name}>{folderData[0].name}</span>
         </div>
       </div>

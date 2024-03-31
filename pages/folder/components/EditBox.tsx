@@ -5,13 +5,13 @@ import styles from "../styles/EditBox.module.css";
 import { Id } from "type";
 
 type EditBoxProps = {
-  id: Id;
+  userId: Id;
   folderId: number | null;
   currentFolderName: string;
 };
 
 export default function EditBox({
-  id,
+  userId,
   folderId,
   currentFolderName,
 }: EditBoxProps) {
@@ -72,7 +72,7 @@ export default function EditBox({
         subtitle={currentFolderName}
         icon={true}
         folderId={folderId}
-        userId={id}
+        userId={userId}
       />
       <CommonModal
         isModalShow={deleteFolderModal}

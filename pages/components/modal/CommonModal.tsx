@@ -4,6 +4,7 @@ import SelectFolder from "./SelectFolder";
 import IconBox from "./IconBox";
 import close from "@public/images/_close.svg";
 import { FolderData, FolderId, Id } from "type";
+import { useState } from "react";
 
 type ModalProps = {
   isModalShow: boolean;
@@ -17,6 +18,8 @@ type ModalProps = {
   icon?: boolean;
   folderId?: FolderId;
   userId?: Id;
+  handleClickButton?: (value: string) => void;
+  isPending?: boolean;
 };
 
 export default function CommonModal({
@@ -31,7 +34,10 @@ export default function CommonModal({
   icon,
   folderId,
   userId,
+  handleClickButton,
+  isPending,
 }: ModalProps) {
+  const [inputValue, setInputValue] = useState("");
   const buttonColor =
     color === "linear-gradient" ? styles.gradient : styles.red;
 
@@ -71,16 +77,17 @@ export default function CommonModal({
               className={styles.input}
               type="text"
               placeholder={placeholder}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
             />
           )}
           <p className={styles.subtitle}>{subtitle}</p>
           {folders && <SelectFolder folders={folders} />}
-          {buttonText && (
+          {handleClickButton && (
             <button
               className={`${styles.button} ${buttonColor}`}
-              onClick={(e: React.MouseEvent<Element, MouseEvent>) =>
-                e.stopPropagation()
-              }
+              onClick={() => handleClickButton(inputValue)}
+              disabled={isPending || !inputValue}
             >
               {buttonText}
             </button>

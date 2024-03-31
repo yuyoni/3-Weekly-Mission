@@ -20,7 +20,7 @@ export default function Card({ folders, link }: CardProps) {
   const [isKebabClicked, setIsKebabClicked] = useState(false);
 
   const { formattedDate, elapsedTime } = link
-    ? formatDateAndDifference(link.createdAt)
+    ? formatDateAndDifference(link.created_at)
     : { formattedDate: "", elapsedTime: "" };
 
   const handleClickCard = () => {
@@ -61,7 +61,7 @@ export default function Card({ folders, link }: CardProps) {
         />
         <img
           className={styles.link_img}
-          src={link?.imageSource || noImage.src}
+          src={link?.image_source || noImage.src}
           alt={link ? link.title : ""}
           onError={(e) => {
             e.currentTarget.src = noImage.src;

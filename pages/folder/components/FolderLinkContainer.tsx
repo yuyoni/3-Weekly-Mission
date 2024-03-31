@@ -6,22 +6,24 @@ import { FolderData, Id, LinkList } from "type";
 import styles from "../styles/FolderLinkContainer.module.css";
 import Content from "./Content";
 
-type FolderLinkContainerProps = { id: Id };
+type FolderLinkContainerProps = { userId: Id };
 
-export default function FolderLinkContainer({ id }: FolderLinkContainerProps) {
+export default function FolderLinkContainer({
+  userId,
+}: FolderLinkContainerProps) {
   const [folderId, setFolderId] = useState<Id>(null);
-  const [inputText, setInputText] = useState<string>("");
+  const [inputText, setInputText] = useState("");
 
   const endpoint = folderId
-    ? `folders/${folderId}/links`
-    : `/users/${id}/links`;
+    ? `/folders/${folderId}/links`
+    : `/users/${userId}/links`;
 
   const updateInputText = (value: string) => {
     setInputText(value);
   };
 
-  const updateFolderId = (id: Id) => {
-    setFolderId(id);
+  const updateFolderId = (folderId: Id) => {
+    setFolderId(folderId);
   };
 
   const {
@@ -30,7 +32,7 @@ export default function FolderLinkContainer({ id }: FolderLinkContainerProps) {
     isError,
   } = useQuery<FolderData[]>({
     queryKey: ["folderData", folderId],
-    queryFn: () => getData({ endpoint: `/users/${id}/folders` }),
+    queryFn: () => getData({ endpoint: `/users/${userId}/folders` }),
   });
 
   const {
@@ -38,7 +40,7 @@ export default function FolderLinkContainer({ id }: FolderLinkContainerProps) {
     isPending: isLinkPending,
     isError: isLinkError,
   } = useQuery<LinkList[]>({
-    queryKey: ["linkData", folderId, id],
+    queryKey: ["linkData", folderId, userId],
     queryFn: () => getData({ endpoint }),
   });
 
@@ -52,7 +54,7 @@ export default function FolderLinkContainer({ id }: FolderLinkContainerProps) {
     <main className={styles.main}>
       <SearchBar inputText={inputText} updateInputText={updateInputText} />
       <Content
-        id={id}
+        userId={userId}
         folderId={folderId}
         updateFolderId={updateFolderId}
         links={linkData}

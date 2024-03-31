@@ -8,10 +8,10 @@ import styles from "../styles/Content.module.css";
 
 type ShredContentProps = {
   id?: Id;
-  folderId: FolderId;
+  linkData: LinkList[];
 };
 
-export default function Content({ id, folderId }: ShredContentProps) {
+export default function Content({ id, linkData }: ShredContentProps) {
   const [inputText, setInputText] = useState<string>("");
 
   const {
@@ -19,16 +19,8 @@ export default function Content({ id, folderId }: ShredContentProps) {
     isPending,
     isError,
   } = useQuery<FolderData[]>({
-    queryKey: ["folderData", folderId],
+    queryKey: ["folderData"],
     queryFn: () => getData({ endpoint: `/users/${id}/folders` }),
-  });
-  const {
-    data: linkData,
-    isPending: isLinkPending,
-    isError: isLinkError,
-  } = useQuery<LinkList[]>({
-    queryKey: ["linkData", folderId, id],
-    queryFn: () => getData({ endpoint: `/folders/${folderId}/links` }),
   });
 
   const updateInputText = (value: string) => {
@@ -37,9 +29,6 @@ export default function Content({ id, folderId }: ShredContentProps) {
 
   if (isPending) return "loading...";
   if (isError) return "error";
-
-  if (isLinkPending) return "link loading...";
-  if (isLinkError) return "link error";
 
   return (
     <main className={styles.content}>

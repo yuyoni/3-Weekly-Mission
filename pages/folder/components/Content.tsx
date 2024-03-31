@@ -9,16 +9,16 @@ const FOLDER_NAME = {
 };
 
 type FolderContentProps = {
-  id: Id;
+  userId: Id;
   folderId: FolderId;
-  updateFolderId: (id: Id) => void;
+  updateFolderId: (folderId: Id) => void;
   links: LinkList[];
   folders: FolderData[];
   inputText: string;
 };
 
 export default function Content({
-  id,
+  userId,
   folderId,
   updateFolderId,
   links,
@@ -29,21 +29,21 @@ export default function Content({
     FOLDER_NAME["ALL"]
   );
 
-  const updateFolder = (id: number | null, name: string) => {
+  const updateFolder = (folderId: number | null, name: string) => {
     setCurrentFolderName(name);
-    updateFolderId(id);
+    updateFolderId(folderId);
   };
 
   return (
     <>
       <FolderBox
         folders={folders}
-        id={id}
+        userId={userId}
         folderId={folderId}
         updateFolder={updateFolder}
       />
       <EditBox
-        id={id}
+        userId={userId}
         folderId={folderId}
         currentFolderName={currentFolderName}
       />
