@@ -1,18 +1,27 @@
 import getData from "@apis/getData";
 import CommonModal from "@components/modal/CommonModal";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
-import { useState } from "react";
-import { FolderData, Id } from "type";
+import { useEffect, useState } from "react";
+import { FolderData, Id, LinkList } from "type";
 import styles from "../styles/AddLink.module.css";
+import postData from "@apis/postData";
+import { AxiosError } from "axios";
 
 type AddLinkProps = {
   userId: Id;
 };
 
 export default function AddLink({ userId }: AddLinkProps) {
+  const queryClient = useQueryClient();
   const [inputValue, setInputValue] = useState("");
   const [addLinkModal, setAddLinkModal] = useState(false);
+  const [accessToken, setAccessToken] = useState("");
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) setAccessToken(token);
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -39,8 +48,24 @@ export default function AddLink({ userId }: AddLinkProps) {
     queryFn: () => getData({ endpoint: `/users/${userId}/folders` }),
   });
 
+  const {
+    mutate,
+    isPending: isLinkPending,
+    isError: isLinkError,
+  } = useMutation<any, AxiosError, { url: string; folderId: Id }>({
+    mutationFn: (requestData) =>
+      postData({ endpoint: "/links", requestData, token: accessToken }),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      setAddLinkModal(false);
+    },
+  });
+
   if (isPending) return "loading...";
   if (isError) return "error";
+
+  if (isLinkPending) return "link loading...";
+  if (isLinkError) return "link error";
 
   return (
     <div className={styles.wrapper}>
@@ -74,6 +99,10 @@ export default function AddLink({ userId }: AddLinkProps) {
         buttonText="추가하기"
         folders={folderData}
         color="linear-gradient"
+        handleClickButton={(value) => {
+          const requestData = { url: inputValue, folderId: value as number };
+          mutate(requestData);
+        }}
       />
     </div>
   );

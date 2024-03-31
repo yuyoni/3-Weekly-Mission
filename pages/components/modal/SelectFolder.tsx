@@ -5,9 +5,13 @@ import { FolderData, Id } from "type";
 
 type SelectFolderProps = {
   folders: FolderData[];
+  onFolderSelect: (folderId: Id | null) => void;
 };
 
-export default function SelectFolder({ folders }: SelectFolderProps) {
+export default function SelectFolder({
+  folders,
+  onFolderSelect,
+}: SelectFolderProps) {
   const [checkedFolderId, setCheckedFolderId] = useState<Id | null>(null);
 
   const handleFolderClick = (
@@ -15,7 +19,9 @@ export default function SelectFolder({ folders }: SelectFolderProps) {
     folderId: Id
   ) => {
     e.stopPropagation();
-    setCheckedFolderId(folderId === checkedFolderId ? null : folderId);
+    const newCheckedFolderId = folderId === checkedFolderId ? null : folderId;
+    setCheckedFolderId(newCheckedFolderId);
+    onFolderSelect(newCheckedFolderId);
   };
 
   const getFolderClassName = (folderId: Id) => {
@@ -35,7 +41,7 @@ export default function SelectFolder({ folders }: SelectFolderProps) {
               <div className={styles.folder_info}>
                 <span className={styles.folder_name}>{folder.name}</span>
                 <span className={styles.link_count}>
-                  {folder.linkCount}개 링크
+                  {folder.link_count}개 링크
                 </span>
               </div>
               {folder.id === checkedFolderId && (

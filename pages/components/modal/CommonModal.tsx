@@ -18,7 +18,7 @@ type ModalProps = {
   icon?: boolean;
   folderId?: FolderId;
   userId?: Id;
-  handleClickButton?: (value: string) => void;
+  handleClickButton?: (value: string | Id) => void;
   isPending?: boolean;
 };
 
@@ -38,8 +38,14 @@ export default function CommonModal({
   isPending,
 }: ModalProps) {
   const [inputValue, setInputValue] = useState("");
+  const [selectedFolderId, setSelectedFolderId] = useState<Id | null>(null);
+
   const buttonColor =
     color === "linear-gradient" ? styles.gradient : styles.red;
+
+  const handleFolderSelect = (folderId: Id) => {
+    setSelectedFolderId(folderId);
+  };
 
   const handleClickOutside = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -82,12 +88,23 @@ export default function CommonModal({
             />
           )}
           <p className={styles.subtitle}>{subtitle}</p>
-          {folders && <SelectFolder folders={folders} />}
+          {folders && (
+            <SelectFolder
+              folders={folders}
+              onFolderSelect={handleFolderSelect}
+            />
+          )}
           {handleClickButton && (
             <button
               className={`${styles.button} ${buttonColor}`}
-              onClick={() => handleClickButton(inputValue)}
-              disabled={(placeholder && !inputValue) || isPending}
+              onClick={() =>
+                handleClickButton(folders ? selectedFolderId : inputValue)
+              }
+              disabled={
+                (folders && !selectedFolderId) ||
+                (!folders && placeholder && !inputValue) ||
+                isPending
+              }
             >
               {buttonText}
             </button>

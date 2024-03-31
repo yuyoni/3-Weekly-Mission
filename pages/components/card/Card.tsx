@@ -10,7 +10,6 @@ import styles from "./Card.module.css";
 import SelectMenu from "./SelectMenu";
 import { useRouter } from "next/navigation";
 import { FolderData, LinkList } from "type";
-import Link from "next/link";
 
 type CardProps = { key: number; folders: FolderData[] | null; link: LinkList };
 
@@ -23,6 +22,12 @@ export default function Card({ folders, link }: CardProps) {
   const { formattedDate, elapsedTime } = link
     ? formatDateAndDifference(link.created_at)
     : { formattedDate: "", elapsedTime: "" };
+
+  const handleClickCard = () => {
+    if (link) {
+      router.push(`https://${link.url}`);
+    }
+  };
 
   const toggleBookmark = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
@@ -44,52 +49,50 @@ export default function Card({ folders, link }: CardProps) {
   useClickOutside(selectMenuRef, setKebabMenuStatus);
 
   return (
-    <Link href={`https://${link.url}`} target="_blank">
-      <div className={styles.card}>
-        <div className={styles.thumbnail}>
-          <Image
-            className={styles.bookmark}
-            src={isBookmarked ? filledStar : emptyStar}
-            alt="bookmark-logo"
-            onClick={toggleBookmark}
-            width={34}
-            height={34}
-          />
-          <img
-            className={styles.link_img}
-            src={link?.image_source || noImage.src}
-            alt={link ? link.title : ""}
-            onError={(e) => {
-              e.currentTarget.src = noImage.src;
-            }}
-          />
-        </div>
-        <div className={styles.detail}>
-          <Image
-            className={styles.kebab}
-            src={kebab}
-            alt="kebab-icon"
-            onClick={(e) => {
-              handleClickKebab(e, true);
-            }}
-            width={21}
-            height={17}
-          />
-
-          <span className={styles.elapsed_time}>{elapsedTime}</span>
-          <p className={styles.description}>{link ? link.description : ""}</p>
-          <span className={styles.formatted_data}>
-            {formattedDate.replace(/-/g, ". ")}
-          </span>
-        </div>
-        {isKebabClicked && (
-          <SelectMenu
-            selectMenuRef={selectMenuRef}
-            linkUrl={link.url}
-            folders={folders}
-          />
-        )}
+    <div className={styles.card} onClick={handleClickCard}>
+      <div className={styles.thumbnail}>
+        <Image
+          className={styles.bookmark}
+          src={isBookmarked ? filledStar : emptyStar}
+          alt="bookmark-logo"
+          onClick={toggleBookmark}
+          width={34}
+          height={34}
+        />
+        <img
+          className={styles.link_img}
+          src={link?.image_source || noImage.src}
+          alt={link ? link.title : ""}
+          onError={(e) => {
+            e.currentTarget.src = noImage.src;
+          }}
+        />
       </div>
-    </Link>
+      <div className={styles.detail}>
+        <Image
+          className={styles.kebab}
+          src={kebab}
+          alt="kebab-icon"
+          onClick={(e) => {
+            handleClickKebab(e, true);
+          }}
+          width={21}
+          height={17}
+        />
+
+        <span className={styles.elapsed_time}>{elapsedTime}</span>
+        <p className={styles.description}>{link ? link.description : ""}</p>
+        <span className={styles.formatted_data}>
+          {formattedDate.replace(/-/g, ". ")}
+        </span>
+      </div>
+      {isKebabClicked && (
+        <SelectMenu
+          selectMenuRef={selectMenuRef}
+          linkUrl={link.url}
+          folders={folders}
+        />
+      )}
+    </div>
   );
 }
