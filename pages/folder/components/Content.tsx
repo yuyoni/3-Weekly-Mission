@@ -1,5 +1,5 @@
 import SearchContent from "@pages/components/common/SearchContent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditBox from "./EditBox";
 import FolderBox from "./FolderBox";
 import { FolderData, FolderId, Id, LinkList } from "type";
@@ -29,8 +29,16 @@ export default function Content({
     FOLDER_NAME["ALL"]
   );
 
+  useEffect(() => {
+    const folder = folders.find((folder) => folder.id === folderId);
+    if (folder) {
+      setCurrentFolderName(folder.name);
+    } else {
+      setCurrentFolderName(FOLDER_NAME["ALL"]);
+    }
+  }, [folderId, folders]);
+
   const updateFolder = (folderId: number | null, name: string) => {
-    setCurrentFolderName(name);
     updateFolderId(folderId);
   };
 

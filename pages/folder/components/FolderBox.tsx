@@ -51,11 +51,11 @@ export default function FolderBox({
         token: accessToken,
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["folders"] }); // invalidateQueries 추가하면 refetch를 자동으로 한다던데 안함.. 나중에 확인해보기
+      queryClient.invalidateQueries();
       setAddFolderModal(false);
     },
     onError: (error) => {
-      console.log(error);
+      throw new Error(`폴더 생성 실패 : ${error.message}`);
     },
   });
 

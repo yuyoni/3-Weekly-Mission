@@ -87,7 +87,7 @@ export default function CommonModal({
             <button
               className={`${styles.button} ${buttonColor}`}
               onClick={() => handleClickButton(inputValue)}
-              disabled={isPending || !inputValue}
+              disabled={(placeholder && !inputValue) || isPending}
             >
               {buttonText}
             </button>
