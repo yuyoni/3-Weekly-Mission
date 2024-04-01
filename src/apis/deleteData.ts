@@ -1,19 +1,21 @@
 import axios from "axios";
-import { CookieValueTypes } from "cookies-next";
+import { CookieValueTypes, getCookie } from "cookies-next";
 
 interface DeleteDataParams {
   endpoint: string;
-  token: CookieValueTypes;
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export default async function deleteData<T>({
   endpoint,
-  token,
 }: DeleteDataParams): Promise<T> {
+  const token = getCookie("accessToken");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
   const response = await axios.delete(`${BASE_URL}${endpoint}`, {
-    headers: { Authorization: `Bearer ${token}` },
+    headers,
   });
   return response.data;
 }

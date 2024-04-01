@@ -65,7 +65,7 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
       const { accessToken } = data;
       if (accessToken) {
         setCookie("accessToken", accessToken, {
-          maxAge: 7 * 24 * 60 * 60,
+          maxAge: 3 * 60 * 60,
           path: "/",
         });
         router.push("/folder");

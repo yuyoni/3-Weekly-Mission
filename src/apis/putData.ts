@@ -1,9 +1,8 @@
 import axios from "axios";
-import { CookieValueTypes } from "cookies-next";
+import { CookieValueTypes, getCookie } from "cookies-next";
 
 interface PutDataParams {
   endpoint: string;
-  token: CookieValueTypes;
   requestData: any;
 }
 
@@ -12,11 +11,14 @@ axios.defaults.headers.common["Content-Type"] = "application/json";
 
 export default async function putData<T>({
   endpoint,
-  token,
   requestData,
 }: PutDataParams): Promise<T> {
+  const token = getCookie("accessToken");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
   const response = await axios.put(`${BASE_URL}${endpoint}`, requestData, {
-    headers: { Authorization: `Bearer ${token}` },
+    headers,
   });
   return response.data;
 }

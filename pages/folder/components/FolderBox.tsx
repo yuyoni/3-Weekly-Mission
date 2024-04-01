@@ -1,12 +1,11 @@
+import postData from "@apis/postData";
 import CommonModal from "@components/modal/CommonModal";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import styles from "../styles/FolderBox.module.css";
-import { FolderData, FolderId, FolderInfoResponseType, Id } from "type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import postData from "@apis/postData";
-import { getCookie } from "cookies-next";
+import Image from "next/image";
+import { useState } from "react";
+import { FolderData, FolderId, FolderInfoResponseType, Id } from "type";
+import styles from "../styles/FolderBox.module.css";
 
 type FolderBoxProps = {
   folders: FolderData[];
@@ -21,7 +20,6 @@ export default function FolderBox({
   folderId,
   updateFolder,
 }: FolderBoxProps) {
-  const accessToken = getCookie("accessToken");
   const [addFolderModal, setAddFolderModal] = useState(false);
   const queryClient = useQueryClient();
 
@@ -44,7 +42,6 @@ export default function FolderBox({
       postData<FolderInfoResponseType>({
         endpoint: "/folders",
         requestData,
-        token: accessToken,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries();
@@ -57,12 +54,14 @@ export default function FolderBox({
 
   const handleAddLink = (value: string | Id) => {
     const requestData = { name: value as string };
-    if (accessToken)
-      mutate(requestData, {
-        onSuccess: () => {
-          console.log("폴더 등록 성공");
-        },
-      });
+    mutate(requestData, {
+      onSuccess: () => {
+        console.log("폴더 등록 성공");
+      },
+      onError: (error) => {
+        console.error(error.message);
+      },
+    });
   };
 
   const handleClickFolder = (

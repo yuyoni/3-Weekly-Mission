@@ -1,17 +1,16 @@
 import getData from "@apis/getData";
 import { useQuery } from "@tanstack/react-query";
+import { getCookie } from "cookies-next";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { User } from "type";
 import styles from "./Profile.module.css";
-import { getCookie } from "cookies-next";
 
 export default function Profile() {
   const accessToken = getCookie("accessToken");
   console.log(accessToken);
   const { data: userInfo } = useQuery<User[]>({
     queryKey: ["userInfo"],
-    queryFn: () => getData({ endpoint: "/users", token: accessToken }),
+    queryFn: () => getData({ endpoint: "/users" }),
     enabled: !!accessToken,
   });
 

@@ -1,13 +1,12 @@
 import getData from "@apis/getData";
+import postData from "@apis/postData";
 import CommonModal from "@components/modal/CommonModal";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { FolderData, Id, LinkList } from "type";
-import styles from "../styles/AddLink.module.css";
-import postData from "@apis/postData";
 import { AxiosError } from "axios";
-import { getCookie } from "cookies-next";
+import Image from "next/image";
+import { useState } from "react";
+import { FolderData, Id } from "type";
+import styles from "../styles/AddLink.module.css";
 
 type AddLinkProps = {
   userId: Id;
@@ -17,7 +16,6 @@ export default function AddLink({ userId }: AddLinkProps) {
   const queryClient = useQueryClient();
   const [inputValue, setInputValue] = useState("");
   const [addLinkModal, setAddLinkModal] = useState(false);
-  const accessToken = getCookie("accessToken");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -49,8 +47,7 @@ export default function AddLink({ userId }: AddLinkProps) {
     isPending: isLinkPending,
     isError: isLinkError,
   } = useMutation<any, AxiosError, { url: string; folderId: Id }>({
-    mutationFn: (requestData) =>
-      postData({ endpoint: "/links", requestData, token: accessToken }),
+    mutationFn: (requestData) => postData({ endpoint: "/links", requestData }),
     onSuccess: () => {
       queryClient.invalidateQueries();
       setAddLinkModal(false);

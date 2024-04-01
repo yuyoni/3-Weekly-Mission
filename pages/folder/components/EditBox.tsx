@@ -1,13 +1,12 @@
-import CommonModal from "@components/modal/CommonModal";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import styles from "../styles/EditBox.module.css";
-import { FolderInfo, Id } from "type";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import deleteData from "@apis/deleteData";
 import putData from "@apis/putData";
+import CommonModal from "@components/modal/CommonModal";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { getCookie } from "cookies-next";
+import Image from "next/image";
+import { useState } from "react";
+import { FolderInfo, Id } from "type";
+import styles from "../styles/EditBox.module.css";
 
 type EditBoxProps = {
   userId: Id;
@@ -24,7 +23,6 @@ export default function EditBox({
   const [editFolderModal, setEditFolderModal] = useState(false);
   const [shareFolderModal, setShareFolderModal] = useState(false);
   const [deleteFolderModal, setDeleteFolderModal] = useState(false);
-  const accessToken = getCookie("accessToken");
 
   const isInVisible = (folderId: number | null) =>
     folderId === null ? styles.isInVisible : "";
@@ -33,7 +31,6 @@ export default function EditBox({
     mutationFn: (requestData) =>
       putData({
         endpoint: `/folders/${folderId}`,
-        token: accessToken,
         requestData,
       }),
     onSuccess: () => {
@@ -46,8 +43,7 @@ export default function EditBox({
   });
 
   const deleteMutation = useMutation({
-    mutationFn: () =>
-      deleteData({ endpoint: `/folders/${folderId}`, token: accessToken }),
+    mutationFn: () => deleteData({ endpoint: `/folders/${folderId}` }),
     onSuccess: () => {
       queryClient.invalidateQueries();
       setDeleteFolderModal(false);

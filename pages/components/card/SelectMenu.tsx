@@ -27,8 +27,6 @@ export default function SelectMenu({
   const [deleteLinkModal, setDeleteLinkModal] = useState(false);
   const [addLinkModal, setAddLinkModal] = useState(false);
 
-  const token = getCookie("accessToken");
-
   const openDeleteModal = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     setDeleteLinkModal(true);
@@ -44,7 +42,7 @@ export default function SelectMenu({
   const addMutate = useMutation<any, AxiosError, { url: string; folderId: Id }>(
     {
       mutationFn: (requestData) =>
-        postData({ endpoint: "/links", requestData, token }),
+        postData({ endpoint: "/links", requestData }),
       onSuccess: () => {
         queryClient.invalidateQueries();
         setAddLinkModal(false);
@@ -53,7 +51,7 @@ export default function SelectMenu({
   );
 
   const deleteMutation = useMutation({
-    mutationFn: () => deleteData({ endpoint: `/links/${linkId}`, token }),
+    mutationFn: () => deleteData({ endpoint: `/links/${linkId}` }),
     onSuccess: () => {
       queryClient.invalidateQueries();
       setDeleteLinkModal(false);

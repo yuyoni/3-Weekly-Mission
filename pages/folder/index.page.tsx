@@ -7,19 +7,27 @@ import FolderLinkContainer from "./components/FolderLinkContainer";
 import styles from "./folder.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getCookie } from "cookies-next";
+import { CookieValueTypes, getCookie } from "cookies-next";
 
 export default function Folder() {
   const router = useRouter();
-  const accessToken = getCookie("accessToken");
+  const [accessToken, setAccessToken] = useState<CookieValueTypes>();
+
+  useEffect(() => {
+    const token = getCookie("accessToken");
+    setAccessToken(token);
+  }, []);
+
   const {
     data: userInfo,
     isPending,
     isError,
   } = useQuery<User[]>({
     queryKey: ["userInfo"],
-    queryFn: () => getData({ endpoint: "/users", token: accessToken }),
-    enabled: !!accessToken,
+    queryFn: () => {
+      if (!accessToken) router.push("/signin");
+      return getData({ endpoint: "/users" });
+    },
   });
 
   if (isPending) return "loading...";
