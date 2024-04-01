@@ -1,6 +1,7 @@
 import postData from "@apis/postData";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -23,8 +24,6 @@ import {
   EmailCheckType,
   FormDataType,
 } from "./types/authTypes";
-import { setCookie } from "cookies-next";
-import checkEmail from "@apis/checkEmail";
 
 interface AuthFormProps {
   isSignUp: boolean;
@@ -89,7 +88,8 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
     AxiosError,
     EmailCheckType
   >({
-    mutationFn: (requestData) => checkEmail(requestData),
+    mutationFn: (requestData) =>
+      postData({ endpoint: "/users/check-email", requestData }),
   });
 
   const handleFormSubmit = handleSubmit(({ email, password }) => {

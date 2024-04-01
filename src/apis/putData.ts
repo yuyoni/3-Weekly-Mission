@@ -14,11 +14,9 @@ export default async function putData<T>({
   requestData,
 }: PutDataParams): Promise<T> {
   const token = getCookie("accessToken");
-  const headers = token
-    ? {
-        Authorization: `Bearer ${token}`,
-      }
-    : undefined;
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
   const response = await axios.put(`${BASE_URL}${endpoint}`, requestData, {
     headers,
   });
