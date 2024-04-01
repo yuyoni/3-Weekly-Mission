@@ -52,13 +52,10 @@ export default function AddLink({ userId }: AddLinkProps) {
       queryClient.invalidateQueries();
       setAddLinkModal(false);
     },
+    onError: () => {
+      alert("유효한 URL이 아닙니다.");
+    },
   });
-
-  if (isPending) return "loading...";
-  if (isError) return "error";
-
-  if (isLinkPending) return "link loading...";
-  if (isLinkError) return "link error";
 
   return (
     <div className={styles.wrapper}>
