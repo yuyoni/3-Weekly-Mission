@@ -97,9 +97,10 @@ export default function CommonModal({
           {handleClickButton && (
             <button
               className={`${styles.button} ${buttonColor}`}
-              onClick={() =>
-                handleClickButton(folders ? selectedFolderId : inputValue)
-              }
+              onClick={() => {
+                handleClickButton(folders ? selectedFolderId : inputValue);
+                setInputValue("");
+              }}
               disabled={
                 (folders && !selectedFolderId) ||
                 (!folders && placeholder && !inputValue) ||

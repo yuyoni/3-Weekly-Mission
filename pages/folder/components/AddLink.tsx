@@ -51,6 +51,7 @@ export default function AddLink({ userId }: AddLinkProps) {
     onSuccess: () => {
       queryClient.invalidateQueries();
       setAddLinkModal(false);
+      setInputValue("");
     },
     onError: () => {
       alert("유효한 URL이 아닙니다.");
@@ -71,6 +72,7 @@ export default function AddLink({ userId }: AddLinkProps) {
           className={styles.link_input}
           placeholder=" 링크를 추가해 보세요"
           onChange={handleInputChange}
+          value={inputValue}
         />
         <button
           className={styles.cta}
