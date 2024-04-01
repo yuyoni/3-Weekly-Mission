@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import deleteData from "@apis/deleteData";
 import postData from "@apis/postData";
 import { AxiosError } from "axios";
+import { getCookie } from "cookies-next";
 
 type SelectMenuProps = {
   isKebabClicked: boolean;
@@ -23,14 +24,10 @@ export default function SelectMenu({
   selectMenuRef,
 }: SelectMenuProps) {
   const queryClient = useQueryClient();
-  const [accessToken, setAccessToken] = useState("");
   const [deleteLinkModal, setDeleteLinkModal] = useState(false);
   const [addLinkModal, setAddLinkModal] = useState(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) setAccessToken(token);
-  }, []);
+  const token = getCookie("accessToken");
 
   const openDeleteModal = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
@@ -47,7 +44,7 @@ export default function SelectMenu({
   const addMutate = useMutation<any, AxiosError, { url: string; folderId: Id }>(
     {
       mutationFn: (requestData) =>
-        postData({ endpoint: "/links", requestData, token: accessToken }),
+        postData({ endpoint: "/links", requestData, token }),
       onSuccess: () => {
         queryClient.invalidateQueries();
         setAddLinkModal(false);
@@ -56,8 +53,7 @@ export default function SelectMenu({
   );
 
   const deleteMutation = useMutation({
-    mutationFn: () =>
-      deleteData({ endpoint: `/links/${linkId}`, token: accessToken }),
+    mutationFn: () => deleteData({ endpoint: `/links/${linkId}`, token }),
     onSuccess: () => {
       queryClient.invalidateQueries();
       setDeleteLinkModal(false);

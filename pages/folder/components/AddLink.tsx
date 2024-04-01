@@ -7,6 +7,7 @@ import { FolderData, Id, LinkList } from "type";
 import styles from "../styles/AddLink.module.css";
 import postData from "@apis/postData";
 import { AxiosError } from "axios";
+import { getCookie } from "cookies-next";
 
 type AddLinkProps = {
   userId: Id;
@@ -16,12 +17,7 @@ export default function AddLink({ userId }: AddLinkProps) {
   const queryClient = useQueryClient();
   const [inputValue, setInputValue] = useState("");
   const [addLinkModal, setAddLinkModal] = useState(false);
-  const [accessToken, setAccessToken] = useState("");
-
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) setAccessToken(token);
-  }, []);
+  const accessToken = getCookie("accessToken");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);

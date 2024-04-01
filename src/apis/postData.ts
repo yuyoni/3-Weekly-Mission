@@ -1,8 +1,9 @@
 import axios from "axios";
+import { CookieValueTypes } from "cookies-next";
 
 interface PostDataParams {
   endpoint: string;
-  token?: string;
+  token?: CookieValueTypes;
   requestData?: any;
 }
 

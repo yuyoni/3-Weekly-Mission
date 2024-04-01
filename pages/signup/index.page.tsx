@@ -7,13 +7,14 @@ import Link from "next/link";
 import styles from "./Signup.module.css";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { getCookie } from "cookies-next";
 
 export default function SignUp() {
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
+    const accessToken = getCookie("accessToken");
+    if (accessToken) {
       router.push("/folder");
     }
   }, []);

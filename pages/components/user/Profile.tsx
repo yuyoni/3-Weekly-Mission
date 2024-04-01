@@ -4,19 +4,16 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { User } from "type";
 import styles from "./Profile.module.css";
+import { getCookie } from "cookies-next";
 
 export default function Profile() {
-  const [accessToken, setAccessToken] = useState<string>();
+  const accessToken = getCookie("accessToken");
+  console.log(accessToken);
   const { data: userInfo } = useQuery<User[]>({
     queryKey: ["userInfo"],
     queryFn: () => getData({ endpoint: "/users", token: accessToken }),
     enabled: !!accessToken,
   });
-
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) setAccessToken(token);
-  }, []);
 
   return (
     <div className={styles.wrapper}>

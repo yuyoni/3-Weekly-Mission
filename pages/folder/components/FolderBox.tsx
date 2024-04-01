@@ -6,6 +6,7 @@ import { FolderData, FolderId, FolderInfoResponseType, Id } from "type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import postData from "@apis/postData";
+import { getCookie } from "cookies-next";
 
 type FolderBoxProps = {
   folders: FolderData[];
@@ -20,14 +21,9 @@ export default function FolderBox({
   folderId,
   updateFolder,
 }: FolderBoxProps) {
+  const accessToken = getCookie("accessToken");
   const [addFolderModal, setAddFolderModal] = useState(false);
-  const [accessToken, setAccessToken] = useState("");
   const queryClient = useQueryClient();
-
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) setAccessToken(token);
-  }, []);
 
   const isFolderSelected =
     folderId === null

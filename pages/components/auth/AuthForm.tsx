@@ -23,6 +23,7 @@ import {
   EmailCheckType,
   FormDataType,
 } from "./types/authTypes";
+import { setCookie } from "cookies-next";
 
 interface AuthFormProps {
   isSignUp: boolean;
@@ -63,7 +64,10 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
     onSuccess: (data) => {
       const { accessToken } = data;
       if (accessToken) {
-        localStorage.setItem("accessToken", accessToken);
+        setCookie("accessToken", accessToken, {
+          maxAge: 7 * 24 * 60 * 60,
+          path: "/",
+        });
         router.push("/folder");
       }
     },

@@ -1,8 +1,9 @@
 import axios from "axios";
+import { CookieValueTypes } from "cookies-next";
 
 interface DeleteDataParams {
   endpoint: string;
-  token: string;
+  token: CookieValueTypes;
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;

@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import deleteData from "@apis/deleteData";
 import putData from "@apis/putData";
 import { AxiosError } from "axios";
+import { getCookie } from "cookies-next";
 
 type EditBoxProps = {
   userId: Id;
@@ -23,12 +24,7 @@ export default function EditBox({
   const [editFolderModal, setEditFolderModal] = useState(false);
   const [shareFolderModal, setShareFolderModal] = useState(false);
   const [deleteFolderModal, setDeleteFolderModal] = useState(false);
-  const [accessToken, setAccessToken] = useState("");
-
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) setAccessToken(token);
-  }, []);
+  const accessToken = getCookie("accessToken");
 
   const isInVisible = (folderId: number | null) =>
     folderId === null ? styles.isInVisible : "";
