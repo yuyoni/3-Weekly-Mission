@@ -7,7 +7,6 @@ import styles from "./Profile.module.css";
 
 export default function Profile() {
   const accessToken = getCookie("accessToken");
-  console.log(accessToken);
   const { data: userInfo } = useQuery<User[]>({
     queryKey: ["userInfo"],
     queryFn: () => getData({ endpoint: "/users" }),
