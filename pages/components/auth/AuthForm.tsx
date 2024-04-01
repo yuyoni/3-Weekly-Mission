@@ -99,13 +99,13 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
 
   const checkValidEmail = async () => {
     const email = getValues("email");
-    if (isSignUp && email) {
+    if (email) {
       try {
         await checkEmailMutation.mutateAsync({ email });
       } catch (error: any) {
         setError("email", {
           type: "manual",
-          message: error.response.data.message,
+          message: error?.response?.data.message,
         });
       }
     }
@@ -119,67 +119,63 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
         type="text"
         placeholder="email@example.com"
         borderError={!!errors.email}
-        register={register("email", {
-          required: REQUIRED_EMAIL,
-          pattern: {
-            value: emailRegex,
-            message: INVALID_EMAIL,
-          },
-          onBlur: checkValidEmail,
-        })}
+        register={
+          isSignUp
+            ? register("email", {
+                required: REQUIRED_EMAIL,
+                pattern: {
+                  value: emailRegex,
+                  message: INVALID_EMAIL,
+                },
+                onBlur: checkValidEmail,
+              })
+            : register("email", { required: REQUIRED_EMAIL })
+        }
         errors={errors.email}
       />
-      <div className={styles.input_container}>
+      <Input
+        label="비밀번호"
+        id="password"
+        type={showPassword ? "text" : "password"}
+        placeholder="비밀번호 입력"
+        borderError={!!errors.password}
+        register={register("password", {
+          required: REQUIRED_PASSWORD,
+          pattern: {
+            value: passwordRegex,
+            message: INVALID_PASSWORD,
+          },
+        })}
+        errors={errors.password}
+        isShow={showPassword}
+        handleShowPassword={(isShow) => {
+          setShowPassword(isShow);
+        }}
+      />
+      {isSignUp && (
         <Input
-          label="비밀번호"
-          id="password"
-          type={showPassword ? "text" : "password"}
-          placeholder="비밀번호 입력"
-          borderError={!!errors.password}
-          register={register("password", {
+          label="비밀번호 확인"
+          id="passwordCheck"
+          type={showPasswordCheck ? "text" : "password"}
+          placeholder="비밀번호 재입력"
+          borderError={!!errors.passwordCheck}
+          register={register("passwordCheck", {
             required: REQUIRED_PASSWORD,
             pattern: {
               value: passwordRegex,
               message: INVALID_PASSWORD,
             },
+            onChange: (value) =>
+              value === watch("password") || WRONG_PASSWORD_CHECK,
           })}
-          errors={errors.password}
-          isShow={showPassword}
+          errors={errors.passwordCheck}
+          isShow={showPasswordCheck}
           handleShowPassword={(isShow) => {
-            setShowPassword(isShow);
+            setShowPasswordCheck(isShow);
           }}
         />
-      </div>
-      {isSignUp && (
-        <div className={styles.input_container}>
-          <Input
-            label="비밀번호 확인"
-            id="passwordCheck"
-            type={showPasswordCheck ? "text" : "password"}
-            placeholder="비밀번호 재입력"
-            borderError={!!errors.passwordCheck}
-            register={register("passwordCheck", {
-              required: REQUIRED_PASSWORD,
-              pattern: {
-                value: passwordRegex,
-                message: INVALID_PASSWORD,
-              },
-              validate: (value) =>
-                value === watch("password") || WRONG_PASSWORD_CHECK,
-            })}
-            errors={errors.passwordCheck}
-            isShow={showPasswordCheck}
-            handleShowPassword={(isShow) => {
-              setShowPasswordCheck(isShow);
-            }}
-          />
-        </div>
       )}
-      <button
-        className={styles.submit_button}
-        type="submit"
-        disabled={Object.keys(errors).length > 0}
-      >
+      <button className={styles.submit_button} type="submit">
         {isSignUp ? "회원가입" : "로그인"}
       </button>
     </form>

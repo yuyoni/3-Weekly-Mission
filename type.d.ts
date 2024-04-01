@@ -35,7 +35,7 @@ export interface FolderInfoResponseType {
   name: string;
 }
 
-export interface FolderInfo extends FolderInfoResponse {
+export interface FolderInfo extends FolderInfoResponseType {
   user_id: number;
 }
 

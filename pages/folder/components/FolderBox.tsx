@@ -59,8 +59,8 @@ export default function FolderBox({
     },
   });
 
-  const handleAddLink = (value: string) => {
-    const requestData = { name: value };
+  const handleAddLink = (value: string | Id) => {
+    const requestData = { name: value as string };
     if (accessToken)
       mutate(requestData, {
         onSuccess: () => {
