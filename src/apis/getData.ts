@@ -13,9 +13,11 @@ export default async function getData<T>({
   endpoint,
 }: GetDataParams): Promise<T> {
   const token = getCookie("accessToken");
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  };
+  const headers = token
+    ? {
+        Authorization: `Bearer ${token}`,
+      }
+    : undefined;
 
   const response = await axios.get(`${BASE_URL}${endpoint}`, { headers });
   return response.data;

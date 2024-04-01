@@ -24,6 +24,7 @@ import {
   FormDataType,
 } from "./types/authTypes";
 import { setCookie } from "cookies-next";
+import checkEmail from "@apis/checkEmail";
 
 interface AuthFormProps {
   isSignUp: boolean;
@@ -88,16 +89,11 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
     AxiosError,
     EmailCheckType
   >({
-    mutationFn: (requestData) => {
-      return postData({
-        endpoint: "/users/check-email",
-        requestData: requestData,
-      });
-    },
+    mutationFn: (requestData) => checkEmail(requestData),
   });
 
-  const handleFormSubmit = handleSubmit((data) => {
-    const requestData = { email: data.email, password: data.password };
+  const handleFormSubmit = handleSubmit(({ email, password }) => {
+    const requestData = { email, password };
     formDataMutation.mutate(requestData);
   });
 

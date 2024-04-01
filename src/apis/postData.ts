@@ -15,9 +15,11 @@ export default async function postData<T>({
   requestData,
 }: PostDataParams): Promise<T> {
   const token = getCookie("accessToken");
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  };
+  const headers = token
+    ? {
+        Authorization: `Bearer ${token}`,
+      }
+    : undefined;
   const response = await axios.post(`${BASE_URL}${endpoint}`, requestData, {
     headers,
   });

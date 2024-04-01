@@ -11,9 +11,11 @@ export default async function deleteData<T>({
   endpoint,
 }: DeleteDataParams): Promise<T> {
   const token = getCookie("accessToken");
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  };
+  const headers = token
+    ? {
+        Authorization: `Bearer ${token}`,
+      }
+    : undefined;
   const response = await axios.delete(`${BASE_URL}${endpoint}`, {
     headers,
   });
