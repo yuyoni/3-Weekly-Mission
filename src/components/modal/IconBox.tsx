@@ -12,7 +12,8 @@ export default function IconBox({
   folderId,
   folderName,
 }: IconBoxProps) {
-  const [host, setHost] = useState("");
+  const origin = process.env.NEXT_PUBLIC_ORIGIN;
+  const route = `${origin}/shared/${userId}/${folderId}`;
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -23,13 +24,6 @@ export default function IconBox({
       document.body.removeChild(script);
     };
   }, []);
-
-  useEffect(() => {
-    const currentHost = window.location.origin;
-    setHost(currentHost);
-  }, []);
-
-  const route = host + `/shared/${userId}/${folderId}`;
 
   return (
     <div className={styles.container}>
