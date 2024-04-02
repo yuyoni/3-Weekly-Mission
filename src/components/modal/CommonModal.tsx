@@ -1,10 +1,10 @@
-import styles from "./CommonModal.module.css";
-import Image from "next/image";
-import SelectFolder from "./SelectFolder";
-import IconBox from "./IconBox";
 import close from "@public/images/_close.svg";
-import { FolderData, FolderId, Id } from "type";
+import Image from "next/image";
 import { useState } from "react";
+import { FolderData } from "type";
+import styles from "./CommonModal.module.css";
+import IconBox from "./IconBox";
+import SelectFolder from "./SelectFolder";
 
 type ModalProps = {
   isModalShow: boolean;
@@ -16,9 +16,9 @@ type ModalProps = {
   color?: string;
   folders?: FolderData[] | null;
   icon?: boolean;
-  folderId?: FolderId;
-  userId?: Id;
-  handleClickButton?: (value: string | Id) => void;
+  folderId?: number | null;
+  userId?: number | null;
+  handleClickButton?: (value: string | number | null) => void;
   isPending?: boolean;
 };
 
@@ -38,12 +38,12 @@ export default function CommonModal({
   isPending,
 }: ModalProps) {
   const [inputValue, setInputValue] = useState("");
-  const [selectedFolderId, setSelectedFolderId] = useState<Id | null>(null);
+  const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
 
   const buttonColor =
     color === "linear-gradient" ? styles.gradient : styles.red;
 
-  const handleFolderSelect = (folderId: Id) => {
+  const handleFolderSelect = (folderId: number | null) => {
     setSelectedFolderId(folderId);
   };
 

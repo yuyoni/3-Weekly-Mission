@@ -3,11 +3,11 @@ import SearchBar from "@components/searchbar/SearchBar";
 import SearchContent from "@components/common/SearchContent";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { FolderData, FolderId, Id, LinkList } from "type";
+import { FolderData, LinkList } from "type";
 import styles from "../styles/Content.module.css";
 
 type ShredContentProps = {
-  id?: Id;
+  id?: number | null;
   linkData: LinkList[];
 };
 

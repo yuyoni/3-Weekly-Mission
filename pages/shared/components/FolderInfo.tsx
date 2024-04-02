@@ -1,11 +1,11 @@
 import getData from "@apis/getData";
 import { useQuery } from "@tanstack/react-query";
-import { FolderId, FolderInfo, Id, User } from "type";
+import { FolderInfo, User } from "type";
 import styles from "../styles/FolderInfo.module.css";
 import UserInfo from "./UserInfo";
 
 type FolderInfoProps = {
-  folderId: FolderId;
+  folderId: number | null;
   userInfo: User;
 };
 

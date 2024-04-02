@@ -5,11 +5,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import Image from "next/image";
 import { useState } from "react";
-import { FolderInfo, Id } from "type";
+import { FolderInfo } from "type";
 import styles from "../styles/EditBox.module.css";
 
 type EditBoxProps = {
-  userId: Id;
+  userId: number | null;
   folderId: number | null;
   currentFolderName: string;
 };

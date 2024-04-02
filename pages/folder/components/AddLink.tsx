@@ -5,11 +5,11 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import Image from "next/image";
 import { useState } from "react";
-import { FolderData, Id } from "type";
+import { FolderData } from "type";
 import styles from "../styles/AddLink.module.css";
 
 type AddLinkProps = {
-  userId: Id;
+  userId: number | null;
 };
 
 export default function AddLink({ userId }: AddLinkProps) {
@@ -46,7 +46,7 @@ export default function AddLink({ userId }: AddLinkProps) {
     mutate,
     isPending: isLinkPending,
     isError: isLinkError,
-  } = useMutation<any, AxiosError, { url: string; folderId: Id }>({
+  } = useMutation<any, AxiosError, { url: string; folderId: number | null }>({
     mutationFn: (requestData) => postData({ endpoint: "/links", requestData }),
     onSuccess: () => {
       queryClient.invalidateQueries();

@@ -1,26 +1,23 @@
-import CommonModal from "@components/modal/CommonModal";
-import { useEffect, useState } from "react";
-import styles from "./SelectMenu.module.css";
-import { FolderData, Id } from "type";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import deleteData from "@apis/deleteData";
 import postData from "@apis/postData";
+import CommonModal from "@components/modal/CommonModal";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { getCookie } from "cookies-next";
+import { useState } from "react";
+import { FolderData, LinkList } from "type";
+import styles from "./SelectMenu.module.css";
 
 type SelectMenuProps = {
   isKebabClicked: boolean;
   folders: FolderData[] | null;
-  linkId: Id;
-  linkUrl: string;
+  link: LinkList;
   selectMenuRef: React.RefObject<HTMLDivElement>;
 };
 
 export default function SelectMenu({
   isKebabClicked,
   folders,
-  linkId,
-  linkUrl,
+  link,
   selectMenuRef,
 }: SelectMenuProps) {
   const queryClient = useQueryClient();
@@ -39,19 +36,20 @@ export default function SelectMenu({
     setAddLinkModal(true);
   };
 
-  const addMutate = useMutation<any, AxiosError, { url: string; folderId: Id }>(
-    {
-      mutationFn: (requestData) =>
-        postData({ endpoint: "/links", requestData }),
-      onSuccess: () => {
-        queryClient.invalidateQueries();
-        setAddLinkModal(false);
-      },
-    }
-  );
+  const addMutate = useMutation<
+    any,
+    AxiosError,
+    { url: string; folderId: number | null }
+  >({
+    mutationFn: (requestData) => postData({ endpoint: "/links", requestData }),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      setAddLinkModal(false);
+    },
+  });
 
   const deleteMutation = useMutation({
-    mutationFn: () => deleteData({ endpoint: `/links/${linkId}` }),
+    mutationFn: () => deleteData({ endpoint: `/links/${link.id}` }),
     onSuccess: () => {
       queryClient.invalidateQueries();
       setDeleteLinkModal(false);
@@ -76,7 +74,7 @@ export default function SelectMenu({
           isModalShow={deleteLinkModal}
           setter={setDeleteLinkModal}
           title="링크 삭제"
-          subtitle={linkUrl}
+          subtitle={link.url}
           buttonText="삭제하기"
           color="#FF5B56"
           handleClickButton={() => {
@@ -87,12 +85,12 @@ export default function SelectMenu({
           isModalShow={addLinkModal}
           setter={setAddLinkModal}
           title="폴더에 추가"
-          subtitle={linkUrl}
+          subtitle={link.url}
           buttonText="추가하기"
           folders={folders}
           color="linear-gradient"
           handleClickButton={(value) => {
-            const requestData = { url: linkUrl, folderId: value as number };
+            const requestData = { url: link.url, folderId: value as number };
             addMutate.mutate(requestData);
           }}
         />

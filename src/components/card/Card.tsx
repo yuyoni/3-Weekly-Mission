@@ -5,11 +5,11 @@ import kebab from "@public/images/kebab.svg";
 import noImage from "@public/images/no-image.svg";
 import formatDateAndDifference from "@utils/formatDate";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { FolderData, LinkList } from "type";
 import styles from "./Card.module.css";
 import SelectMenu from "./SelectMenu";
-import { useRouter } from "next/navigation";
-import { FolderData, LinkList } from "type";
 
 type CardProps = { key: number; folders: FolderData[] | null; link: LinkList };
 
@@ -89,8 +89,7 @@ export default function Card({ folders, link }: CardProps) {
       <SelectMenu
         isKebabClicked={isKebabClicked}
         selectMenuRef={selectMenuRef}
-        linkId={link.id}
-        linkUrl={link.url}
+        link={link}
         folders={folders}
       />
     </div>

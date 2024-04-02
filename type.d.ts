@@ -1,29 +1,24 @@
-export type Id = number | null;
-export type FolderId = number | null;
-export type CreateAt = string;
-export type Name = string;
-
 export interface User {
-  id: Id;
-  name: Name;
+  id: number;
+  name: string;
   email: string;
   image_source: string;
-  created_at?: CreateAt;
+  created_at?: string;
 }
 
 export interface LinkList {
   id: number;
   title: string;
-  created_at: CreateAt;
+  created_at: string;
   description: string;
   url: string;
   image_source: string;
 }
 
 export interface FolderData {
-  id: Id;
-  created_at: CreateAt;
-  name: Name;
+  id: number;
+  created_at: string;
+  name: string;
   favorite: boolean;
   link_count: number;
 }

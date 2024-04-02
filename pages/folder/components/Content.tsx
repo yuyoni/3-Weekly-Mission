@@ -2,16 +2,16 @@ import SearchContent from "@components/common/SearchContent";
 import { useEffect, useState } from "react";
 import EditBox from "./EditBox";
 import FolderBox from "./FolderBox";
-import { FolderData, FolderId, Id, LinkList } from "type";
+import { FolderData, LinkList } from "type";
 
 const FOLDER_NAME = {
   ALL: "전체",
 };
 
 type FolderContentProps = {
-  userId: Id;
-  folderId: FolderId;
-  updateFolderId: (folderId: Id) => void;
+  userId: number | null;
+  folderId: number | null;
+  updateFolderId: (folderId: number | null) => void;
   links: LinkList[];
   folders: FolderData[];
   inputText: string;

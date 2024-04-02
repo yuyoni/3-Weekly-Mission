@@ -2,16 +2,16 @@ import getData from "@apis/getData";
 import SearchBar from "@components/searchbar/SearchBar";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { FolderData, Id, LinkList } from "type";
+import { FolderData, LinkList } from "type";
 import styles from "../styles/FolderLinkContainer.module.css";
 import Content from "./Content";
 
-type FolderLinkContainerProps = { userId: Id };
+type FolderLinkContainerProps = { userId: number | null };
 
 export default function FolderLinkContainer({
   userId,
 }: FolderLinkContainerProps) {
-  const [folderId, setFolderId] = useState<Id>(null);
+  const [folderId, setFolderId] = useState<number | null>(null);
   const [inputText, setInputText] = useState("");
 
   const endpoint = folderId
@@ -22,7 +22,7 @@ export default function FolderLinkContainer({
     setInputText(value);
   };
 
-  const updateFolderId = (folderId: Id) => {
+  const updateFolderId = (folderId: number | null) => {
     setFolderId(folderId);
   };
 

@@ -4,19 +4,18 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import Image from "next/image";
 import { useState } from "react";
-import { FolderData, FolderId, FolderInfoResponseType, Id } from "type";
+import { FolderData, FolderInfoResponseType } from "type";
 import styles from "../styles/FolderBox.module.css";
 
 type FolderBoxProps = {
   folders: FolderData[];
-  userId: Id;
-  folderId: FolderId;
-  updateFolder: (id: FolderId, name: string) => void;
+  userId: number | null;
+  folderId: number | null;
+  updateFolder: (id: number | null, name: string) => void;
 };
 
 export default function FolderBox({
   folders,
-  userId,
   folderId,
   updateFolder,
 }: FolderBoxProps) {
@@ -28,7 +27,7 @@ export default function FolderBox({
       ? styles.selected_folder_color
       : styles.default_folder_color;
 
-  const getFolderColorClassName = (currentFolderId: FolderId) =>
+  const getFolderColorClassName = (currentFolderId: number | null) =>
     folderId === currentFolderId
       ? styles.selected_folder_color
       : styles.default_folder_color;
@@ -52,7 +51,7 @@ export default function FolderBox({
     },
   });
 
-  const handleAddLink = (value: string | Id) => {
+  const handleAddLink = (value: string | number | null) => {
     const requestData = { name: value as string };
     mutate(requestData, {
       onSuccess: () => {
@@ -65,7 +64,7 @@ export default function FolderBox({
   };
 
   const handleClickFolder = (
-    clickedFolderId: Id,
+    clickedFolderId: number | null,
     clickedFolderName: string
   ) => {
     updateFolder(clickedFolderId, clickedFolderName);
