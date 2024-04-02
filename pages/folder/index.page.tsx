@@ -1,6 +1,6 @@
 import getData from "@apis/getData";
 import { useQuery } from "@tanstack/react-query";
-import Layout from "src/components/common/Layout";
+import Layout from "@components/common/Layout";
 import { User } from "type";
 import AddLink from "./components/AddLink";
 import FolderLinkContainer from "./components/FolderLinkContainer";

@@ -1,4 +1,4 @@
-import CommonModal from "src/components/modal/CommonModal";
+import CommonModal from "@components/modal/CommonModal";
 import { useEffect, useState } from "react";
 import styles from "./SelectMenu.module.css";
 import { FolderData, Id } from "type";

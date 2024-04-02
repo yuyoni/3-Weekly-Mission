@@ -1,4 +1,4 @@
-import Card from "src/components/card/Card";
+import Card from "@components/card/Card";
 import styles from "./SearchContent.module.css";
 import { FolderData, LinkList } from "type";
 

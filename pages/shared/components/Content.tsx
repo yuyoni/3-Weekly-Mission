@@ -1,6 +1,6 @@
 import getData from "@apis/getData";
-import SearchBar from "src/components/searchbar/SearchBar";
-import SearchContent from "src/components/common/SearchContent";
+import SearchBar from "@components/searchbar/SearchBar";
+import SearchContent from "@components/common/SearchContent";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { FolderData, FolderId, Id, LinkList } from "type";

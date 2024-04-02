@@ -5,25 +5,10 @@ import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  INVALID_EMAIL,
-  INVALID_PASSWORD,
-  REQUIRED_EMAIL,
-  REQUIRED_PASSWORD,
-  WRONG_EMAIL,
-  WRONG_PASSWORD,
-  WRONG_PASSWORD_CHECK,
-  emailRegex,
-  passwordRegex,
-} from "src/constants/errorMessages";
+import * as errorMessage from "src/constants/errorMessages";
 import styles from "./AuthForm.module.css";
 import Input from "./Input";
-import {
-  AuthResponseType,
-  EmailCheckResponseType,
-  EmailCheckType,
-  FormDataType,
-} from "./types/authTypes";
+import * as AuthTypes from "./types/authTypes";
 
 interface AuthFormProps {
   isSignUp: boolean;
@@ -52,12 +37,12 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
   });
 
   const formDataMutation = useMutation<
-    AuthResponseType,
+    AuthTypes.AuthResponseType,
     AxiosError,
-    FormDataType
+    AuthTypes.FormDataType
   >({
     mutationFn: (requestData) =>
-      postData<AuthResponseType>({
+      postData<AuthTypes.AuthResponseType>({
         endpoint,
         requestData,
       }),
@@ -74,19 +59,19 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
     onError: () => {
       setError("email", {
         type: "manual",
-        message: WRONG_EMAIL,
+        message: errorMessage.WRONG_EMAIL,
       });
       setError("password", {
         type: "manual",
-        message: WRONG_PASSWORD,
+        message: errorMessage.WRONG_PASSWORD,
       });
     },
   });
 
   const checkEmailMutation = useMutation<
-    EmailCheckResponseType,
+    AuthTypes.EmailCheckResponseType,
     AxiosError,
-    EmailCheckType
+    AuthTypes.EmailCheckType
   >({
     mutationFn: (requestData) =>
       postData({ endpoint: "/users/check-email", requestData }),
@@ -122,14 +107,14 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
         register={
           isSignUp
             ? register("email", {
-                required: REQUIRED_EMAIL,
+                required: errorMessage.REQUIRED_EMAIL,
                 pattern: {
-                  value: emailRegex,
-                  message: INVALID_EMAIL,
+                  value: errorMessage.emailRegex,
+                  message: errorMessage.INVALID_EMAIL,
                 },
                 onBlur: checkValidEmail,
               })
-            : register("email", { required: REQUIRED_EMAIL })
+            : register("email", { required: errorMessage.REQUIRED_EMAIL })
         }
         errors={errors.email}
       />
@@ -140,10 +125,10 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
         placeholder="비밀번호 입력"
         borderError={!!errors.password}
         register={register("password", {
-          required: REQUIRED_PASSWORD,
+          required: errorMessage.REQUIRED_PASSWORD,
           pattern: {
-            value: passwordRegex,
-            message: INVALID_PASSWORD,
+            value: errorMessage.passwordRegex,
+            message: errorMessage.INVALID_PASSWORD,
           },
         })}
         errors={errors.password}
@@ -160,13 +145,13 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
           placeholder="비밀번호 재입력"
           borderError={!!errors.passwordCheck}
           register={register("passwordCheck", {
-            required: REQUIRED_PASSWORD,
+            required: errorMessage.REQUIRED_PASSWORD,
             pattern: {
-              value: passwordRegex,
-              message: INVALID_PASSWORD,
+              value: errorMessage.passwordRegex,
+              message: errorMessage.INVALID_PASSWORD,
             },
             onChange: (value) =>
-              value === watch("password") || WRONG_PASSWORD_CHECK,
+              value === watch("password") || errorMessage.WRONG_PASSWORD_CHECK,
           })}
           errors={errors.passwordCheck}
           isShow={showPasswordCheck}

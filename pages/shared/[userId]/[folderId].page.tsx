@@ -1,5 +1,5 @@
 import getData from "@apis/getData";
-import Layout from "src/components/common/Layout";
+import Layout from "@components/common/Layout";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { LinkList, User } from "type";

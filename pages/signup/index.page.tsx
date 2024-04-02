@@ -1,13 +1,13 @@
-import AuthForm from "src/components/auth/AuthForm";
+import AuthForm from "@components/auth/AuthForm";
 import google from "@public/images/google.svg";
 import kakao from "@public/images/kakao.svg";
 import logo from "@public/images/logo.svg";
+import { getCookie } from "cookies-next";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "./Signup.module.css";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { getCookie } from "cookies-next";
+import styles from "./Signup.module.css";
 
 export default function SignUp() {
   const router = useRouter();
