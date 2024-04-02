@@ -9,6 +9,7 @@ import * as errorMessage from "src/constants/errorMessages";
 import styles from "./AuthForm.module.css";
 import Input from "./Input";
 import * as AuthTypes from "./types/authTypes";
+import { COOKIE_MAX_AGE } from "src/constants/cookie";
 
 interface AuthFormProps {
   isSignUp: boolean;
@@ -50,7 +51,7 @@ export default function AuthForm({ isSignUp }: AuthFormProps) {
       const { accessToken } = data;
       if (accessToken) {
         setCookie("accessToken", accessToken, {
-          maxAge: 3 * 60 * 60,
+          maxAge: COOKIE_MAX_AGE,
           path: "/",
         });
         router.push("/folder");
