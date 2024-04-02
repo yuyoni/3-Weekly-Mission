@@ -5,9 +5,13 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import { FacebookShareButton } from "react-share";
 import styles from "./IconBox.module.css";
 
-type Props = { userId: number; folderId: number; folderName: string };
+type IconBoxProps = { userId: number; folderId: number; folderName: string };
 
-export default function IconBox({ userId, folderId, folderName }: Props) {
+export default function IconBox({
+  userId,
+  folderId,
+  folderName,
+}: IconBoxProps) {
   const [host, setHost] = useState("");
 
   useEffect(() => {
@@ -25,8 +29,7 @@ export default function IconBox({ userId, folderId, folderName }: Props) {
     setHost(currentHost);
   }, []);
 
-  // 아직 shared 경로에서 userId와 folderId에 따라 다른 화면을 보여주고 있지 않아서 sample folder(즐겨찾기)화면만 뜸
-  const route = host + `/shared?user=${userId}&folder=${folderId}`;
+  const route = host + `/shared/${userId}/${folderId}`;
 
   return (
     <div className={styles.container}>

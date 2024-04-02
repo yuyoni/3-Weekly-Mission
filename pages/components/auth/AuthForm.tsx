@@ -1,14 +1,37 @@
-import { fetchData } from "@apis/fetchData";
-import axios from "axios";
+import postData from "@apis/postData";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import {
+  INVALID_EMAIL,
+  INVALID_PASSWORD,
+  REQUIRED_EMAIL,
+  REQUIRED_PASSWORD,
+  WRONG_EMAIL,
+  WRONG_PASSWORD,
+  WRONG_PASSWORD_CHECK,
+  emailRegex,
+  passwordRegex,
+} from "src/constants/errorMessages";
 import styles from "./AuthForm.module.css";
 import Input from "./Input";
+import {
+  AuthResponseType,
+  EmailCheckResponseType,
+  EmailCheckType,
+  FormDataType,
+} from "./types/authTypes";
 
-export default function AuthForm({ isSignUp }: { isSignUp: boolean }) {
+interface AuthFormProps {
+  isSignUp: boolean;
+}
+
+export default function AuthForm({ isSignUp }: AuthFormProps) {
   const router = useRouter();
-
+  const endpoint = isSignUp ? `/auth/sign-up` : `/auth/sign-in`;
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordCheck, setShowPasswordCheck] = useState(false);
 
@@ -17,112 +40,140 @@ export default function AuthForm({ isSignUp }: { isSignUp: boolean }) {
     handleSubmit,
     setError,
     formState: { errors },
+    getValues,
     watch,
-  } = useForm<FormData>({ mode: "onChange" });
+  } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      email: "",
+      password: "",
+      passwordCheck: "",
+    },
+  });
 
-  const emailRegex = /\S+@\S+\.\S+/;
-  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-
-  const onSubmit = async (data: FormData) => {
-    const endpoint = isSignUp ? "auth/sign-up" : "auth/sign-in";
-    try {
-      const response = await fetchData(endpoint, "POST", data);
-
-      if (response.accessToken) {
-        localStorage.setItem("accessToken", response.accessToken);
+  const formDataMutation = useMutation<
+    AuthResponseType,
+    AxiosError,
+    FormDataType
+  >({
+    mutationFn: (requestData) =>
+      postData<AuthResponseType>({
+        endpoint,
+        requestData,
+      }),
+    onSuccess: (data) => {
+      const { accessToken } = data;
+      if (accessToken) {
+        setCookie("accessToken", accessToken, {
+          maxAge: 3 * 60 * 60,
+          path: "/",
+        });
         router.push("/folder");
-        router.refresh();
       }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 400) {
-          setError("email", {
-            type: "manual",
-            message: isSignUp
-              ? "이미 사용중인 아이디 입니다"
-              : "아이디를 확인해주세요",
-          });
-          setError("password", {
-            type: "manual",
-            message: isSignUp ? "" : "비밀번호를 확인해주세요",
-          });
-        } else {
-          console.error("Unexpected error:", error.message);
-        }
+    },
+    onError: () => {
+      setError("email", {
+        type: "manual",
+        message: WRONG_EMAIL,
+      });
+      setError("password", {
+        type: "manual",
+        message: WRONG_PASSWORD,
+      });
+    },
+  });
+
+  const checkEmailMutation = useMutation<
+    EmailCheckResponseType,
+    AxiosError,
+    EmailCheckType
+  >({
+    mutationFn: (requestData) =>
+      postData({ endpoint: "/users/check-email", requestData }),
+  });
+
+  const handleFormSubmit = handleSubmit(({ email, password }) => {
+    const requestData = { email, password };
+    formDataMutation.mutate(requestData);
+  });
+
+  const checkValidEmail = async () => {
+    const email = getValues("email");
+    if (email) {
+      try {
+        await checkEmailMutation.mutateAsync({ email });
+      } catch (error: any) {
+        setError("email", {
+          type: "manual",
+          message: error?.response?.data.message,
+        });
       }
     }
   };
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-      router.push("/folder");
-    }
-  }, [router]);
-
   return (
-    <form className={styles.auth_form} onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles.auth_form} onSubmit={handleFormSubmit}>
       <Input
         label="이메일"
         id="email"
         type="text"
         placeholder="email@example.com"
         borderError={!!errors.email}
-        register={register("email", {
-          required: "이메일을 입력해 주세요.",
-          pattern: {
-            value: emailRegex,
-            message: "올바른 이메일 주소가 아닙니다.",
-          },
-        })}
+        register={
+          isSignUp
+            ? register("email", {
+                required: REQUIRED_EMAIL,
+                pattern: {
+                  value: emailRegex,
+                  message: INVALID_EMAIL,
+                },
+                onBlur: checkValidEmail,
+              })
+            : register("email", { required: REQUIRED_EMAIL })
+        }
         errors={errors.email}
       />
-      <div className={styles.input_container}>
+      <Input
+        label="비밀번호"
+        id="password"
+        type={showPassword ? "text" : "password"}
+        placeholder="비밀번호 입력"
+        borderError={!!errors.password}
+        register={register("password", {
+          required: REQUIRED_PASSWORD,
+          pattern: {
+            value: passwordRegex,
+            message: INVALID_PASSWORD,
+          },
+        })}
+        errors={errors.password}
+        isShow={showPassword}
+        handleShowPassword={(isShow) => {
+          setShowPassword(isShow);
+        }}
+      />
+      {isSignUp && (
         <Input
-          label="비밀번호"
-          id="password"
-          type={showPassword ? "text" : "password"}
-          placeholder="영문, 숫자를 조합해 8자 이상으로 입력해 주세요."
-          borderError={!!errors.password}
-          register={register("password", {
-            required: "비밀번호를 입력해 주세요.",
+          label="비밀번호 확인"
+          id="passwordCheck"
+          type={showPasswordCheck ? "text" : "password"}
+          placeholder="비밀번호 재입력"
+          borderError={!!errors.passwordCheck}
+          register={register("passwordCheck", {
+            required: REQUIRED_PASSWORD,
             pattern: {
               value: passwordRegex,
-              message: "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.",
+              message: INVALID_PASSWORD,
             },
+            onChange: (value) =>
+              value === watch("password") || WRONG_PASSWORD_CHECK,
           })}
-          errors={errors.password}
-          isShow={showPassword}
+          errors={errors.passwordCheck}
+          isShow={showPasswordCheck}
           handleShowPassword={(isShow) => {
-            setShowPassword(isShow);
+            setShowPasswordCheck(isShow);
           }}
         />
-      </div>
-
-      {isSignUp && (
-        <div className={styles.input_container}>
-          <Input
-            label="비밀번호 확인"
-            id="passwordCheck"
-            type={showPasswordCheck ? "text" : "password"}
-            placeholder="영문, 숫자를 조합해 8자 이상으로 입력해 주세요."
-            borderError={!!errors.passwordCheck}
-            register={register("passwordCheck", {
-              required: "비밀번호를 입력해 주세요.",
-              pattern: {
-                value: passwordRegex,
-                message: "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.",
-              },
-              validate: (value) =>
-                value === watch("password") || "비밀번호가 일치하지 않습니다.",
-            })}
-            errors={errors.passwordCheck}
-            isShow={showPasswordCheck}
-            handleShowPassword={(isShow) => {
-              setShowPasswordCheck(isShow);
-            }}
-          />
-        </div>
       )}
       <button className={styles.submit_button} type="submit">
         {isSignUp ? "회원가입" : "로그인"}

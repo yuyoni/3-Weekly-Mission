@@ -1,17 +1,21 @@
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import styles from "../styles/AddLink.module.css";
+import getData from "@apis/getData";
+import postData from "@apis/postData";
 import CommonModal from "@components/modal/CommonModal";
-import useFetchData from "@hooks/useFetchData";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import Image from "next/image";
+import { useState } from "react";
+import { FolderData, Id } from "type";
+import styles from "../styles/AddLink.module.css";
 
-interface Props {
-  id: Id;
-}
+type AddLinkProps = {
+  userId: Id;
+};
 
-export default function AddLink({ id }: Props) {
+export default function AddLink({ userId }: AddLinkProps) {
+  const queryClient = useQueryClient();
   const [inputValue, setInputValue] = useState("");
   const [addLinkModal, setAddLinkModal] = useState(false);
-  const [folders, setFolders] = useState<FolderData[]>();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -29,11 +33,30 @@ export default function AddLink({ id }: Props) {
     }
   };
 
-  const data = useFetchData<FolderData[]>(`users/${id}/folders`);
+  const {
+    data: folderData,
+    isPending,
+    isError,
+  } = useQuery<FolderData[]>({
+    queryKey: ["folderData", userId],
+    queryFn: () => getData({ endpoint: `/users/${userId}/folders` }),
+  });
 
-  useEffect(() => {
-    setFolders(data);
-  }, [data]);
+  const {
+    mutate,
+    isPending: isLinkPending,
+    isError: isLinkError,
+  } = useMutation<any, AxiosError, { url: string; folderId: Id }>({
+    mutationFn: (requestData) => postData({ endpoint: "/links", requestData }),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      setAddLinkModal(false);
+      setInputValue("");
+    },
+    onError: () => {
+      alert("유효한 URL이 아닙니다.");
+    },
+  });
 
   return (
     <div className={styles.wrapper}>
@@ -49,6 +72,7 @@ export default function AddLink({ id }: Props) {
           className={styles.link_input}
           placeholder=" 링크를 추가해 보세요"
           onChange={handleInputChange}
+          value={inputValue}
         />
         <button
           className={styles.cta}
@@ -65,8 +89,12 @@ export default function AddLink({ id }: Props) {
         title="폴더에 추가"
         subtitle={inputValue}
         buttonText="추가하기"
-        folders={folders}
+        folders={folderData}
         color="linear-gradient"
+        handleClickButton={(value) => {
+          const requestData = { url: inputValue, folderId: value as number };
+          mutate(requestData);
+        }}
       />
     </div>
   );

@@ -1,48 +1,57 @@
 import SearchContent from "@pages/components/common/SearchContent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditBox from "./EditBox";
 import FolderBox from "./FolderBox";
+import { FolderData, FolderId, Id, LinkList } from "type";
 
 const FOLDER_NAME = {
   ALL: "전체",
 };
 
-type Props = {
-  id: Id;
+type FolderContentProps = {
+  userId: Id;
   folderId: FolderId;
-  updateFolderId: (id: Id) => void;
+  updateFolderId: (folderId: Id) => void;
   links: LinkList[];
   folders: FolderData[];
   inputText: string;
 };
 
 export default function Content({
-  id,
+  userId,
   folderId,
   updateFolderId,
   links,
   folders,
   inputText,
-}: Props) {
+}: FolderContentProps) {
   const [currentFolderName, setCurrentFolderName] = useState(
     FOLDER_NAME["ALL"]
   );
 
-  const updateFolder = (id: number | null, name: string) => {
-    setCurrentFolderName(name);
-    updateFolderId(id);
+  useEffect(() => {
+    const folder = folders.find((folder) => folder.id === folderId);
+    if (folder) {
+      setCurrentFolderName(folder.name);
+    } else {
+      setCurrentFolderName(FOLDER_NAME["ALL"]);
+    }
+  }, [folderId, folders]);
+
+  const updateFolder = (folderId: number | null, name: string) => {
+    updateFolderId(folderId);
   };
 
   return (
     <>
       <FolderBox
         folders={folders}
-        id={id}
+        userId={userId}
         folderId={folderId}
         updateFolder={updateFolder}
       />
       <EditBox
-        id={id}
+        userId={userId}
         folderId={folderId}
         currentFolderName={currentFolderName}
       />

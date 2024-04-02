@@ -3,12 +3,15 @@ import close from "@public/images/_close.svg";
 import Image from "next/image";
 import styles from "./SearchBar.module.css";
 
-type Props = {
+type SearchBarProps = {
   inputText: string | undefined;
   updateInputText: (value: string) => void;
 };
 
-export default function SearchBar({ inputText, updateInputText }: Props) {
+export default function SearchBar({
+  inputText,
+  updateInputText,
+}: SearchBarProps) {
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateInputText(e.target.value);
   };

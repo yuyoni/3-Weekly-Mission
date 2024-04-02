@@ -1,21 +1,57 @@
+import deleteData from "@apis/deleteData";
+import putData from "@apis/putData";
 import CommonModal from "@components/modal/CommonModal";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import Image from "next/image";
 import { useState } from "react";
+import { FolderInfo, Id } from "type";
 import styles from "../styles/EditBox.module.css";
 
-type Props = {
-  id: Id;
+type EditBoxProps = {
+  userId: Id;
   folderId: number | null;
   currentFolderName: string;
 };
 
-export default function EditBox({ id, folderId, currentFolderName }: Props) {
+export default function EditBox({
+  userId,
+  folderId,
+  currentFolderName,
+}: EditBoxProps) {
+  const queryClient = useQueryClient();
   const [editFolderModal, setEditFolderModal] = useState(false);
   const [shareFolderModal, setShareFolderModal] = useState(false);
   const [deleteFolderModal, setDeleteFolderModal] = useState(false);
 
   const isInVisible = (folderId: number | null) =>
     folderId === null ? styles.isInVisible : "";
+
+  const editMutation = useMutation<FolderInfo[], AxiosError, { name: string }>({
+    mutationFn: (requestData) =>
+      putData({
+        endpoint: `/folders/${folderId}`,
+        requestData,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      setEditFolderModal(false);
+    },
+    onError: (error) => {
+      throw new Error(`수정 실패 : ${error.message}`);
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: () => deleteData({ endpoint: `/folders/${folderId}` }),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      setDeleteFolderModal(false);
+    },
+    onError: (error) => {
+      throw new Error(`삭제 실패 : ${error.message}`);
+    },
+  });
 
   return (
     <div className={styles.wrapper}>
@@ -53,21 +89,25 @@ export default function EditBox({ id, folderId, currentFolderName }: Props) {
         </div>
       </div>
       <CommonModal
-        isModalShow={editFolderModal}
-        setter={setEditFolderModal}
-        title="폴더 이름 변경"
-        placeholder={currentFolderName}
-        buttonText="변경하기"
-        color="linear-gradient"
-      />
-      <CommonModal
         isModalShow={shareFolderModal}
         setter={setShareFolderModal}
         title="폴더 공유"
         subtitle={currentFolderName}
         icon={true}
         folderId={folderId}
-        userId={id}
+        userId={userId}
+      />
+      <CommonModal
+        isModalShow={editFolderModal}
+        setter={setEditFolderModal}
+        title="폴더 이름 변경"
+        placeholder={currentFolderName}
+        buttonText="변경하기"
+        color="linear-gradient"
+        handleClickButton={(value) => {
+          const requestData = { name: value as string };
+          editMutation.mutate(requestData);
+        }}
       />
       <CommonModal
         isModalShow={deleteFolderModal}
@@ -76,6 +116,9 @@ export default function EditBox({ id, folderId, currentFolderName }: Props) {
         subtitle={currentFolderName}
         buttonText="삭제하기"
         color="#FF5B56"
+        handleClickButton={() => {
+          deleteMutation.mutate();
+        }}
       />
     </div>
   );

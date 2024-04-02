@@ -1,22 +1,68 @@
+import postData from "@apis/postData";
 import CommonModal from "@components/modal/CommonModal";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import Image from "next/image";
 import { useState } from "react";
+import { FolderData, FolderId, FolderInfoResponseType, Id } from "type";
 import styles from "../styles/FolderBox.module.css";
 
-type Props = {
+type FolderBoxProps = {
   folders: FolderData[];
-  id: Id;
+  userId: Id;
   folderId: FolderId;
   updateFolder: (id: FolderId, name: string) => void;
 };
 
 export default function FolderBox({
   folders,
-  id,
+  userId,
   folderId,
   updateFolder,
-}: Props) {
+}: FolderBoxProps) {
   const [addFolderModal, setAddFolderModal] = useState(false);
+  const queryClient = useQueryClient();
+
+  const isFolderSelected =
+    folderId === null
+      ? styles.selected_folder_color
+      : styles.default_folder_color;
+
+  const getFolderColorClassName = (currentFolderId: FolderId) =>
+    folderId === currentFolderId
+      ? styles.selected_folder_color
+      : styles.default_folder_color;
+
+  const { mutate, isPending } = useMutation<
+    FolderInfoResponseType,
+    AxiosError,
+    { name: string }
+  >({
+    mutationFn: (requestData) =>
+      postData<FolderInfoResponseType>({
+        endpoint: "/folders",
+        requestData,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      setAddFolderModal(false);
+    },
+    onError: (error) => {
+      throw new Error(`폴더 생성 실패 : ${error.message}`);
+    },
+  });
+
+  const handleAddLink = (value: string | Id) => {
+    const requestData = { name: value as string };
+    mutate(requestData, {
+      onSuccess: () => {
+        console.log("폴더 등록 성공");
+      },
+      onError: (error) => {
+        console.error(error.message);
+      },
+    });
+  };
 
   const handleClickFolder = (
     clickedFolderId: Id,
@@ -24,16 +70,6 @@ export default function FolderBox({
   ) => {
     updateFolder(clickedFolderId, clickedFolderName);
   };
-
-  const isFolderSelected =
-    folderId === null
-      ? styles.selected_folder_color
-      : styles.default_folder_color;
-
-  const getFolderColorClassName = (id: FolderId) =>
-    folderId === id
-      ? styles.selected_folder_color
-      : styles.default_folder_color;
 
   return (
     <div className={styles.wrapper}>
@@ -71,7 +107,6 @@ export default function FolderBox({
             priority
           />
         </div>
-
         <div
           className={styles.folder_add_button}
           onClick={() => setAddFolderModal(true)}
@@ -93,6 +128,8 @@ export default function FolderBox({
         placeholder="폴더명"
         buttonText="추가하기"
         color="linear-gradient"
+        handleClickButton={handleAddLink}
+        isPending={isPending}
       />
     </div>
   );

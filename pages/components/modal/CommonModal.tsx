@@ -3,8 +3,10 @@ import Image from "next/image";
 import SelectFolder from "./SelectFolder";
 import IconBox from "./IconBox";
 import close from "@public/images/_close.svg";
+import { FolderData, FolderId, Id } from "type";
+import { useState } from "react";
 
-type Props = {
+type ModalProps = {
   isModalShow: boolean;
   setter: (arg: boolean) => void;
   title: string;
@@ -16,6 +18,8 @@ type Props = {
   icon?: boolean;
   folderId?: FolderId;
   userId?: Id;
+  handleClickButton?: (value: string | Id) => void;
+  isPending?: boolean;
 };
 
 export default function CommonModal({
@@ -30,9 +34,18 @@ export default function CommonModal({
   icon,
   folderId,
   userId,
-}: Props) {
+  handleClickButton,
+  isPending,
+}: ModalProps) {
+  const [inputValue, setInputValue] = useState("");
+  const [selectedFolderId, setSelectedFolderId] = useState<Id | null>(null);
+
   const buttonColor =
     color === "linear-gradient" ? styles.gradient : styles.red;
+
+  const handleFolderSelect = (folderId: Id) => {
+    setSelectedFolderId(folderId);
+  };
 
   const handleClickOutside = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -65,20 +78,33 @@ export default function CommonModal({
             priority
           />
           <span className={styles.title}>{title}</span>
-          {placeholder ? (
+          {placeholder && (
             <input
               className={styles.input}
               type="text"
               placeholder={placeholder}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
             />
-          ) : null}
+          )}
           <p className={styles.subtitle}>{subtitle}</p>
-          {folders && <SelectFolder folders={folders} />}
-          {buttonText && (
+          {folders && (
+            <SelectFolder
+              folders={folders}
+              onFolderSelect={handleFolderSelect}
+            />
+          )}
+          {handleClickButton && (
             <button
               className={`${styles.button} ${buttonColor}`}
-              onClick={(e: React.MouseEvent<Element, MouseEvent>) =>
-                e.stopPropagation()
+              onClick={() => {
+                handleClickButton(folders ? selectedFolderId : inputValue);
+                setInputValue("");
+              }}
+              disabled={
+                (folders && !selectedFolderId) ||
+                (!folders && placeholder && !inputValue) ||
+                isPending
               }
             >
               {buttonText}

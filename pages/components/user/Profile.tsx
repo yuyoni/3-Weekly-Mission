@@ -1,21 +1,28 @@
-import { CurrentUserContext } from "@pages/_app";
+import getData from "@apis/getData";
+import { useQuery } from "@tanstack/react-query";
+import { getCookie } from "cookies-next";
 import Link from "next/link";
-import { useContext } from "react";
+import { User } from "type";
 import styles from "./Profile.module.css";
 
 export default function Profile() {
-  const currentUser = useContext(CurrentUserContext);
+  const accessToken = getCookie("accessToken");
+  const { data: userInfo } = useQuery<User[]>({
+    queryKey: ["userInfo"],
+    queryFn: () => getData({ endpoint: "/users" }),
+    enabled: !!accessToken,
+  });
 
   return (
     <div className={styles.wrapper}>
-      {currentUser ? (
+      {userInfo ? (
         <div className={styles.profile}>
           <img
             className={styles.profile_icon}
-            src={currentUser.imageSource}
+            src={userInfo[0].image_source}
             alt="profile-icon"
           />
-          <span className={styles.user_email}>{currentUser.email}</span>
+          <span className={styles.user_email}>{userInfo[0].email}</span>
         </div>
       ) : (
         <Link href="/signin" legacyBehavior>

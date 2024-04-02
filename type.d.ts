@@ -1,43 +1,49 @@
-type Id = number | null;
-type FolderId = number | null;
-type CreateAt = string;
-type Name = string;
+export type Id = number | null;
+export type FolderId = number | null;
+export type CreateAt = string;
+export type Name = string;
 
-interface User {
+export interface User {
   id: Id;
   name: Name;
   email: string;
-  imageSource: string;
-  createdAt?: CreateAt;
+  image_source: string;
+  created_at?: CreateAt;
 }
 
-interface LinkList {
+export interface LinkList {
   id: number;
   title: string;
-  createdAt: CreateAt;
+  created_at: CreateAt;
   description: string;
   url: string;
-  imageSource: string;
+  image_source: string;
 }
 
-interface FolderData {
+export interface FolderData {
   id: Id;
-  createdAt: CreateAt;
+  created_at: CreateAt;
   name: Name;
   favorite: boolean;
-  linkCount: number;
+  link_count: number;
 }
 
-interface FolderInfo {
+export interface FolderInfoResponseType {
   id: number;
-  createdAt: string;
+  created_at: string;
   favorite: boolean;
   name: string;
-  userId: number;
 }
 
-interface FormData {
+export interface FolderInfo extends FolderInfoResponseType {
+  user_id: number;
+}
+
+export interface SigninData {
   email: string;
   password: string;
+}
+
+interface SignupData extends SigninData {
   passwordCheck?: string;
 }

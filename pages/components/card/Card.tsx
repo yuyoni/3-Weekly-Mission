@@ -8,24 +8,28 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import styles from "./Card.module.css";
 import SelectMenu from "./SelectMenu";
+import { useRouter } from "next/navigation";
+import { FolderData, LinkList } from "type";
 
-type Props = { key: number; folders: FolderData[] | null; link: LinkList };
+type CardProps = { key: number; folders: FolderData[] | null; link: LinkList };
 
-export default function Card({ folders, link }: Props) {
+export default function Card({ folders, link }: CardProps) {
+  const router = useRouter();
+  const selectMenuRef = useRef<HTMLDivElement | null>(null);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isKebabClicked, setIsKebabClicked] = useState(false);
 
-  const selectMenuRef = useRef<HTMLDivElement | null>(null);
+  const { formattedDate, elapsedTime } = link
+    ? formatDateAndDifference(link.created_at)
+    : { formattedDate: "", elapsedTime: "" };
 
   const handleClickCard = () => {
     if (link) {
-      window.location.href = link.url;
+      router.push(`https://${link.url}`);
     }
   };
 
-  const handleClickBookmark = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
+  const toggleBookmark = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     setIsBookmarked(!isBookmarked);
   };
@@ -38,15 +42,11 @@ export default function Card({ folders, link }: Props) {
     setIsKebabClicked(isOpen);
   };
 
-  const { formattedDate, elapsedTime } = link
-    ? formatDateAndDifference(link.createdAt)
-    : { formattedDate: "", elapsedTime: "" };
-
-  const handleIsKebabClicked = (status: boolean) => {
+  const setKebabMenuStatus = (status: boolean) => {
     setIsKebabClicked(status);
   };
 
-  useClickOutside(selectMenuRef, handleIsKebabClicked);
+  useClickOutside(selectMenuRef, setKebabMenuStatus);
 
   return (
     <div className={styles.card} onClick={handleClickCard}>
@@ -55,13 +55,13 @@ export default function Card({ folders, link }: Props) {
           className={styles.bookmark}
           src={isBookmarked ? filledStar : emptyStar}
           alt="bookmark-logo"
-          onClick={handleClickBookmark}
+          onClick={toggleBookmark}
           width={34}
           height={34}
         />
         <img
           className={styles.link_img}
-          src={link?.imageSource || noImage.src}
+          src={link?.image_source || noImage.src}
           alt={link ? link.title : ""}
           onError={(e) => {
             e.currentTarget.src = noImage.src;
@@ -86,13 +86,13 @@ export default function Card({ folders, link }: Props) {
           {formattedDate.replace(/-/g, ". ")}
         </span>
       </div>
-      {isKebabClicked ? (
-        <SelectMenu
-          selectMenuRef={selectMenuRef}
-          linkUrl={link.url}
-          folders={folders}
-        />
-      ) : null}
+      <SelectMenu
+        isKebabClicked={isKebabClicked}
+        selectMenuRef={selectMenuRef}
+        linkId={link.id}
+        linkUrl={link.url}
+        folders={folders}
+      />
     </div>
   );
 }
