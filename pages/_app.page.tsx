@@ -8,7 +8,16 @@ declare global {
   }
 }
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retry: false,
+      retryDelay: 3000,
+    },
+  },
+});
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
