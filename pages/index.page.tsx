@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Layout from "pages/components/common/Layout";
-import styles from "./Home.module.css";
+import Layout from "src/components/common/Layout";
+import styles from "./styles/Home.module.css";
 
 export default function Home() {
   return (

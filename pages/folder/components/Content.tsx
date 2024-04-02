@@ -1,4 +1,4 @@
-import SearchContent from "@pages/components/common/SearchContent";
+import SearchContent from "src/components/common/SearchContent";
 import { useEffect, useState } from "react";
 import EditBox from "./EditBox";
 import FolderBox from "./FolderBox";

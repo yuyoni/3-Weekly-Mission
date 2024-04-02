@@ -1,5 +1,5 @@
 import postData from "@apis/postData";
-import CommonModal from "@components/modal/CommonModal";
+import CommonModal from "src/components/modal/CommonModal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import Image from "next/image";

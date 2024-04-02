@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import NavBar from "pages/components/nav/NavBar";
+import NavBar from "src/components/nav/NavBar";
 import Footer from "../footer/Footer";
 
 type Children = {

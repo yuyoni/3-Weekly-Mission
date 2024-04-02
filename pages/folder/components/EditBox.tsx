@@ -1,6 +1,6 @@
 import deleteData from "@apis/deleteData";
 import putData from "@apis/putData";
-import CommonModal from "@components/modal/CommonModal";
+import CommonModal from "src/components/modal/CommonModal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import Image from "next/image";
