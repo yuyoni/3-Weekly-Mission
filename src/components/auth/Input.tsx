@@ -1,5 +1,5 @@
-import eyeOffIcon from "@public/images/eye-off.svg";
-import eyeOnIcon from "@public/images/eye-on.svg";
+import eyeOffIcon from "@public/images/eye_off.svg";
+import eyeOnIcon from "@public/images/eye_on.svg";
 import Image from "next/image";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import styles from "./Input.module.css";

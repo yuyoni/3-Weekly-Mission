@@ -1,8 +1,8 @@
 import useClickOutside from "@hooks/useClickOutside";
-import emptyStar from "@public/images/emptyStar.svg";
-import filledStar from "@public/images/filledStar.svg";
+import emptyStar from "@public/images/empty_star.svg";
+import filledStar from "@public/images/filled_star.svg";
 import kebab from "@public/images/kebab.svg";
-import noImage from "@public/images/no-image.svg";
+import noImage from "@public/images/no_image.svg";
 import formatDateAndDifference from "@utils/formatDate";
 import Image from "next/image";
 import { useRouter } from "next/navigation";

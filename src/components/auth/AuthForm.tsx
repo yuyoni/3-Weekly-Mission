@@ -5,11 +5,11 @@ import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { COOKIE_MAX_AGE } from "src/constants/cookie";
 import * as errorMessage from "src/constants/errorMessages";
 import styles from "./AuthForm.module.css";
 import Input from "./Input";
 import * as AuthTypes from "./types/authTypes";
-import { COOKIE_MAX_AGE } from "src/constants/cookie";
 
 interface AuthFormProps {
   isSignUp: boolean;
