@@ -1,4 +1,4 @@
-import search from "@public/images/search.svg";
+import search from "@public/images/magnify.svg";
 import close from "@public/images/_close.svg";
 import Image from "next/image";
 import styles from "./SearchBar.module.css";
