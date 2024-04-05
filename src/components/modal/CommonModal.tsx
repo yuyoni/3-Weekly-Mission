@@ -22,6 +22,7 @@ type ModalProps = {
   isPending?: boolean;
 };
 
+// CommonModal과 folder리스트를 선택하는 모달 분리하기
 export default function CommonModal({
   isModalShow,
   setter,

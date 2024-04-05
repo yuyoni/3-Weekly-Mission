@@ -15,6 +15,7 @@ interface AuthFormProps {
   isSignUp: boolean;
 }
 
+// isSignUp을 prop으로 전달받지 말고 두 로직 분리하기
 export default function AuthForm({ isSignUp }: AuthFormProps) {
   const router = useRouter();
   const endpoint = isSignUp ? `/auth/sign-up` : `/auth/sign-in`;
