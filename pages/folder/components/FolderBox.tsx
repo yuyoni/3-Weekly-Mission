@@ -115,7 +115,7 @@ export default function FolderBox({
         >
           추가하기
           <Image
-            src="images/white-add.svg"
+            src="images/white_add.svg"
             alt="add-icon"
             width={16}
             height={16}
