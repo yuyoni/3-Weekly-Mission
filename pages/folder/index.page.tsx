@@ -28,6 +28,7 @@ export default function Folder() {
       if (!accessToken) router.push("/signin");
       return getData({ endpoint: "/users" });
     },
+    enabled: !!accessToken,
   });
 
   if (isPending) return "userInfo loading...";
