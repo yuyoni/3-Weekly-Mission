@@ -8,13 +8,15 @@ import { FolderData, FolderInfoResponseType } from "type";
 import styles from "../styles/FolderBox.module.css";
 
 type FolderBoxProps = {
-  folders: FolderData[];
+  isFolderPending: boolean;
+  folders: FolderData[] | undefined;
   userId: number | null;
   folderId: number | null;
   updateFolder: (id: number | null, name: string) => void;
 };
 
 export default function FolderBox({
+  isFolderPending,
   folders,
   folderId,
   updateFolder,
@@ -79,7 +81,8 @@ export default function FolderBox({
         >
           전체
         </div>
-        {folders &&
+        {!isFolderPending &&
+          folders &&
           folders.map(({ id, name }) => (
             <div
               className={`${styles.folder_element} ${getFolderColorClassName(

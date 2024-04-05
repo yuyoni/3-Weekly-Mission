@@ -1,23 +1,27 @@
 import SearchContent from "@components/common/SearchContent";
 import { useEffect, useState } from "react";
+import { FolderData, LinkList } from "type";
 import EditBox from "./EditBox";
 import FolderBox from "./FolderBox";
-import { FolderData, LinkList } from "type";
 
 const FOLDER_NAME = {
   ALL: "전체",
 };
 
 type FolderContentProps = {
+  isFolderPending: boolean;
+  isLinkPending: boolean;
   userId: number | null;
   folderId: number | null;
   updateFolderId: (folderId: number | null) => void;
-  links: LinkList[];
-  folders: FolderData[];
+  links: LinkList[] | undefined;
+  folders: FolderData[] | undefined;
   inputText: string;
 };
 
 export default function Content({
+  isFolderPending,
+  isLinkPending,
   userId,
   folderId,
   updateFolderId,
@@ -30,7 +34,7 @@ export default function Content({
   );
 
   useEffect(() => {
-    const folder = folders.find((folder) => folder.id === folderId);
+    const folder = folders?.find((folder) => folder.id === folderId);
     if (folder) {
       setCurrentFolderName(folder.name);
     } else {
@@ -45,6 +49,7 @@ export default function Content({
   return (
     <>
       <FolderBox
+        isFolderPending={isFolderPending}
         folders={folders}
         userId={userId}
         folderId={folderId}
@@ -55,7 +60,12 @@ export default function Content({
         folderId={folderId}
         currentFolderName={currentFolderName}
       />
-      <SearchContent inputText={inputText} links={links} folders={folders} />
+      <SearchContent
+        isLinkPending={isLinkPending}
+        inputText={inputText}
+        links={links}
+        folders={folders}
+      />
     </>
   );
 }

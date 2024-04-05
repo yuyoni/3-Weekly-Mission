@@ -11,7 +11,11 @@ import { FolderData, LinkList } from "type";
 import styles from "./Card.module.css";
 import SelectMenu from "./SelectMenu";
 
-type CardProps = { key: number; folders: FolderData[] | null; link: LinkList };
+type CardProps = {
+  key: number;
+  folders: FolderData[] | undefined;
+  link: LinkList;
+};
 
 export default function Card({ folders, link }: CardProps) {
   const router = useRouter();

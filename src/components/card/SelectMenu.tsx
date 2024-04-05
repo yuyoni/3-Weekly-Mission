@@ -9,7 +9,7 @@ import styles from "./SelectMenu.module.css";
 
 type SelectMenuProps = {
   isKebabClicked: boolean;
-  folders: FolderData[] | null;
+  folders: FolderData[] | undefined;
   link: LinkList;
   selectMenuRef: React.RefObject<HTMLDivElement>;
 };

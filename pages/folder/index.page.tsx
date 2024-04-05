@@ -30,18 +30,16 @@ export default function Folder() {
     },
   });
 
-  if (isPending) return "loading...";
+  if (isPending) return "userInfo loading...";
   if (isError) return "error";
 
   return (
     <div>
       <Layout>
-        {userInfo && (
-          <div className={styles.wrapper}>
-            <AddLink userId={userInfo[0].id} />
-            <FolderLinkContainer userId={userInfo[0].id} />
-          </div>
-        )}
+        <div className={styles.wrapper}>
+          <AddLink userId={userInfo[0].id} />
+          <FolderLinkContainer userId={userInfo[0].id} />
+        </div>
       </Layout>
     </div>
   );

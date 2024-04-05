@@ -27,13 +27,13 @@ export default function Content({ id, linkData }: ShredContentProps) {
     setInputText(value);
   };
 
-  if (isPending) return "loading...";
   if (isError) return "error";
 
   return (
     <main className={styles.content}>
       <SearchBar inputText={inputText} updateInputText={updateInputText} />
       <SearchContent
+        isLinkPending={isPending}
         inputText={inputText}
         links={linkData}
         folders={folderData}

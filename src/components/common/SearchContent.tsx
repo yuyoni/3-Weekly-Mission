@@ -1,14 +1,18 @@
 import Card from "@components/card/Card";
-import styles from "./SearchContent.module.css";
+import Skeleton from "@components/skeleton/Skeleton";
 import { FolderData, LinkList } from "type";
+import styles from "./SearchContent.module.css";
+import SearchContentSkeleton from "./SearchContentSkeleton";
 
 type SearchContentProps = {
+  isLinkPending: boolean;
   inputText: string;
-  links: LinkList[] | null;
-  folders: FolderData[] | null;
+  links: LinkList[] | undefined;
+  folders: FolderData[] | undefined;
 };
 
 export default function SearchContent({
+  isLinkPending,
   inputText,
   links,
   folders,
@@ -17,7 +21,11 @@ export default function SearchContent({
 
   return (
     <>
-      {filteredLinks.length > 0 ? (
+      {isLinkPending ? (
+        <div className={styles.wrapper}>
+          <SearchContentSkeleton />
+        </div>
+      ) : filteredLinks.length > 0 ? (
         <div className={styles.wrapper}>
           {filteredLinks.map((link) => (
             <Card key={link.id} folders={folders} link={link} />

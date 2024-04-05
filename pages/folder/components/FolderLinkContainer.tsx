@@ -28,10 +28,10 @@ export default function FolderLinkContainer({
 
   const {
     data: folderData,
-    isPending,
-    isError,
+    isPending: isFolderPending,
+    isError: isFolderError,
   } = useQuery<FolderData[]>({
-    queryKey: ["folderData", folderId],
+    queryKey: ["folderData"],
     queryFn: () => getData({ endpoint: `/users/${userId}/folders` }),
   });
 
@@ -44,16 +44,15 @@ export default function FolderLinkContainer({
     queryFn: () => getData({ endpoint }),
   });
 
-  if (isPending) return "loading...";
-  if (isLinkPending) return "link loading...";
-
-  if (isError) return "error";
+  if (isFolderError) return "error";
   if (isLinkError) return "link error";
 
   return (
     <main className={styles.main}>
       <SearchBar inputText={inputText} updateInputText={updateInputText} />
       <Content
+        isFolderPending={isFolderPending}
+        isLinkPending={isLinkPending}
         userId={userId}
         folderId={folderId}
         updateFolderId={updateFolderId}
