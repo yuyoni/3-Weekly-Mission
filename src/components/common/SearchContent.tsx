@@ -1,5 +1,4 @@
 import Card from "@components/card/Card";
-import Skeleton from "@components/skeleton/Skeleton";
 import { FolderData, LinkList } from "type";
 import styles from "./SearchContent.module.css";
 import SearchContentSkeleton from "./SearchContentSkeleton";

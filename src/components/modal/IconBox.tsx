@@ -1,6 +1,6 @@
 import shareKakao from "@utils/shareKakao";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { FacebookShareButton } from "react-share";
 import styles from "./IconBox.module.css";
