@@ -1,0 +1,151 @@
+.backgroundClipText {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: 700;
+}
+
+.content1 {
+  background-image: linear-gradient(96deg, #fe8a8a 1.72%, #a4ceff 74.97%);
+}
+
+.content2 {
+  background-image: linear-gradient(277deg, #6fbaff 0%, #ffd88b 100%);
+}
+
+.content3 {
+  background-image: linear-gradient(
+    99deg,
+    #6d7ccd 0%,
+    rgba(82, 136, 133, 0.22) 130%
+  );
+}
+
+.content4 {
+  background-image: linear-gradient(
+    90deg,
+    rgba(104, 232, 249, 1) 0%,
+    rgba(158, 180, 211, 1) 88%
+  );
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+
+.container {
+  display: grid;
+  align-items: center;
+  grid-template-rows: 1fr 116px 82px 1fr;
+}
+
+.wrapper:nth-child(odd) .container {
+  grid-template-columns: 550px 157px 291px;
+  grid-template-areas:
+    "img . ."
+    "img . slogan"
+    "img . small"
+    "img . .";
+}
+
+.wrapper:nth-child(even) .container {
+  grid-template-columns: 291px 157px 550px;
+  grid-template-areas:
+    ". . img"
+    "slogan . img"
+    "small . img"
+    ". . img";
+}
+
+.sectionImg {
+  grid-area: img;
+  width: 550px;
+  height: 450px;
+  border-radius: 15px;
+}
+
+.slogan {
+  grid-area: slogan;
+  color: black;
+  font-weight: 700;
+  font-size: 40px;
+  word-break: keep-all;
+}
+
+.smallText {
+  align-self: start;
+  grid-area: small;
+  color: #6b6b6b;
+  font-size: 16px;
+  line-height: 24px;
+  padding-top: 10px;
+  word-break: keep-all;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .container {
+    height: 315px;
+  }
+
+  .wrapper:nth-child(odd) .container {
+    grid-template-columns: 385px 51px 262px;
+  }
+
+  .wrapper:nth-child(even) .container {
+    grid-template-columns: 262px 51px 385px;
+  }
+
+  .sectionImg {
+    width: 385px;
+    height: 315px;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+  .cta {
+    font-size: 14px;
+    padding: 10px 16px;
+    height: 37px;
+  }
+
+  .ctaShort {
+    width: 80px;
+  }
+
+  .ctaLong {
+    width: 200px;
+  }
+
+  .wrapper {
+    padding: 40px 32px;
+  }
+
+  .wrapper:nth-child(odd) .container,
+  .wrapper:nth-child(even) .container {
+    grid-template-rows: auto;
+    grid-template-columns: auto;
+    grid-template-areas: "slogan slogan slogan" "img img img" "small small small";
+    width: 100%;
+    height: 100%;
+  }
+
+  .sectionImg {
+    width: 100%;
+    height: auto;
+  }
+
+  .slogan {
+    font-size: 24px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .smallText {
+    width: 100%;
+    font-size: 15px;
+    margin-top: 16px;
+  }
+}
