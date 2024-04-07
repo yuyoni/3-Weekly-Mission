@@ -80,6 +80,7 @@ export default function SelectMenu({
           handleClickButton={() => {
             deleteMutation.mutate();
           }}
+          isPending={deleteMutation.isPending}
         />
         <CommonModal
           isModalShow={addLinkModal}
@@ -93,6 +94,7 @@ export default function SelectMenu({
             const requestData = { url: link.url, folderId: value as number };
             addMutate.mutate(requestData);
           }}
+          isPending={addMutate.isPending}
         />
       </div>
     )

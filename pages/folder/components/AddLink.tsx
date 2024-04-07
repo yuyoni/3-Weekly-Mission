@@ -21,18 +21,6 @@ export default function AddLink({ userId }: AddLinkProps) {
     setInputValue(e.target.value);
   };
 
-  const handleAddLinkClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    inputValue: string
-  ) => {
-    e.stopPropagation();
-    if (inputValue.trim().length) {
-      setAddLinkModal(true);
-    } else {
-      alert("링크를 입력해 주세요.");
-    }
-  };
-
   const {
     data: folderData,
     isPending,
@@ -57,6 +45,18 @@ export default function AddLink({ userId }: AddLinkProps) {
       alert("유효한 URL이 아닙니다.");
     },
   });
+
+  const handleAddLinkClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    inputValue: string
+  ) => {
+    e.stopPropagation();
+    if (inputValue.trim().length) {
+      setAddLinkModal(true);
+    } else {
+      alert("링크를 입력해 주세요.");
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -91,6 +91,7 @@ export default function AddLink({ userId }: AddLinkProps) {
         buttonText="추가하기"
         folders={folderData}
         color="linear-gradient"
+        isPending={isPending || isLinkPending}
         handleClickButton={(value) => {
           const requestData = { url: inputValue, folderId: value as number };
           mutate(requestData);

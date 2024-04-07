@@ -5,6 +5,7 @@ import { FolderData } from "type";
 import styles from "./CommonModal.module.css";
 import IconBox from "./IconBox";
 import SelectFolder from "./SelectFolder";
+import useModalScrollLock from "@hooks/useModalScrollLock";
 
 type ModalProps = {
   isModalShow: boolean;
@@ -47,6 +48,7 @@ export default function CommonModal({
   const handleFolderSelect = (folderId: number | null) => {
     setSelectedFolderId(folderId);
   };
+  useModalScrollLock(isModalShow);
 
   const handleClickOutside = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>

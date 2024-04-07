@@ -108,6 +108,7 @@ export default function EditBox({
           const requestData = { name: value as string };
           editMutation.mutate(requestData);
         }}
+        isPending={editMutation.isPending}
       />
       <CommonModal
         isModalShow={deleteFolderModal}
@@ -119,6 +120,7 @@ export default function EditBox({
         handleClickButton={() => {
           deleteMutation.mutate();
         }}
+        isPending={deleteMutation.isPending}
       />
     </div>
   );
