@@ -8,6 +8,7 @@ export interface User {
 
 export interface LinkList {
   id: number;
+  favorite: boolean;
   title: string;
   created_at: string;
   description: string;

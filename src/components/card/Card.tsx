@@ -1,9 +1,12 @@
+import putData from "@apis/putData";
 import useClickOutside from "@hooks/useClickOutside";
 import emptyStar from "@public/images/empty_star.svg";
 import filledStar from "@public/images/filled_star.svg";
 import kebab from "@public/images/kebab.svg";
 import noImage from "@public/images/no_image.svg";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import formatDateAndDifference from "@utils/formatDate";
+import { AxiosError } from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
@@ -20,22 +23,37 @@ type CardProps = {
 export default function Card({ folders, link }: CardProps) {
   const router = useRouter();
   const selectMenuRef = useRef<HTMLDivElement | null>(null);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(link.favorite);
   const [isKebabClicked, setIsKebabClicked] = useState(false);
+
+  const queryClient = useQueryClient();
 
   const { formattedDate, elapsedTime } = link
     ? formatDateAndDifference(link.created_at)
     : { formattedDate: "", elapsedTime: "" };
 
+  const { mutate } = useMutation<
+    any,
+    AxiosError,
+    {
+      favorite: boolean;
+    }
+  >({
+    mutationFn: (requestData) =>
+      putData({ endpoint: `/links/${link.id}`, requestData }),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      setIsBookmarked(!isBookmarked);
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+
   const handleClickCard = () => {
     if (link) {
       router.push(`https://${link.url}`);
     }
-  };
-
-  const toggleBookmark = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.stopPropagation();
-    setIsBookmarked(!isBookmarked);
   };
 
   const handleClickKebab = (
@@ -48,6 +66,13 @@ export default function Card({ folders, link }: CardProps) {
 
   const setKebabMenuStatus = (status: boolean) => {
     setIsKebabClicked(status);
+  };
+
+  const toggleBookmark = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+    mutate({
+      favorite: !isBookmarked,
+    });
   };
 
   useClickOutside(selectMenuRef, setKebabMenuStatus);
