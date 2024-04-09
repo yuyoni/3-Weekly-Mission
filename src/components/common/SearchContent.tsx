@@ -1,4 +1,5 @@
 import Card from "@components/card/Card";
+import filterLinksBySearchText from "@utils/filterLinksBySearchText";
 import { FolderData, LinkList } from "type";
 import styles from "./SearchContent.module.css";
 import SearchContentSkeleton from "./SearchContentSkeleton";
@@ -16,36 +17,27 @@ export default function SearchContent({
   links,
   folders,
 }: SearchContentProps) {
-  const filteredLinks = links?.filter(filterLinksBySearchText) ?? [];
+  const filteredLinks =
+    links?.filter((link: LinkList) =>
+      filterLinksBySearchText(link, inputText)
+    ) ?? [];
 
-  return (
-    <>
-      {isLinkPending ? (
-        <div className={styles.wrapper}>
-          <SearchContentSkeleton />
-        </div>
-      ) : filteredLinks.length > 0 ? (
-        <div className={styles.wrapper}>
-          {filteredLinks.map((link) => (
-            <Card key={link.id} folders={folders} link={link} />
-          ))}
-        </div>
-      ) : (
-        <p className={styles.no_link}>저장된 링크가 없습니다</p>
-      )}
-    </>
-  );
-
-  function filterLinksBySearchText(link: LinkList): boolean {
-    const searchText = inputText.toLowerCase();
-    const { title, description, url } = link;
-
-    if (!inputText) return true;
-
+  if (isLinkPending)
     return (
-      title?.includes(searchText) ||
-      description?.includes(searchText) ||
-      url?.includes(searchText)
+      <div className={styles.wrapper}>
+        <SearchContentSkeleton />
+      </div>
     );
-  }
+
+  return filteredLinks.length > 0 ? (
+    <div>
+      {filteredLinks.map((link) => (
+        <div className={styles.wrapper} key={link.id}>
+          <Card key={link.id} folders={folders} link={link} />
+        </div>
+      ))}
+    </div>
+  ) : (
+    <p className={styles.no_link}>저장된 링크가 없습니다</p>
+  );
 }
