@@ -1,9 +1,9 @@
-export default function handleDragAndDrop(
+export default function handleDragAndDrop<T>(
   event: React.DragEvent<HTMLDivElement>,
   fromIndex: number,
   toIndex: number,
-  state: any,
-  setState: (arg: any) => void
+  state: T[],
+  setState: (arg: T[]) => void
 ) {
   event.preventDefault();
 
