@@ -105,8 +105,14 @@ export default function EditBox({
         buttonText="변경하기"
         color="linear-gradient"
         handleClickButton={(value) => {
-          const requestData = { name: value as string };
-          editMutation.mutate(requestData);
+          if (typeof value === "string") {
+            if (value.length < 10) {
+              const requestData = { name: value };
+              editMutation.mutate(requestData);
+            } else {
+              alert("폴더명은 10자 이하로 입력해 주세요.");
+            }
+          }
         }}
         isPending={editMutation.isPending}
       />

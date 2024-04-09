@@ -53,16 +53,19 @@ export default function FolderBox({
     },
   });
 
-  const handleAddLink = (value: string | number | null) => {
-    const requestData = { name: value as string };
-    mutate(requestData, {
-      onSuccess: () => {
-        console.log("폴더 등록 성공");
-      },
-      onError: (error) => {
-        console.error(error.message);
-      },
-    });
+  const handleAddFolder = (value: string | number | null) => {
+    if (typeof value === "string") {
+      if (value.length < 10) {
+        const requestData = { name: value as string };
+        mutate(requestData, {
+          onError: (error) => {
+            console.error(error.message);
+          },
+        });
+      } else {
+        alert("폴더명은 10자 이하로 입력해 주세요.");
+      }
+    }
   };
 
   const handleClickFolder = (
@@ -130,7 +133,7 @@ export default function FolderBox({
         placeholder="폴더명"
         buttonText="추가하기"
         color="linear-gradient"
-        handleClickButton={handleAddLink}
+        handleClickButton={handleAddFolder}
         isPending={isPending}
       />
     </div>
