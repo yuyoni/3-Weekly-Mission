@@ -18,9 +18,10 @@ type CardProps = {
   key: number;
   folders: FolderData[] | undefined;
   link: LinkList;
+  isFolder: boolean;
 };
 
-export default function Card({ folders, link }: CardProps) {
+export default function Card({ folders, link, isFolder }: CardProps) {
   const router = useRouter();
   const selectMenuRef = useRef<HTMLDivElement | null>(null);
   const [isBookmarked, setIsBookmarked] = useState(link.favorite);
@@ -80,14 +81,16 @@ export default function Card({ folders, link }: CardProps) {
   return (
     <div className={styles.card} onClick={handleClickCard}>
       <div className={styles.thumbnail}>
-        <Image
-          className={styles.bookmark}
-          src={isBookmarked ? filledStar : emptyStar}
-          alt="bookmark-logo"
-          onClick={toggleBookmark}
-          width={34}
-          height={34}
-        />
+        {isFolder && (
+          <Image
+            className={styles.bookmark}
+            src={isBookmarked ? filledStar : emptyStar}
+            alt="bookmark-logo"
+            onClick={toggleBookmark}
+            width={34}
+            height={34}
+          />
+        )}
         <img
           className={styles.link_img}
           src={link?.image_source || noImage.src}
@@ -98,17 +101,18 @@ export default function Card({ folders, link }: CardProps) {
         />
       </div>
       <div className={styles.detail}>
-        <Image
-          className={styles.kebab}
-          src={kebab}
-          alt="kebab-icon"
-          onClick={(e) => {
-            handleClickKebab(e, true);
-          }}
-          width={21}
-          height={17}
-        />
-
+        {isFolder && (
+          <Image
+            className={styles.kebab}
+            src={kebab}
+            alt="kebab-icon"
+            onClick={(e) => {
+              handleClickKebab(e, true);
+            }}
+            width={21}
+            height={17}
+          />
+        )}
         <span className={styles.elapsed_time}>{elapsedTime}</span>
         <p className={styles.description}>{link ? link.description : ""}</p>
         <span className={styles.formatted_data}>

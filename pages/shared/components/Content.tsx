@@ -34,6 +34,7 @@ export default function Content({ id, linkData }: ShredContentProps) {
       <SearchBar inputText={inputText} updateInputText={updateInputText} />
       <SearchContent
         isLinkPending={isPending}
+        isFolder={false}
         inputText={inputText}
         links={linkData}
         folders={folderData}

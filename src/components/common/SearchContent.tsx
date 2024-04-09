@@ -8,6 +8,7 @@ import SearchContentSkeleton from "./SearchContentSkeleton";
 
 type SearchContentProps = {
   isLinkPending: boolean;
+  isFolder?: boolean;
   inputText: string;
   links: LinkList[] | undefined;
   folders: FolderData[] | undefined;
@@ -15,6 +16,7 @@ type SearchContentProps = {
 
 export default function SearchContent({
   isLinkPending,
+  isFolder = true,
   inputText,
   links,
   folders,
@@ -65,7 +67,12 @@ export default function SearchContent({
               );
             }}
           >
-            <Card key={link.id} folders={folders} link={link} />
+            <Card
+              key={link.id}
+              folders={folders}
+              link={link}
+              isFolder={isFolder}
+            />
           </div>
         ))
       ) : (
