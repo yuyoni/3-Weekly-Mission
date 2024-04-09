@@ -31,7 +31,7 @@ export default function SelectFolder({
   return (
     <div className={styles.wrapper}>
       {folders &&
-        folders.map((folder) => {
+        folders.slice(1).map((folder) => {
           return (
             <div
               className={`${styles.container} ${getFolderClassName(folder.id)}`}
