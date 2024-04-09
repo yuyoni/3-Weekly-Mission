@@ -30,11 +30,9 @@ export default function SearchContent({
     );
 
   return filteredLinks.length > 0 ? (
-    <div>
+    <div className={styles.wrapper}>
       {filteredLinks.map((link) => (
-        <div className={styles.wrapper} key={link.id}>
-          <Card key={link.id} folders={folders} link={link} />
-        </div>
+        <Card key={link.id} folders={folders} link={link} />
       ))}
     </div>
   ) : (
